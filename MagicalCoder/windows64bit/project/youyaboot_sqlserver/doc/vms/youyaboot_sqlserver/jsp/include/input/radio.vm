@@ -1,0 +1,9 @@
+#set($selectValueMap = $TableFieldUtil.parseJsonToMap($node.formItem.selectValue))
+#if($selectValueMap.get('inputType') == 'radio')
+    #set($keyValueList = $selectValueMap.get('keyValueList'))
+    #if($keyValueList )
+        #foreach($sv in $keyValueList)
+            <input type="radio" #if($node.formItem.defaultValue == $sv.key)checked="checked"#end name="${node.dbField.javaField}" lay-skin="primary" value="$sv.key" title="$sv.value" class="layui-input" lay-verify="magicalCoderVerify#parse("vms/$version/jsp/include/formvalidate/lay-verify.vm")" #if($node.formItem.disabled)disabled="true"#end/>
+        #end
+    #end
+#end

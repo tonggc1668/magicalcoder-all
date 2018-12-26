@@ -1,0 +1,12 @@
+记录了layui哪些组件被修复
+lay\modules\table.js
+data-content 进行了转义输出
+/** 2018-9-3  因table未转义导致xss 因此修改了源码中 e.push('data-content="'+(p+"").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&apos;")+'"')*/
+
+lay\modules\layedit.js
+2018-9-6
+95行                             //fix by www.magicalcoder.com 我希望能根据textarea disabled属性
+                                u.attr("contenteditable", (i.disabled+''=='true' || i.disabled+''=='disabled' ) ? 'false' : "true").css({
+                                // u.attr("contenteditable", "true").css({
+                                    "min-height": a.height
+                                }).html(i.value || ""),

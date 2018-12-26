@@ -1,0 +1,24 @@
+##外键搜索输入框下拉
+#set($dataTextFields="")
+#set($isFirst=true)##设置个开关
+#set($foreignNodeList = $RemoteApiUtil.getNodeList($node.dbField.foreignVmDbFieldNode.dbTable.id))
+#foreach($foreignNode in $foreignNodeList)
+    #if($foreignNode.formQueryList)
+        #foreach($formQuery in $foreignNode.formQueryList)
+            #if($formQuery.foreignInputSelectShow==1)
+                #if($isFirst)
+                    #set($dataTextFields="$foreignNode.dbField.javaField")
+                    #set($isFirst=false)
+                #else
+                    #set($dataTextFields="$dataTextFields,$foreignNode.dbField.javaField")
+                #end
+            #end
+        #end
+    #end
+#end
+                {field: '$node.dbField.javaField', title: '$node.formItem.title', align:'center', minWidth:250, templet:function (d) {
+                    var value = (!d.$node.dbField.javaField || d.$node.dbField.javaField==null) ? '' : d.$node.dbField.javaField
+                    var option = '<option selected="selected" value="'+value+'">'+value+'</option>'
+                    return '<select class="magicalcoder-table-foreign-select2 layui-input security_list_table_form_$node.dbField.javaField" lay-ignore="true"  name="$node.dbField.javaField" data-identify="'+d.$dbPriorityKeyJavaField+'" data-value="" data-url="admin/${node.dbField.foreignVmDbFieldNode.dbTable.tableName}_rest/search" data-id="$node.dbField.foreignVmDbFieldNode.dbField.javaField" data-text-fields="$dataTextFields" lay-verify="magicalCoderVerify#parse("vms/$version/jsp/include/formvalidate/lay-verify.vm")" #if($node.formItem.disabled)disabled="true"#end placeholder="$node.formItem.placeholder">'+option+'</select>'
+                    },sort:$node.viewTable.sort
+                },

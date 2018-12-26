@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+这里是我自定义新查询的地方
+-->
+
+<mapper namespace="com.magicalcoder.youyaboot.admin.adminservice.demo.mapper.AdminServiceDemoMapper">
+    <!-- 查询单个实体 -->
+    <select id="daoDemoGoods" parameterType="hashmap" resultType="MyDemo">
+        select   id
+        from goods where id=#{id}
+    </select>
+
+
+</mapper>

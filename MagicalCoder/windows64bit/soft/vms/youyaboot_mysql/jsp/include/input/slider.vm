@@ -1,0 +1,2 @@
+            <input type="text" class="magicalcoder-slider layui-input" name="${node.dbField.javaField}" placeholder="请输入$node.formItem.title" lay-verify="magicalCoderVerify#parse("vms/$version/jsp/include/formvalidate/lay-verify.vm")" value="$node.formItem.defaultValue" #if($node.formItem.disabled)disabled="true"#end/>
+            <div name="${node.dbField.javaField}Slider"></div>

@@ -1,0 +1,33 @@
+#全局配置
+# tomcat配置
+server:
+    #当前环境上下文 比如http://{ip}:{port}{/context-path}中的{/context-path} 以/开头配置
+    context-path: /youyaboot-web
+#log
+logging:
+    config:
+        #日志配置：读取当前环境下的logback.xml
+        classpath: logback.xml
+
+spring:
+#    thymeleaf:
+#        prefix: classpath:/templates
+    profiles:
+        # bijiben dev publish test 就可以切换不同环境application-xxx的配置
+        active: bijiben
+    messages:
+        encoding: UTF-8
+    http:
+        encoding:
+            charset: UTF-8
+            enabled: true
+            force: true
+    application:
+    #service-name
+        name: youyaboot-web
+    jackson:
+        time-zone: GMT+8
+    mvc:
+    #这样浏览器小图标就可以加载你自己的favicon.ico了
+        favicon:
+            enabled: false

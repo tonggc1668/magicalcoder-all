@@ -1,0 +1,12 @@
+##本身日期查询
+#if($StringUtil.isNotBlank($formQuery.firstCompare))
+                    <div class="layui-input-inline" >
+                        <input type="text" data-name="${node.dbField.javaField}" name="${node.dbField.javaField}First" lay-verify="datetime"  placeholder="起始$node.formItem.title" autocomplete="off" class="magicalcoder-laydate layui-input"/>
+                    </div>
+#end
+#if($StringUtil.isNotBlank($formQuery.secondCompare))
+                    <div class="layui-input-inline">-</div>
+                    <div class="layui-input-inline" >
+                        <input type="text" data-name="${node.dbField.javaField}"  name="${node.dbField.javaField}Second" lay-verify="datetime"  placeholder="终止$node.formItem.title" autocomplete="off" class="magicalcoder-laydate layui-input"/>
+                    </div>
+#end

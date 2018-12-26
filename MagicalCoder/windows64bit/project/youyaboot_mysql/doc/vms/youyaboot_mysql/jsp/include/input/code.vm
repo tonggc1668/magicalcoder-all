@@ -1,0 +1,2 @@
+            <textarea name="${node.dbField.javaField}" placeholder="请输入$node.formItem.title" class="magicalcoder-code layui-textarea" lay-verify="magicalCoderVerify#parse("vms/$version/jsp/include/formvalidate/lay-verify.vm")" #if($node.formItem.disabled)disabled="true"#end>$node.formItem.defaultValue</textarea>
+            <pre class="layui-code" name="${node.dbField.javaField}Code"></pre>

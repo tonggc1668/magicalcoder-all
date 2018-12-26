@@ -1,0 +1,30 @@
+#parse("vms/$version/common/variable/head.vm")
+#parse("vms/$version/common/asert/priorityKey.vm")
+#set($newNodeList=$CreateVmUtil.sortViewTable($nodeList))
+#foreach($node in $newNodeList)
+    #if($node.viewTable)
+        #if($node.dbField.dbPriorityKey)
+                {field: '$node.dbField.javaField', title: '$node.formItem.title', minWidth:100, align:"center",sort:$node.viewTable.sort},
+        #else
+            #set($inputType = $node.formItem.inputType)
+            #if($inputType == $MagicConstant.INPYT_TYPE_RADIO())
+                #parse("vms/$version/js/include/json/radio.vm")
+            #elseif($inputType == $MagicConstant.INPYT_TYPE_FOREIGN_SELECT())
+                #parse("vms/$version/js/include/json/select2-foreign.vm")
+            #elseif($inputType == $MagicConstant.INPYT_TYPE_DATE())
+            {field: '$node.dbField.javaField', title: '$node.formItem.title', align:'center', minWidth:250, templet :"#${node.dbField.javaField}Template",sort:$node.viewTable.sort},
+            #elseif($inputType == $MagicConstant.INPYT_TYPE_SWITCH())
+                #parse("vms/$version/js/include/json/switch.vm")
+            #elseif($inputType == $MagicConstant.INPYT_TYPE_SELECT())
+            {field: '${node.dbField.javaField}', title: '$node.formItem.title',minWidth:350, align:'center', templet:'#${node.dbField.javaField}Template',sort:$node.viewTable.sort},
+            #else
+
+            {field: '$node.dbField.javaField', title: '$node.formItem.title', minWidth:200,templet:function (d) {
+                    return '<input type="text" value="'+ magicalcoderlist.escapeHTML(d.$node.dbField.javaField) +'" class="magicalcoder-table-text layui-input security_list_table_form_$node.dbField.javaField" name="$node.dbField.javaField" data-identify="'+d.$dbPriorityKeyJavaField+'" lay-verify="magicalCoderVerify#parse("vms/$version/jsp/include/formvalidate/lay-verify.vm")" #if($node.formItem.disabled)disabled="true"#end placeholder="$node.formItem.placeholder"/>'
+                }
+                , sort:$node.viewTable.sort
+            },
+            #end
+        #end
+    #end
+#end

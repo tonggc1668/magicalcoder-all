@@ -1,0 +1,15 @@
+##当前字段验证属性
+#set($fv = $node.formValidate)
+#if($fv.required)|mc_required#end
+#if($fv.mathNumber)|mc_number#end
+#if($fv.digits)|mc_digits#end
+#if($fv.email)|mc_email#end
+#if($fv.url)|mc_url#end
+#if($fv.variable)|mc_variable#end
+#if($fv.chineseCharacter)|mc_chinese_character#end" magicalcoder-verify="#if($StringUtil.isNotBlank($fv.minValues))|minValues=$fv.minValues#end
+#if($StringUtil.isNotBlank($fv.maxValues))|maxValues=$fv.maxValues#end
+#if($fv.minLength)|minLength=$fv.minLength#end
+#if($fv.maxLength && $fv.maxLength>0)|maxLength=$fv.maxLength#end
+#if($StringUtil.isNotBlank($fv.definedOne))|definedOne=$fv.definedOne#end
+#if($StringUtil.isNotBlank($fv.definedTwo))|definedTwo=$fv.definedTwo#end
+#if($StringUtil.isNotBlank($fv.definedThree))|definedThree=$fv.definedThree#end

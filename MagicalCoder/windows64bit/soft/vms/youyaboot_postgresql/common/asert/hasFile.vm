@@ -1,0 +1,7 @@
+##是否存在file inpytType
+#set($hasFile=false)
+#foreach($node in $nodeList)
+    #if($node.formItem.inputType == $MagicConstant.INPYT_TYPE_IMG_FILE())
+        #set($hasFile=true)
+    #end
+#end

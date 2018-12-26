@@ -1,0 +1,36 @@
+##查询入参
+#foreach($node in $nodeList)
+    #set($inputType = $node.formItem.inputType)
+    #if($node.formQueryList)
+        #foreach($formQuery in $node.formQueryList)
+            #if($formQuery.foreignQueryFieldNode)##有外键查询
+
+            #else##无外键查询
+                #if($StringUtil.isNotBlank($formQuery.firstCompare))
+        @RequestParam(required = false,value ="${node.dbField.javaField}First")##
+                    #if($node.dbField.javaType == 'Date' ||$node.dbField.javaType == 'Time' ||$node.dbField.javaType == 'Timestamp')
+                    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")Date ${node.dbField.javaField}First ,
+                    #else
+                        #if($inputType == $MagicConstant.INPYT_TYPE_SELECT() && $formQuery.firstCompare=='in')
+                            String ${node.dbField.javaField}First ,
+                            #else
+                            $node.dbField.javaType ${node.dbField.javaField}First ,
+                        #end
+                    #end
+                #end
+                #if($StringUtil.isNotBlank($formQuery.secondCompare))
+        @RequestParam(required = false,value ="${node.dbField.javaField}Second")##
+                    #if($node.dbField.javaType == 'Date' ||$node.dbField.javaType == 'Time' ||$node.dbField.javaType == 'Timestamp')
+                    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")Date ${node.dbField.javaField}Second ,
+                    #else
+                        #if($inputType == $MagicConstant.INPYT_TYPE_SELECT() && $formQuery.secondCompare=='in')
+                            String ${node.dbField.javaField}Second ,
+                        #else
+                            $node.dbField.javaType ${node.dbField.javaField}Second ,
+                        #end
+                    #end
+                #end
+            #end
+        #end
+    #end
+#end

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html class="loginHtml" xmlns:th="http://www.thymeleaf.org">
+<head  th:include="magicalcoder/v001/include/head :: commonHead('登录')"/>
+<body class="loginBody">
+	<form class="layui-form">
+		<div class="login_face"><img th:src="@{/assets/magicalcoder/v001/images/face2.jpg}" class="userAvatar"/></div>
+		<div class="layui-form-item input-item">
+			<label for="username">用户名</label>
+			<input type="text" placeholder="请输入用户名" autocomplete="off" id="username" class="layui-input" lay-verify="required"/>
+		</div>
+		<div class="layui-form-item input-item">
+			<label for="password">密码</label>
+			<input type="password" placeholder="请输入密码" autocomplete="off" id="password" class="layui-input" lay-verify="required"/>
+		</div>
+        <input type="hidden"  id="sessionId" th:value="${sessionId}" class="layui-input"/>
+        <div class="layui-form-item input-item" id="imgCode">
+            <label for="code">验证码</label>
+            <input type="text" placeholder="请输入验证码" autocomplete="off" id="code" class="layui-input"/>
+			<img id="codeImg" th:src="@{/web/code}"/>
+		</div>
+		<div class="layui-form-item">
+			<button class="layui-btn layui-block" lay-filter="login" lay-submit="true">登录</button>
+		</div>
+		<div class="layui-form-item layui-row">
+			<a href="javascript:;" class="seraph icon-qq layui-col-xs4 layui-col-sm4 layui-col-md4 layui-col-lg4"></a>
+			<a href="javascript:;" class="seraph icon-wechat layui-col-xs4 layui-col-sm4 layui-col-md4 layui-col-lg4"></a>
+			<a href="javascript:;" class="seraph icon-sina layui-col-xs4 layui-col-sm4 layui-col-md4 layui-col-lg4"></a>
+		</div>
+	</form>
+	<script type="text/javascript" th:src="@{/assets/magicalcoder/v001/layui/layui.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/magicalcoder/v001/rmp/login.js}"></script>
+	<script type="text/javascript" th:src="@{/assets/magicalcoder/v001/js/cache.js}"></script>
+</body>
+</html>

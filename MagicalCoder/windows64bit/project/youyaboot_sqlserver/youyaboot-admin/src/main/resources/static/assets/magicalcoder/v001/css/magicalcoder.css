@@ -1,0 +1,22 @@
+/*微调样式*/
+/*表格太窄*/
+.layui-table-cell{
+    height : 38px;
+}
+/*select2 样式保持跟layui一致 太窄 太靠上*/
+.select2-container .select2-selection--single {
+    height: 36px;
+    margin-top: 1px;
+    border-radius:0px;
+    border-color : #e6e6e6;
+}
+.select2-container .select2-selection--single .select2-selection__rendered {
+    padding-top: 3px;
+}
+.form-danger{
+    border-color:#FF5722!important
+}
+/*仅仅在权限控制模块使用 其他清空请不要使用此样式*/
+.security-hide{display:none!important}
+/*控制子表弹窗样式*/
+.childrenIframe{position:absolute;height:100%;width:98%;border:none;}

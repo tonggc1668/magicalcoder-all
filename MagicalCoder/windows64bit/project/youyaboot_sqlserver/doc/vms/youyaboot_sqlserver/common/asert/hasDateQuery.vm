@@ -1,0 +1,7 @@
+##是否存在日期类型查询
+#set($hasDateQuery=false)
+#foreach($node in $nodeList)
+    #if($node.dbField.javaType == 'Date' || $node.dbField.javaType == 'Time' || $node.dbField.javaType == 'Timestamp')
+        #set($hasDateQuery=true)
+    #end
+#end

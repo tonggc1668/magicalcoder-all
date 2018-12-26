@@ -1,0 +1,5 @@
+##暂时不支持
+#set($selectValueList = $TableFieldUtil.selectValueList($node.formItem.selectValue))
+#foreach($sv in $selectValueList)
+    <input type="checkbox" name="${node.dbField.javaField}['$sv.key']" title="$sv.value" lay-verify="magicalCoderVerify#parse("vms/$version/jsp/include/formvalidate/lay-verify.vm")"/>
+#end

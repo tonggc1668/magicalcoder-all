@@ -1,0 +1,54 @@
+
+<!--
+代码为自动生成 Created by www.magicalcoder.com
+ 如果你改变了此类 read 请将此行删除
+ 欢迎加入官方QQ群:323237052
+-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head  th:include="magicalcoder/v002/include/head :: commonHead('商品编辑')"/>
+
+<body class="childrenBody layui-hide">
+    <div class="layui-row">
+        <div class="layui-col-md12">
+            <form class="layui-form">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">ID</label>
+                    <div class="layui-input-block">
+                        <input type="text" disabled="true" class="layui-input" name="id" />
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">是否发布</label>
+                        <div class="layui-input-inline">
+                            <input lay-skin="switch" lay-text="是|否" lay-verify="magicalCoderVerify" name="publishStatus" type="checkbox" />
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">商品状态</label>
+                        <div class="layui-input-inline">
+                            <select class="layui-input" lay-verify="magicalCoderVerify" name="goodsStatus"><option value="0">已发布</option><option value="1">待审核</option><option value="2">初始</option><option value="3">特殊</option></select>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">价格</label>
+                        <div class="layui-input-inline">
+                            <input class="magicalcoder-rate layui-input" lay-verify="magicalCoderVerify" name="price" type="text" />
+
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn security_edit_form_operate_save" lay-submit="" lay-filter="save">立即提交</button>
+                        <button type="reset" class="layui-hide layui-btn layui-btn-primary" >重置</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div th:replace="magicalcoder/v002/include/main-js :: commonMain" />
+    <script type="text/javascript"  th:src="@{/assets/admin/yanfa/yanfa-edit.js}"></script>
+</body>
+</html>

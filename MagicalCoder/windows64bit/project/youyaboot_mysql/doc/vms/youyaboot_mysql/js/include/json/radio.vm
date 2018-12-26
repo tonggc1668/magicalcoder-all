@@ -1,0 +1,24 @@
+## radio
+#set($selectValueMap = $TableFieldUtil.parseJsonToMap($node.formItem.selectValue))
+                {field: '$node.dbField.javaField', title: '$node.formItem.title',minWidth:350, align:'center', templet:function(d){
+                    var html = []
+                    var checked
+    #if($selectValueMap.get('inputType') == 'radio')
+        #set($keyValueList = $selectValueMap.get('keyValueList'))
+        #if($keyValueList )
+            #foreach($sv in $keyValueList)
+                #if($sv.key != "")
+                    if(d.$node.dbField.javaField +'' == '$sv.key'){
+                        checked = "checked"
+                    }else{
+                        checked = ""
+                    }
+                    html.push('<input type="radio" class="layui-input magicalcoder-table-radio security_list_table_form_$node.dbField.javaField" data-identify="'+d.$dbPriorityKeyJavaField+'" name="${node.dbField.javaField}_'+d.LAY_INDEX+'"  lay-filter="${node.dbField.javaField}Filter" lay-skin="primary" value="$sv.key" title="$sv.value" '+checked+' lay-verify="magicalCoderVerify#parse("vms/$version/jsp/include/formvalidate/lay-verify.vm")" #if($node.formItem.disabled)disabled="true"#end/>')
+                #end
+            #end
+        #end
+    #end
+                    return html.join('')
+                    }
+                    ,sort:$node.viewTable.sort
+                },

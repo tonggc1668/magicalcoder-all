@@ -1,0 +1,216 @@
+#parse("vms/$version/common/variable/head.vm")
+#parse("vms/$version/common/asert/priorityKey.vm")
+package com.${companyName}.${projectName}.app.${lowerEntity}.service;
+
+import com.${companyName}.${projectName}.app.model.defined.IntegerDate;
+import com.${companyName}.${projectName}.app.model.defined.IntegerObject;
+import com.${companyName}.${projectName}.app.model.${Entity};
+#if($isOtmTable)
+import com.${companyName}.${projectName}.app.model.defined.${Entity}Many;
+#end
+#foreach($node in $nodeList)
+    #if($node.dbField.foreignVmDbFieldNode)
+        #set($foreignTable = $node.dbField.foreignVmDbFieldNode.dbTable)
+import com.${companyName}.${projectName}.app.model.defined.${Entity}With${foreignTable.upEntity};
+    #end
+#end
+import java.util.List;
+import java.util.Map;
+
+#parse("vms/$version/common/comment/ClassDesc.vm")
+
+public interface ${Entity}Service{
+
+    #if($hasDbPriorityKey)
+    /**
+    * 根据主键获取实体
+    * @param $dbPriorityKeyJavaField 主键
+    * @return
+    */
+    ${Entity} get${Entity}($dbPriorityKeyJavaType $dbPriorityKeyJavaField);
+    #elseif($hasDbUniqueNodes)
+    /**
+    * 根据唯一键获取实体
+        #foreach($uniqueNode in $dbUniqueNodes)
+    * @param  $uniqueNode.dbField.javaField $uniqueNode.dbField.dbComment
+        #end
+    * @return
+    */
+    ${Entity} get${Entity}(#foreach($uniqueNode in $dbUniqueNodes)$uniqueNode.dbField.javaType $uniqueNode.dbField.javaField #if($velocityCount != $dbUniqueNodes.size()),#end#end);
+    #end
+
+    /**
+    * 调用mybatis selectOne 如果查询返回超过1条 就会发生异常 请自行处理
+    * @param query 入参 调用MapUtil构造
+    * @return
+    */
+    ${Entity} selectOne${Entity}WillThrowException(Map<String, Object> query);
+    /**
+    * 获取满足条件的第一条数据
+    * @param query 入参 调用MapUtil构造
+    * @return
+    */
+    ${Entity} selectFirst${Entity}(Map<String, Object> query);
+    /**
+    * 查询实体集合
+    * @param query
+    * @return
+    */
+    List<${Entity}> get${Entity}List(Map<String, Object> query);
+
+    /**
+    * 查询实体集合的个数
+    * @param query
+    * @return
+    */
+    Integer get${Entity}ListCount(Map<String, Object> query);
+
+    /**
+    * 保存实体 保证entity 主键为空
+    * @param entity
+    * @return
+    */
+    #if($hasAutoIncrease)    $dbPriorityKeyJavaType #else    void#end insert${Entity}(${Entity} entity);
+
+    /**
+    * 智能保存实体 entity必须存在主键或者唯一键 根据这个键值查询库里是否存在此条记录 存在则进行替换老的记录 不存在则插入新记录
+    * @param entity
+    * @return
+    */
+    #if($hasAutoIncrease)    $dbPriorityKeyJavaType #else    void#end replace${Entity}(${Entity} entity);
+
+    /**
+    * 更新实体 保证实体中的主键不为空
+    * @param entity
+    */
+    void update${Entity}(${Entity} entity);
+
+    /**
+    * 更新实体 null字段忽略更新
+    * @param entity
+    */
+    void update${Entity}WithoutNull(${Entity} entity);
+
+    /**
+    * 更新实体 自定义条件
+    * @param entity   not empty
+    * @param whereSql not blank 有sql注入风险 请开发人员自行保证安全性
+    */
+    void update${Entity}ByWhereSql(Map<String,Object> entity,String whereSql);
+
+#if($hasDbPriorityKey)
+    /**
+    * 根据主键删除实体
+    * @param $dbPriorityKeyJavaField
+    */
+    void delete${Entity}($dbPriorityKeyJavaType $dbPriorityKeyJavaField);
+#elseif($hasDbUniqueNodes)
+    /**
+    * 根据唯一键删除实体
+    #foreach($uniqueNode in $dbUniqueNodes)
+    * @param  $uniqueNode.dbField.javaField $uniqueNode.dbField.dbComment
+    #end
+    */
+    void delete${Entity}(#foreach($uniqueNode in $dbUniqueNodes)$uniqueNode.dbField.javaType $uniqueNode.dbField.javaField #if($velocityCount != $dbUniqueNodes.size()),#end#end);
+#end
+    /**
+    * 删除实体集合
+    * @param entity 如果字段值不为空 将作为查询条件
+    */
+    void delete${Entity}List(Map<String,Object> entity);
+
+    /**
+    * 根据自定义条件删除实体
+    * @param whereSql not blank  有sql注入风险 请开发人员自行保证安全性
+    */
+    void delete${Entity}ByWhereSql(String whereSql);
+#foreach($node in $nodeList)
+    #if($node.dbField.foreignVmDbFieldNode)
+        #set($foreignTable = $node.dbField.foreignVmDbFieldNode.dbTable)
+        #set($fieldVariable = $TableFieldUtil.firstCharToUpper($node.dbField.javaField))
+    /**
+    * 联合查询：获取实体关联的外键集合
+    * @param query key值为${Entity}With${foreignTable.upEntity}的字段名
+    */
+    List<${Entity}With${foreignTable.upEntity}> get${Entity}With${foreignTable.upEntity}By${fieldVariable}List(Map<String, Object> query);
+    #end
+#end
+
+    /**
+    * 清空实体表
+    */
+    void truncate${Entity}();
+
+    /**
+    *  批量保存实体，保证list中的实体 主键为空
+    * @param list
+    */
+    void batchInsert${Entity}(List<${Entity}> list);
+
+    /**
+    *  智能批量保存实体，entity必须存在主键或者唯一键 根据这个键值查询库里是否存在此条记录 存在则替换老的记录 不存在则插入新记录
+    * @param list
+    */
+    void batchReplace${Entity}(List<${Entity}> list);
+
+    /**
+    * 批量更新实体 保证list中的实体 主键不为空
+    * @param list
+    */
+    void batchUpdate${Entity}(List<${Entity}> list);
+
+#if($hasDbPriorityKey)
+    /**
+    * 根据主键list 批量删除实体
+    * @param idList
+    */
+    void batchDelete${Entity}(List<${dbPriorityKeyJavaType}> idList);
+#end
+
+    /**
+    * 根据主键list 批量删除实体
+    * @param entityList 如果字段值不为空 将作为查询条件
+    */
+    void batchDelete${Entity}List(List<${Entity}> entityList);
+
+    /**
+    * 事务保证 导入json文件成功
+    * @param list json反序列化后的文件
+    * @return
+    */
+    void transactionImportJsonList(List<${Entity}> list);
+
+    #if(!$hasDbPriorityKey && $hasDbUniqueNodes)
+    /**
+    * 事务保证 保存实体 无自增主键的情况时 先删除 后插入
+    * @param entity
+    * @return
+    */
+    void transactionSaveEntity(${Entity} entity,#foreach($uniqueNode in $dbUniqueNodes)$uniqueNode.dbField.javaType ${uniqueNode.dbField.javaField}OldValue #if($velocityCount != $dbUniqueNodes.size()),#end#end);
+    #end
+
+    /**
+    *
+    *尝试获取列表 一个个字段进行尝试查询 直到有结果返还
+    */
+    List<$Entity> tryQueryList(String keyword,String selectValue, String foreignJavaField);
+
+    /**
+    * 统计访问记录
+    * @param query
+    * @return
+    */
+    List<IntegerDate> statisticsDateCountList(Map<String,Object> query);
+    /**
+    * 统计间隔访问记录
+    * @param query
+    * @return
+    */
+    List<IntegerDate> statisticsDateIntervalList(Map<String,Object> query);
+    /**
+    * 统计分组记录
+    * @param query
+    * @return
+    */
+    List<IntegerObject> statisticsGroupList(Map<String,Object> query);
+}

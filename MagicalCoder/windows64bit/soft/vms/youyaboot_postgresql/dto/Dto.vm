@@ -1,0 +1,28 @@
+#parse("vms/$version/common/variable/head.vm")
+##找出主键
+#parse("vms/$version/common/asert/priorityKey.vm")
+package com.${companyName}.${projectName}.service.${lowerEntity}.dto;
+
+import com.${companyName}.${projectName}.model.${Entity};
+
+#parse("vms/$version/common/comment/ClassDesc.vm")
+
+public class ${Entity}Dto extends ${Entity} {
+#if($hasDbPriorityKey)
+
+#elseif($hasDbUniqueNodes)
+    #foreach($uniqueNode in $dbUniqueNodes)
+    private    $uniqueNode.dbField.javaType ${uniqueNode.dbField.javaField}OldValue;
+    #end
+
+    #foreach($uniqueNode in $dbUniqueNodes)
+    public $uniqueNode.dbField.javaType ${uniqueNode.dbField.javaGetName}OldValue(){
+        return ${uniqueNode.dbField.javaField}OldValue;
+    }
+    public void ${uniqueNode.dbField.javaSetName}OldValue(${uniqueNode.dbField.javaType} ${uniqueNode.dbField.javaField}OldValue){
+        this.${uniqueNode.dbField.javaField}OldValue = ${uniqueNode.dbField.javaField}OldValue;
+    }
+    #end
+#end
+
+}

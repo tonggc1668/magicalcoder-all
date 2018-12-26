@@ -1,0 +1,11 @@
+#if($StringUtil.isNotBlank($formQuery.firstCompare))
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" data-name="${node.dbField.javaField}" name="${node.dbField.javaField}First" placeholder="$node.formItem.title" />
+                    </div>
+#end
+#if($StringUtil.isNotBlank($formQuery.secondCompare))
+                    <div class="layui-input-inline">-</div>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" data-name="${node.dbField.javaField}" name="${node.dbField.javaField}Second" placeholder="$node.formItem.title" />
+                    </div>
+#end

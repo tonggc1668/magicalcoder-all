@@ -1,0 +1,27 @@
+#parse("vms/$version/common/variable/head.vm")
+#set($formQueryNodeList=$CreateVmUtil.sortFormQuery($nodeList))
+#foreach($node in $formQueryNodeList)
+    #set($inputType = $node.formItem.inputType)
+    #if($node.formQueryList)
+        #foreach($formQuery in $node.formQueryList)
+                <div class="layui-inline security_list_query_param_$node.dbField.javaField">
+            #if($formQuery.foreignQueryFieldNode)##老版本有外键查询 已废弃
+            #else##无老版本外键查询
+                #if($inputType == $MagicConstant.INPYT_TYPE_SELECT())
+                    #parse("vms/$version/jsp/include/query/select.vm")
+                #elseif($inputType == $MagicConstant.INPYT_TYPE_FOREIGN_SELECT())
+                    #parse("vms/$version/jsp/include/query/select2-foreign.vm")
+                #elseif($inputType == $MagicConstant.INPYT_TYPE_RADIO())
+                    #parse("vms/$version/jsp/include/query/radio.vm")
+                #elseif($inputType == $MagicConstant.INPYT_TYPE_SWITCH())
+                    #parse("vms/$version/jsp/include/query/switch.vm")
+                #elseif($inputType == $MagicConstant.INPYT_TYPE_DATE())
+                    #parse("vms/$version/jsp/include/query/date.vm")
+                #else
+                    #parse("vms/$version/jsp/include/query/text.vm")
+                #end
+            #end
+                </div>
+        #end
+    #end
+#end

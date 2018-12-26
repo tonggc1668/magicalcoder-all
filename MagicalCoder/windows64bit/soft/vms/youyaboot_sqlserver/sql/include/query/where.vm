@@ -1,0 +1,48 @@
+##根据form_query配置的查询entity表
+#foreach($node in $nodeList)
+    #set($inputType = $node.formItem.inputType)
+    #if($node.formQueryList)
+        #foreach($formQuery in $node.formQueryList)
+            #if(!$formQuery.foreignQueryFieldNode)##外键不加人查询 单独放到relate
+                #if($StringUtil.isNotBlank($formQuery.firstCompare))
+                <if test="${node.dbField.javaField}First!=null "> and ${Y}$node.dbField.dbRealName${Y} <![CDATA[$formQuery.firstCompare]]>
+                    #if($node.dbField.javaType == 'Date' || $node.dbField.javaType == 'Time' || $node.dbField.javaType == 'Timestamp')
+                        $jing{${node.dbField.javaField}First,jdbcType=TIMESTAMP}
+                    #else
+                        #if($formQuery.firstCompare == 'like')
+                            concat('%',#{${node.dbField.javaField}First},'%')
+                        #elseif($formQuery.firstCompare == 'in')
+                            #if($inputType == $MagicConstant.INPYT_TYPE_SELECT())
+                                <foreach item="item" collection="${node.dbField.javaField}First" open="(" separator="," close=")">#{item}</foreach>
+                            #else
+                                (#{${node.dbField.javaField}First})
+                            #end
+                        #else
+                            $jing{${node.dbField.javaField}First}
+                        #end
+                    #end
+                </if>
+                #end
+                #if($StringUtil.isNotBlank($formQuery.secondCompare))
+                <if test="${node.dbField.javaField}Second!=null "> and ${Y}$node.dbField.dbRealName${Y} <![CDATA[$formQuery.secondCompare]]>
+                    #if($node.dbField.javaType == 'Date' || $node.dbField.javaType == 'Time' || $node.dbField.javaType == 'Timestamp')
+                        $jing{${node.dbField.javaField}Second,jdbcType=TIMESTAMP}
+                    #else
+                        #if($formQuery.secondCompare == 'like')
+                            concat('%',#{${node.dbField.javaField}Second},'%')
+                        #elseif($formQuery.secondCompare == 'in')
+                            #if($inputType == $MagicConstant.INPYT_TYPE_SELECT())
+                                <foreach item="item" collection="${node.dbField.javaField}Second" open="(" separator="," close=")">#{item}</foreach>
+                            #else
+                                (#{${node.dbField.javaField}Second})
+                            #end
+                        #else
+                            $jing{${node.dbField.javaField}Second}
+                        #end
+                    #end
+                </if>
+                #end
+            #end
+        #end
+    #end
+#end

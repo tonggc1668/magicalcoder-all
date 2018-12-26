@@ -1,0 +1,229 @@
+
+<!--
+代码为自动生成 Created by www.magicalcoder.com
+ 如果你改变了此类 read 请将此行删除
+ 欢迎加入官方QQ群:323237052
+-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head  th:include="magicalcoder/v001/include/head :: commonHead('编辑')"/>
+
+<body class="childrenBody layui-hide">
+<form class="layui-form" style="width:80%;">
+
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_longId">
+        <label class="layui-form-label">主键</label>
+        <div class="layui-input-block">
+            <input type="text" disabled="true" class="layui-input" name="longId"  placeholder="主键自动生成，无需手动编辑,如果重置则变成增加数据"/>
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_bytesBinary">
+        <label class="layui-form-label">bytes_binary</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="bytesBinary" placeholder="请输入bytes_binary" lay-verify="magicalCoderVerify" magicalcoder-verify="" value="" />
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_bytesBlob">
+        <label class="layui-form-label">bytes_blob</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="bytesBlob" placeholder="请输入bytes_blob" lay-verify="magicalCoderVerify" magicalcoder-verify="" value="" />
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_bytesMediumblob">
+        <label class="layui-form-label">bytes_mediumblob</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="bytesMediumblob" placeholder="请输入bytes_mediumblob" lay-verify="magicalCoderVerify" magicalcoder-verify="" value="" />
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_bytesVarbinary">
+        <label class="layui-form-label">bytes_varbinary</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="bytesVarbinary" placeholder="请输入bytes_varbinary" lay-verify="magicalCoderVerify" magicalcoder-verify="" value="" />
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_bytesTinyblob">
+        <label class="layui-form-label">bytes_tinyblob</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="bytesTinyblob" placeholder="请输入bytes_tinyblob" lay-verify="magicalCoderVerify" magicalcoder-verify="" value="" />
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_bytesLongblob">
+        <label class="layui-form-label">bytes_longblob</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="bytesLongblob" placeholder="请输入bytes_longblob" lay-verify="magicalCoderVerify" magicalcoder-verify="" value="" />
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_booleanBit">
+        <label class="layui-form-label">boolean_bit</label>
+        <div class="layui-input-block">
+            <input type="checkbox" name="booleanBit" lay-skin="switch" lay-text="" lay-verify="magicalCoderVerify" magicalcoder-verify=""  />
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_booleanBool">
+        <label class="layui-form-label">boolean_bool</label>
+        <div class="layui-input-block">
+            <input type="checkbox" name="booleanBool" lay-skin="switch" lay-text="" lay-verify="magicalCoderVerify" magicalcoder-verify=""  />
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_booleanBoolean">
+        <label class="layui-form-label">boolean_boolean</label>
+        <div class="layui-input-block">
+            <input type="checkbox" name="booleanBoolean" lay-skin="switch" lay-text="" lay-verify="magicalCoderVerify" magicalcoder-verify=""  />
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_stringEnum">
+        <label class="layui-form-label">string_enum</label>
+        <div class="layui-input-block">
+             <select name="stringEnum" class="layui-input" lay-verify="magicalCoderVerify" magicalcoder-verify=""  placeholder="请输入string_enum">
+                <option value="" selected="selected">全部</option>
+                <option value="" selected="selected">string_enum</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_stringChar">
+        <label class="layui-form-label">string_char</label>
+        <div class="layui-input-block">
+             <select name="stringChar" class="layui-input" lay-verify="magicalCoderVerify" magicalcoder-verify=""  placeholder="请输入string_char">
+                <option value="" selected="selected">全部</option>
+                <option value="" selected="selected">string_char</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_stringLongtext">
+        <label class="layui-form-label">string_longtext</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="stringLongtext" placeholder="请输入string_longtext" lay-verify="magicalCoderVerify" magicalcoder-verify="" value="" />
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_stringMediumtext">
+        <label class="layui-form-label">string_mediumtext</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="stringMediumtext" placeholder="请输入string_mediumtext" lay-verify="magicalCoderVerify" magicalcoder-verify="" value="" />
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_stringVarchar">
+        <label class="layui-form-label">string_varchar</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="stringVarchar" placeholder="请输入string_varchar" lay-verify="magicalCoderVerify" magicalcoder-verify="" value="" />
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_stringSet">
+        <label class="layui-form-label">string_set</label>
+        <div class="layui-input-block">
+             <select name="stringSet" class="layui-input" lay-verify="magicalCoderVerify" magicalcoder-verify=""  placeholder="请输入string_set">
+                <option value="" selected="selected">全部</option>
+                <option value="" selected="selected">string_set</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_stringTinytext">
+        <label class="layui-form-label">string_tinytext</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="stringTinytext" placeholder="请输入string_tinytext" lay-verify="magicalCoderVerify" magicalcoder-verify="" value="" />
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_stringText">
+        <label class="layui-form-label">string_text</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="stringText" placeholder="请输入string_text" lay-verify="magicalCoderVerify" magicalcoder-verify="" value="" />
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_byteTinyint">
+        <label class="layui-form-label">byte_tinyint</label>
+        <div class="layui-input-block">
+             <select name="byteTinyint" class="layui-input" lay-verify="magicalCoderVerify" magicalcoder-verify=""  placeholder="请输入byte_tinyint">
+                <option value="" selected="selected">全部</option>
+                <option value="" selected="selected">byte_tinyint</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_shortSmallint">
+        <label class="layui-form-label">short_smallint</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="shortSmallint" placeholder="请输入short_smallint" lay-verify="magicalCoderVerify" magicalcoder-verify="" value="" />
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_integerInt">
+        <label class="layui-form-label">integer_int</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="integerInt" placeholder="请输入integer_int" lay-verify="magicalCoderVerify" magicalcoder-verify="" value="" />
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_integerMediumint">
+        <label class="layui-form-label">integer_mediumint</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="integerMediumint" placeholder="请输入integer_mediumint" lay-verify="magicalCoderVerify" magicalcoder-verify="" value="" />
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_floatFloat">
+        <label class="layui-form-label">float_float</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="floatFloat" placeholder="请输入float_float" lay-verify="magicalCoderVerify" magicalcoder-verify="" value="" />
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_doubleDouble">
+        <label class="layui-form-label">double_double</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="doubleDouble" placeholder="请输入double_double" lay-verify="magicalCoderVerify" magicalcoder-verify="" value="" />
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_doubleReal">
+        <label class="layui-form-label">double_real</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="doubleReal" placeholder="请输入double_real" lay-verify="magicalCoderVerify" magicalcoder-verify="" value="" />
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_bigdecimalDecimal">
+        <label class="layui-form-label">bigdecimal_decimal</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="bigdecimalDecimal" placeholder="请输入bigdecimal_decimal" lay-verify="magicalCoderVerify" magicalcoder-verify="" value="" />
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_bigdecimalNumeric">
+        <label class="layui-form-label">bigdecimal_numeric</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="bigdecimalNumeric" placeholder="请输入bigdecimal_numeric" lay-verify="magicalCoderVerify" magicalcoder-verify="" value="" />
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_dateDate">
+        <label class="layui-form-label">date_date</label>
+        <div class="layui-input-block">
+    <input type="text"  name="dateDate" placeholder="请选择date_date"  autocomplete="off" class="magicalcoder-laydate layui-input" lay-verify="magicalCoderVerify" magicalcoder-verify="" value="" />
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_dateYear">
+        <label class="layui-form-label">date_year</label>
+        <div class="layui-input-block">
+    <input type="text"  name="dateYear" placeholder="请选择date_year"  autocomplete="off" class="magicalcoder-laydate layui-input" lay-verify="magicalCoderVerify" magicalcoder-verify="" value="" />
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_timeTime">
+        <label class="layui-form-label">time_time</label>
+        <div class="layui-input-block">
+    <input type="text"  name="timeTime" placeholder="请选择time_time"  autocomplete="off" class="magicalcoder-laydate layui-input" lay-verify="magicalCoderVerify" magicalcoder-verify="" value="" />
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_timestempDatetime">
+        <label class="layui-form-label">timestemp_datetime</label>
+        <div class="layui-input-block">
+    <input type="text"  name="timestempDatetime" placeholder="请选择timestemp_datetime"  autocomplete="off" class="magicalcoder-laydate layui-input" lay-verify="magicalCoderVerify" magicalcoder-verify="" value="" />
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_timestempTimestemp">
+        <label class="layui-form-label">timestemp_timestemp</label>
+        <div class="layui-input-block">
+    <input type="text"  name="timestempTimestemp" placeholder="请选择timestemp_timestemp"  autocomplete="off" class="magicalcoder-laydate layui-input" lay-verify="magicalCoderVerify" magicalcoder-verify="" value="" />
+        </div>
+    </div>
+
+    <div class="layui-form-item layui-row layui-col-xs12">
+        <div class="layui-input-block">
+            <button class="layui-btn security_edit_form_operate_save" lay-submit="" lay-filter="save">立即提交</button>
+            <button type="reset" class="layui-hide layui-btn layui-btn-primary" >重置</button>
+        </div>
+    </div>
+</form>
+    <div th:replace="magicalcoder/v001/include/main-js :: commonMain" />
+    <script type="text/javascript"  th:src="@{/assets/admin/alltype/alltype-edit.js}"></script>
+</body>
+</html>

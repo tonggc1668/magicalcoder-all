@@ -1,0 +1,33 @@
+##详情页1对多关联 Many
+#parse("vms/$version/common/variable/head.vm")
+#parse("vms/$version/common/comment/ClassDesc.vm")
+//表单通用配置 列表页 详情页都需要
+layui.define(['jquery'],function(exports){
+    var obj =
+        {
+            tableNameRest:"${tableName}_rest",
+            tableName:"${tableName}",
+            moduleName:"${tableName}",//sys_module的moduleName
+            formVerifyEditData:{//详情页提交时表单校验 使用方法参考layui官网 表单验证规则
+
+            },
+            form:{
+
+    #set($sortedNodeList=$CreateVmUtil.sortFormItem($nodeList))
+    #set($dou = 0)
+    #foreach($node in $sortedNodeList)
+        #if($StringUtil.isNotBlank($node.formItem.selectValue))
+        #set($inputType = $node.formItem.inputType)
+        #if($inputType == $MagicConstant.INPYT_TYPE_IMG_FILE() || $inputType == $MagicConstant.INPYT_TYPE_KINDEDITOR()||$inputType == $MagicConstant.INPYT_TYPE_DATE() || $inputType == $MagicConstant.INPYT_TYPE_SLIDER()||$inputType == $MagicConstant.INPYT_TYPE_RATE() || $inputType == $MagicConstant.INPYT_TYPE_COLOR_PICKER()||$inputType == $MagicConstant.INPYT_TYPE_CODE())
+            #if($dou >0)
+                ,#else              #end${node.dbField.javaField}:{
+                        renderConfig:$TableFieldUtil.jsonToOneLine($node.formItem.selectValue)
+                    }
+            #set($dou = $dou + 1)
+        #end
+        #end
+    #end
+            }
+        }
+    exports('${lowerEntity}_config',obj);
+})

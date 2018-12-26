@@ -1,0 +1,13 @@
+##详情页1对多关联 Many
+#parse("vms/$version/common/variable/head.vm")
+#parse("vms/$version/common/comment/ClassDesc.vm")
+layui.config({base : "assets/"}).extend({"${lowerEntity}_config":"admin/${lowerEntity}/${lowerEntity}-config","magicalcoderedit" : "magicalcoder/$jshtmlVersion/rmp/magicalcoderedit"})
+layui.use(["${lowerEntity}_config","magicalcoderedit"],function(){
+    var magicalcoderedit = layui.magicalcoderedit(layui.${lowerEntity}_config);
+    //在提交表单前执行回调方法
+    var submitBeforeCallBack = function (postData) {
+        return true;//则继续提交
+    }
+    magicalcoderedit.bindFormArea();
+    magicalcoderedit.submitEvents(submitBeforeCallBack);
+})

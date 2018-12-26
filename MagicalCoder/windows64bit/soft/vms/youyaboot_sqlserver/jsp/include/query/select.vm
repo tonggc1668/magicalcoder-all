@@ -1,0 +1,30 @@
+#set($selectValueMap = $TableFieldUtil.parseJsonToMap($node.formItem.selectValue))
+#if($StringUtil.isNotBlank($formQuery.firstCompare))
+                    <div class="layui-input-inline">
+                        <select data-name="${node.dbField.javaField}" name="${node.dbField.javaField}First" class="layui-input">
+                    #if($selectValueMap.get('inputType') == 'select')
+                        #set($keyValueList = $selectValueMap.get('keyValueList'))
+                        #if($keyValueList )
+                            #foreach($sv in $keyValueList)
+                                <option value="$sv.key" >$sv.value</option>
+                            #end
+                        #end
+                    #end
+                        </select>
+                    </div>
+#end
+#if($StringUtil.isNotBlank($formQuery.secondCompare))
+                    <label class="layui-form-label">-</label>
+                    <div class="layui-input-inline">
+                        <select data-name="${node.dbField.javaField}" name="${node.dbField.javaField}Second" class="layui-input">
+                #if($selectValueMap.get('inputType') == 'select')
+                    #set($keyValueList = $selectValueMap.get('keyValueList'))
+                    #if($keyValueList )
+                        #foreach($sv in $keyValueList)
+                            <option value="$sv.key" >$sv.value</option>
+                        #end
+                    #end
+                #end
+                        </select>
+                    </div>
+#end

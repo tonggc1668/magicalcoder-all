@@ -1,0 +1,38 @@
+#parse("vms/$version/common/variable/head.vm")
+#parse("vms/$version/common/asert/priorityKey.vm")
+#parse("vms/$version/common/asert/hasDateQuery.vm")
+package com.${companyName}.${projectName}.service.${lowerEntity}.service.impl;
+
+import com.${companyName}.${projectName}.service.${lowerEntity}.mapper.${Entity}Mapper;
+import com.${companyName}.${projectName}.service.${lowerEntity}.service.${Entity}Service;
+import com.${companyName}.${projectName}.model.${Entity};
+import com.${companyName}.${commonUtilName}.core.service.CommonServiceImpl;
+import com.${companyName}.${commonUtilName}.core.utils.StringUtil;
+
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Service;
+import com.${companyName}.${commonUtilName}.core.utils.CopyUtil;
+import org.springframework.beans.factory.InitializingBean;
+
+import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+#if($hasDateQuery)
+import java.util.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
+#end
+import java.math.*;
+#parse("vms/$version/common/comment/ClassDesc.vm")
+
+@Service
+public class ${Entity}ServiceImpl extends CommonServiceImpl<${Entity},${dbPriorityKeyJavaType}> implements ${Entity}Service,InitializingBean{
+    @Resource
+    private ${Entity}Mapper ${entity}Mapper;
+
+    @Override
+    public void afterPropertiesSet() {
+        super.commonMapper = ${entity}Mapper;
+    }
+}

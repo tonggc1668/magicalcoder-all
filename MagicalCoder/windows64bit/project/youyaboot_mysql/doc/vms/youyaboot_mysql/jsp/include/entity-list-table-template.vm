@@ -1,0 +1,31 @@
+#parse("vms/$version/common/variable/head.vm")
+#parse("vms/$version/common/asert/priorityKey.vm")
+#set($newNodeList=$CreateVmUtil.sortViewTable($nodeList))
+#foreach($node in $newNodeList)
+    #set($inputType = $node.formItem.inputType)
+    #if($node.viewTable)
+        #if($inputType == $MagicConstant.INPYT_TYPE_DATE())
+        <script type="text/html" id="${node.dbField.javaField}Template">
+            <input type="text" id="_${node.dbField.javaField}_{{= d.$dbPriorityKeyJavaField }}" name="${node.dbField.javaField}"  data-identify="{{= d.$dbPriorityKeyJavaField }}"  autocomplete="off" class="magicalcoder-table-laydate layui-input security_list_table_form_$node.dbField.javaField" value="{{= d.$node.dbField.javaField}}" lay-verify="magicalCoderVerify#parse("vms/$version/jsp/include/formvalidate/lay-verify.vm")" #if($node.formItem.disabled)disabled="true"#end placeholder="$node.formItem.placeholder"/>
+        </script>
+        #elseif($inputType == $MagicConstant.INPYT_TYPE_SELECT())##无外键 普通类型下拉
+            #set($selectValueMap = $TableFieldUtil.parseJsonToMap($node.formItem.selectValue))
+        <script type="text/html" id="${node.dbField.javaField}Template">
+            <select class="magicalcoder-table-single-select2 security_list_table_form_$node.dbField.javaField" name="${node.dbField.javaField}" lay-ignore="true" data-identify="{{= d.$dbPriorityKeyJavaField }}" lay-verify="magicalCoderVerify#parse("vms/$version/jsp/include/formvalidate/lay-verify.vm")" #if($node.formItem.disabled)disabled="true"#end placeholder="$node.formItem.placeholder">
+    #if($selectValueMap.get('inputType') == 'select')
+        #set($keyValueList = $selectValueMap.get('keyValueList'))
+        #if($keyValueList )
+            #foreach($sv in $keyValueList)
+                {{#  if(d.${node.dbField.javaField}+"" == "$sv.key"){ 		 }}
+                <option value="$sv.key" selected="selected">$sv.value</option>
+                {{#  }else{							}}
+                <option value="$sv.key">$sv.value</option>
+                {{#  } 								}}
+            #end
+        #end
+    #end
+            </select>
+        </script>
+        #end
+    #end
+#end

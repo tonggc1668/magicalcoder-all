@@ -1,0 +1,7 @@
+##是否存在日期类型查询
+#set($hasBigDecimal=false)
+#foreach($node in $nodeList)
+    #if($node.dbField.javaType == "BigDecimal")
+        #set($hasBigDecimal=true)
+    #end
+#end

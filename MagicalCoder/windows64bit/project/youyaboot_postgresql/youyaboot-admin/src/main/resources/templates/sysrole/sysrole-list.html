@@ -1,0 +1,40 @@
+<!--
+代码为自动生成 Created by www.magicalcoder.com
+ 欢迎加入官方QQ群:323237052
+-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head  th:include="magicalcoder/v001/include/head :: commonHead('角色列表')"/>
+<body class="childrenBody layui-hide">
+<form class="layui-form queryForm">
+    <blockquote class="layui-elem-quote quoteBox">
+        <form class="layui-form-item ">
+            <div class="layui-inline security_list_query_param_roleName">
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" name="roleNameFirst" placeholder="角色名" />
+                </div>
+            </div>
+            <div class="layui-inline security_list_query_operate_search">
+                <a class="layui-btn search_btn" data-type="reload">搜索</a>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+            <div class="layui-inline security_list_query_operate_add_news">
+                <a class="layui-btn layui-btn-normal addNews_btn">添加</a>
+            </div>
+            <div class="layui-inline security_list_query_operate_del_all">
+                <a class="layui-btn layui-btn-danger layui-btn-normal delAll_btn">批量删除</a>
+            </div>
+        </form>
+    </blockquote>
+    <table class="security_list_table" id="newsList" lay-filter="newsListFilter" data-primary-fields="id"></table>
+        <!--操作-->
+        <script type="text/html" id="newsListOperateTemplate">
+            <a class="layui-btn layui-btn-sm" lay-event="priority">分配权限</a>
+            <a class="layui-btn layui-btn-sm security_list_table_operate_edit" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-sm layui-btn-danger security_list_table_operate_del" lay-event="del">删除</a>
+        </script>
+    </form>
+    <div th:replace="magicalcoder/v001/include/main-js :: commonMain" />
+    <script type="text/javascript"  th:src="@{/assets/admin/sysrole/sysrole-list.js}"></script>
+</body>
+</html>

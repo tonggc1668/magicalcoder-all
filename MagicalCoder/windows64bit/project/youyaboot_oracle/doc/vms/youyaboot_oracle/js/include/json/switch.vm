@@ -1,0 +1,31 @@
+## switch
+#set($selectValueMap = $TableFieldUtil.parseJsonToMap($node.formItem.selectValue))
+#set($layText="")
+#set($isFirst=true)##设置个开关
+
+                {field: '$node.dbField.javaField', title: '$node.formItem.title',minWidth:150, align:'center', templet:function(d){
+                    var checked = (d.$node.dbField.javaField+''=='true' || d.$node.dbField.javaField+'' == '1') ? 'checked' : '';
+#if($selectValueMap.get('inputType') == 'switch')
+    #set($keyValueList = $selectValueMap.get('keyValueList'))
+    #if($keyValueList )
+        #foreach($sv in $keyValueList)
+                #if($sv.key != "")
+                    #if($isFirst)
+                        #set($isFirst=false)
+                        #set($layText="$sv.value")
+                    #else
+                        #if($sv.key)
+                            #set($layText="$sv.value|$layText")
+                        #else
+                            #set($layText="$layText|$sv.value")
+                        #end
+                    #end
+                #else
+                #end
+        #end
+    #end
+#end
+                    return '<input type="checkbox" class="magicalcoder-table-layswitch security_list_table_form_$node.dbField.javaField" data-identify="'+d.$dbPriorityKeyJavaField+'" name="$node.dbField.javaField"  lay-filter="${node.dbField.javaField}Filter" lay-skin="switch" lay-text="$layText"  '+checked+' lay-verify="magicalCoderVerify#parse("vms/$version/jsp/include/formvalidate/lay-verify.vm")" #if($node.formItem.disabled)disabled="true"#end/>'
+                    }
+                    ,sort:$node.viewTable.sort
+                },

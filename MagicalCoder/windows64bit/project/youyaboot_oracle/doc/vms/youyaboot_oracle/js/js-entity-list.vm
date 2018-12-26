@@ -1,0 +1,56 @@
+#parse("vms/$version/common/variable/head.vm")
+##找出主键
+#parse("vms/$version/common/asert/priorityKey.vm")
+#parse("vms/$version/common/comment/ClassDesc.vm")
+
+layui.config({base : "assets/"}).extend({"${lowerEntity}_config":"admin/${lowerEntity}/${lowerEntity}-config","magicalcoderlist" : "magicalcoder/$jshtmlVersion/rmp/magicalcoderlist"})
+layui.use(["magicalcoderlist","${lowerEntity}_config"],function(){
+    var config = $.extend(layui.${lowerEntity}_config,{
+#if($childrenList)
+        childrenPage:[
+    #foreach($child in $childrenList)
+            {
+                tabTitle:"$child.childDbTable.tableComment",
+                url:"admin/page/$child.childDbTable.tableName/list",
+                mcForeignName:"$child.childNode.dbField.javaField"
+            }#if($velocityCount!=$childrenList.size()),#end
+    #end
+        ],
+#end
+        layTable : {
+            //表格内容
+            elem : '#newsList',
+            id : "newsListTable"
+            },
+            //排序跟数据库实际字段名的映射
+        sortMap:{
+    #set($sortMap = '')
+    #foreach($node in $nodeList)
+        #if($node.viewTable)
+            #set($sortMap = "$sortMap${node.dbField.javaField}:'${node.dbField.dbRealName}',")
+        #end
+    #end
+            $StringUtil.deleteLastChar($sortMap)
+        }
+    });
+    var  magicalcoderlist = layui.magicalcoderlist(config);
+    //绑定所有查询区域控件
+    magicalcoderlist.bindQueryArea();
+    //表格
+    var cols = [[
+        {type: "checkbox", fixed:"left", width:50},
+        #parse("vms/$version/js/include/js-entity-list-table-template.vm")
+        {title: '操作', minWidth:250, templet:'#newsListOperateTemplate',fixed:"right",align:"center"}
+    ]];
+    //表格中的一些事件
+    var tableEvent = {
+        "tool":function (obj,roleId) {//操作部分的按钮
+            return true;//不阻止事件继续执行封装的事件
+        },
+        "sort":function (obj,safeOrderBy) {//排序
+            return true;//不阻止事件继续执行封装的事件
+        }
+    }
+    magicalcoderlist.bindTableArea(cols,tableEvent)
+    magicalcoderlist.bindAreaEvents();
+})

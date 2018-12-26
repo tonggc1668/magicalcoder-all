@@ -1,0 +1,5 @@
+#if($velocityCount != $nodeList.size())
+    #set($douHao = true)
+#else
+    #set($douHao = false)
+#end

@@ -1,0 +1,33 @@
+##查询入参
+#foreach($node in $nodeList)
+    #set($inputType = $node.formItem.inputType)
+    #if($node.formQueryList)
+        #foreach($formQuery in $node.formQueryList)
+            #if($formQuery.foreignQueryFieldNode)##有外键查询
+            #else##无外键查询
+                #if($StringUtil.isNotBlank($formQuery.firstCompare))
+                    #if($inputType == $MagicConstant.INPYT_TYPE_SELECT()  && $formQuery.firstCompare=='in')
+		         query.put("${node.dbField.javaField}First",coverBlankToNull(${node.dbField.javaField}First));  
+                    #else
+		    	#if($node.dbField.javaType == "String")
+			     query.put("${node.dbField.javaField}First",coverBlankToNull(${node.dbField.javaField}First));
+			#else
+			     query.put("${node.dbField.javaField}First",${node.dbField.javaField}First);
+			#end
+                    #end
+                #end
+                #if($StringUtil.isNotBlank($formQuery.secondCompare))
+                    #if($inputType == $MagicConstant.INPYT_TYPE_SELECT()  && $formQuery.secondCompare=='in')
+                         query.put("${node.dbField.javaField}Second",coverBlankToNull(${node.dbField.javaField}Second));
+                    #else
+		    	#if($node.dbField.javaType == "String")
+			     query.put("${node.dbField.javaField}Second",coverBlankToNull(${node.dbField.javaField}Second));
+			#else
+			     query.put("${node.dbField.javaField}Second",${node.dbField.javaField}Second);
+			#end
+                    #end
+                #end
+            #end
+        #end
+    #end
+#end

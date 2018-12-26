@@ -1,0 +1,12 @@
+##普通固定类型下拉
+#set($selectValueMap = $TableFieldUtil.parseJsonToMap($node.formItem.selectValue))
+            <select name="${node.dbField.javaField}" class="layui-input" lay-verify="magicalCoderVerify#parse("vms/$version/jsp/include/formvalidate/lay-verify.vm")" #if($node.formItem.disabled)disabled="true"#end placeholder="$node.formItem.placeholder">
+    #if($selectValueMap.get('inputType') == 'select')
+        #set($keyValueList = $selectValueMap.get('keyValueList'))
+        #if($keyValueList )
+            #foreach($sv in $keyValueList)
+                <option value="$sv.key" #if($node.formItem.defaultValue == $sv.key)selected="selected"#end>$sv.value</option>
+            #end
+        #end
+    #end
+            </select>

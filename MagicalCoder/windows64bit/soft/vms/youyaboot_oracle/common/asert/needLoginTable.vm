@@ -1,0 +1,23 @@
+##是否需要登录的表
+#set($adminLogin=false)##后台管理员表 只给查询接口
+#set($webLogin=false)##前台用户自行创建的数据表 开放一切增删改查接口
+#foreach($node in $nodeList)
+    ##if($node.viewTable)
+        #if($node.dbField.foreignVmDbFieldNode)
+            #if($node.dbField.foreignVmDbFieldNode.dbTable.tableName == 'a_admin_user')
+                #set($adminLogin=true)
+            #end
+            #if($node.dbField.foreignVmDbFieldNode.dbTable.tableName == 'user_web')
+                #set($webLogin=true)
+            #end
+        #end
+    ##end
+#end
+#set($webLoginJavaField = '')
+#foreach($node in $nodeList)
+    #if($node.dbField.foreignVmDbFieldNode)
+        #if($node.dbField.foreignVmDbFieldNode.dbTable.tableName == 'user_web')
+            #set($webLoginJavaField = ${node.dbField.javaField})
+        #end
+    #end
+#end

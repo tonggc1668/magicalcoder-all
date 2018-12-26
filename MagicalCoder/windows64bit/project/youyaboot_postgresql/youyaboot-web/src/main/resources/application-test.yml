@@ -1,0 +1,44 @@
+##开发环境设置
+server:
+  #tomcat端口  比如http://{ip}:{port}{/context-path}中的{port} 纯数字
+  port: 18088
+common:
+  datasource:
+    #postgresql url连接信息
+    url: jdbc:postgresql://localhost:5432/youyaboot
+    #数据库用户名
+    username: postgres
+    #数据库密码
+    password: password
+    #mysql8新驱动名称
+    driverClassName: org.postgresql.Driver
+
+spring:
+  redis:
+    #redis ip
+    host: localhost
+    #redis 端口
+    port: 6379
+    #不允许redis密码为空字符串 可以不设置 password:后面不跟任何内容和空格
+    password:
+    #redis 单机环境下连接池信息
+    pool:
+      max-active: 8
+      max-idle: 10
+      min-idle: 0
+      max-wait: -1
+    timeout: 0
+    #所有的redis 缓存都会加入下面的前缀 方便管理
+    keyPrefix: youyaboot-web.
+#druid管理后台 http://localhost:18088/youyaboot-web/druid/ 可以查看数据源的状态 账号/密码：web/123456
+  monitor:
+    druid:
+      userName: web
+      password: 123456
+      allowIps: 127.0.0.1
+      denyIps: 10.1.1.1
+      filters: stat,log4j
+  devtools:
+      restart:
+      #是否开启热部署 另外需要配置ide的配置一同生效
+          enabled: false

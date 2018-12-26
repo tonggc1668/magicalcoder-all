@@ -1,0 +1,5 @@
+#if($velocityCount != 1)
+    #set($douHao = true)
+#else
+    #set($douHao = false)
+#end

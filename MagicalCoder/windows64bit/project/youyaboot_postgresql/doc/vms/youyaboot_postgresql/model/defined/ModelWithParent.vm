@@ -1,0 +1,16 @@
+#parse("vms/$version/common/variable/head.vm")
+#parse("vms/$version/common/asert/hasBigDecimal.vm")
+#parse("vms/$version/common/asert/hasDateQuery.vm")
+#parse("vms/$version/common/asert/oneToMany.vm")
+package com.${companyName}.${projectName}.model.defined;
+import java.io.Serializable;
+import java.util.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.math.*;
+import com.${companyName}.${projectName}.model.${Entity};
+#parse("vms/$version/common/comment/ClassDesc.vm")
+##VmFileServiceImpl.createModelWithParent() CreateVmUtil.combineModelWithParent
+public class ${Entity}With${foreignTableUpEntity} extends ${Entity}  implements Serializable{
+    ${combineModelWithParent}
+}

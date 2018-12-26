@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="commonHeader" class="layui-header header">
+	<div class="layui-main mag0">
+		<a href="#" class="logo">YouyaBoot</a>
+		<!-- 显示/隐藏菜单 -->
+		<a href="javascript:;" class="seraph hideMenu icon-caidan">
+            <i class="layui-icon layui-icon-shrink-right" ></i>
+        </a>
+		<ul class="layui-nav mobileTopLevelMenus" mobile="mobile">
+			<li class="layui-nav-item" data-menu="contentManagement">
+				<a href="javascript:;"><i class="seraph icon-caidan"></i><cite>YouyaBoot</cite></a>
+				<dl  class="layui-nav-child" >
+					<dd th:each="item,itemStat : ${categoryList}" th:class="${itemStat.index==0}? 'layui-this' : ''" th:attr="data-menu=${item.id}"><a href="javascript:;"><i class="layui-icon" data-icon="&#xe63c;">&#xe63c;</i><cite th:text="${item.moduleCategoryName}"/></a></dd>
+				</dl>
+			</li>
+		</ul>
+
+        <ul class="layui-nav topLevelMenus" pc="pc" >
+            <li th:each="item,itemStat : ${categoryList}" th:class="${itemStat.index==0}? 'layui-nav-item layui-this' : 'layui-nav-item '" th:attr="data-menu=${item.id}" class="layui-nav-item layui-this" pc="pc">
+                <a href="javascript:;"><i class="layui-icon" data-icon="&#xe63c;">&#xe63c;</i><cite th:text="${item.moduleCategoryName}"/></a>
+            </li>
+        </ul>
+		<!-- 顶部右侧菜单 -->
+		<ul class="layui-nav top_menu">
+			<!--<li class="layui-nav-item" pc="pc">
+				<a href="javascript:;" class="clearCache"><i class="layui-icon" data-icon="&#xe640;">&#xe640;</i><cite>清除缓存</cite><span class="layui-badge-dot"></span></a>
+			</li>-->
+			<li class="layui-nav-item lockcms" pc="pc">
+				<a href="javascript:;"><i class="seraph icon-lock"></i><cite>锁屏</cite></a>
+			</li>
+			<li class="layui-nav-item" id="userInfo">
+				<a href="javascript:;">
+					<img th:src="@{/assets/magicalcoder/v002/images/face.jpg}" class="layui-nav-img userAvatar" width="35" height="35"/>
+					<cite class="adminName">www.magicalcoder.com</cite>
+				</a>
+				<dl class="layui-nav-child">
+					<!--<dd><a href="javascript:;" data-url="page/user/userInfo.html"><i class="seraph icon-ziliao" data-icon="icon-ziliao"></i><cite>个人资料</cite></a></dd>
+					<dd><a href="javascript:;" data-url="page/user/changePwd.html"><i class="seraph icon-xiugai" data-icon="icon-xiugai"></i><cite>修改密码</cite></a></dd>
+					<dd><a href="javascript:;" class="showNotice"><i class="layui-icon">&#xe645;</i><cite>系统公告</cite><span class="layui-badge-dot"></span></a></dd>
+					<dd pc="pc"><a href="javascript:;" class="functionSetting"><i class="layui-icon">&#xe620;</i><cite>功能设定</cite><span class="layui-badge-dot"></span></a></dd>
+					<dd pc="pc"><a href="javascript:;" class="changeSkin"><i class="layui-icon">&#xe61b;</i><cite>更换皮肤</cite></a></dd>-->
+					<dd><a href="logout" class="signOut"><i class="seraph icon-tuichu"></i><cite>退出</cite></a></dd>
+				</dl>
+			</li>
+		</ul>
+	</div>
+</div>
+</html>

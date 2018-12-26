@@ -1,0 +1,76 @@
+
+<!--
+代码为自动生成 Created by www.magicalcoder.com
+ 如果你改变了此类 read 请将此行删除
+ 欢迎加入官方QQ群:323237052
+-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head  th:include="magicalcoder/v001/include/head :: commonHead('后端请求地址允许过滤器,不在过滤器的统一拒绝编辑')"/>
+
+<body class="childrenBody layui-hide">
+<form class="layui-form" style="width:80%;">
+
+        <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_id">
+        <label class="layui-form-label">主键</label>
+        <div class="layui-input-block">
+            <input type="text" disabled="true" class="layui-input" name="id"  placeholder="主键自动生成，无需手动编辑,如果重置则变成增加数据"/>
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_permissionName">
+        <label class="layui-form-label">权限名称</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="permissionName" placeholder="请输入权限名称" lay-verify="magicalCoderVerify|mc_required" magicalcoder-verify="" value="全部权限" />
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_filterPlatform">
+        <label class="layui-form-label">规则适用端</label>
+        <div class="layui-input-block">
+             <select name="filterPlatform" class="layui-input" lay-verify="magicalCoderVerify|mc_required" magicalcoder-verify=""  placeholder="请输入过滤端:front|backend|front_backend">
+                <option value="" >请选择</option>
+                <option value="front" >前端</option>
+                <option value="backend" >后端</option>
+                <option value="front_backend" selected="selected">前后端</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_backendUrlReg">
+        <label class="layui-form-label">后端的地址正则</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="backendUrlReg" placeholder="请输入后端的地址正则" lay-verify="magicalCoderVerify" magicalcoder-verify="" value="/admin/表名_rest/.*" />
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_frontDom">
+        <label class="layui-form-label">前端Key</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="frontDom" placeholder="请输入前端Key" lay-verify="magicalCoderVerify" magicalcoder-verify="" value="" />
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_frontAction">
+        <label class="layui-form-label">前端处理方式</label>
+        <div class="layui-input-block">
+             <select name="frontAction" class="layui-input" lay-verify="magicalCoderVerify" magicalcoder-verify=""  placeholder="请输入前端处理方式show|disabled">
+                <option value="" >请选择</option>
+                <option value="show" selected="selected">读写</option>
+                <option value="disabled" >只读</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_moduleId">
+        <label class="layui-form-label">所属模块</label>
+        <div class="layui-input-block">
+             <select name="moduleId"  data-url="admin/sys_module_rest/search" data-id="id" data-text-fields="moduleTitle" class="magicalcoder-foreign-select2 layui-input" lay-ignore="true" lay-verify="magicalCoderVerify|mc_required" magicalcoder-verify="" data-value=""  placeholder="请输入所属模块"><option value=""></option></select>
+        </div>
+    </div>
+
+    <div class="layui-form-item layui-row layui-col-xs12">
+        <div class="layui-input-block">
+            <button class="layui-btn security_edit_form_operate_save" lay-submit="" lay-filter="save">立即提交</button>
+            <button type="reset" class="layui-hide layui-btn layui-btn-primary" >重置</button>
+        </div>
+    </div>
+</form>
+    <div th:replace="magicalcoder/v001/include/main-js :: commonMain" />
+    <script type="text/javascript"  th:src="@{/assets/admin/syspermission/syspermission-edit.js}"></script>
+</body>
+</html>

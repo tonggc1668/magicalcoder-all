@@ -1,0 +1,208 @@
+#parse("vms/$version/common/variable/head.vm")
+
+# $tableName $tableComment模块 API
+##
+##
+##
+##
+##
+$jing$jing 1.1 查询${tableComment}详情
+
+> **描述**：根据$dbPriorityNode.dbField.dbComment查询${tableComment}详情。
+
+> **url**：/admin/${tableName}_rest/get/{$dbPriorityNode.dbField.javaField}
+>
+> **method**：GET
+
+> **输入**
+
+| 序号 | 字段名称 | 字段类型 | 字段描述     |
+| ---- | -------- | -------- | ------------ |
+| 1    | id       | $dbPriorityKeyJavaType     | $dbPriorityNode.dbField.dbComment，必填 |
+
+> **输出**
+
+| 序号     | 字段名称      | 字段类型 | 字段描述                |
+| -------- | ------------- | -------- | ----------------------- |
+| 1        | flag          | boolean  | 接口调用，成功/失败标识 |
+| 2        | code          | int      | 错误码，成功时=0        |
+| 3        | desc          | string   | 结果描述                |
+| 4        | data          | object   | ${tableComment}详情对象            |
+|          |               |          |                         |
+| 字段解释 |               |          |                         |
+#foreach($node in $nodeList)
+| $velocityCount | $node.dbField.javaField              | $node.dbField.javaType          | $node.formItem.title |
+#end
+
+##
+##
+##
+##
+##
+$jing$jing 1.2 保存${tableComment}详情
+
+> **描述**：保存${tableComment}详情。
+
+> **url**：/admin/${tableName}_rest/save
+>
+> **method**：POST
+
+> **输入**
+
+| 序号 | 字段名称 | 字段类型 | 字段描述     |
+| ---- | -------- | -------- | ------------ |
+#foreach($node in $nodeList)
+| $velocityCount| $node.dbField.javaField  | $node.dbField.javaType  | $node.formItem.title |
+#end
+
+> **输出**
+
+| 序号     | 字段名称      | 字段类型 | 字段描述                |
+| -------- | ------------- | -------- | ----------------------- |
+| 1        | flag          | boolean  | 接口调用，成功/失败标识 |
+| 2        | code          | int      | 错误码，成功时=0        |
+| 3        | desc          | string   | 结果描述                |
+
+##
+##
+##
+##
+##
+$jing$jing 1.3 更新${tableComment}详情
+
+> **描述**：根据$dbPriorityNode.dbField.dbComment更新${tableComment}的任意属性值，确保要更新的参数不能为null。
+
+> **url**：/admin/${tableName}_rest/update/{$dbPriorityNode.dbField.javaField}
+>
+> **method**：POST
+
+> **输入**
+
+| 序号 | 字段名称 | 字段类型 | 字段描述     |
+| ---- | -------- | -------- | ------------ |
+#foreach($node in $nodeList)
+| $velocityCount| $node.dbField.javaField  | $node.dbField.javaType  | $node.formItem.title |
+#end
+
+> **输出**
+
+| 序号     | 字段名称      | 字段类型 | 字段描述                |
+| -------- | ------------- | -------- | ----------------------- |
+| 1        | flag          | boolean  | 接口调用，成功/失败标识 |
+| 2        | code          | int      | 错误码，成功时=0        |
+| 3        | desc          | string   | 结果描述                |
+
+##
+##
+##
+##
+##
+$jing$jing 1.4 删除一条${tableComment}记录
+
+> **描述**：根据$dbPriorityNode.dbField.dbComment删除一条${tableComment}记录。
+
+> **url**：/admin/${tableName}_rest/delete/{$dbPriorityNode.dbField.javaField}
+>
+> **method**：POST
+
+> **输入**
+
+| 序号 | 字段名称 | 字段类型 | 字段描述     |
+| ---- | -------- | -------- | ------------ |
+| 1    | id       | $dbPriorityKeyJavaType     | $dbPriorityNode.dbField.dbComment，必填 |
+
+> **输出**
+
+| 序号     | 字段名称      | 字段类型 | 字段描述                |
+| -------- | ------------- | -------- | ----------------------- |
+| 1        | flag          | boolean  | 接口调用，成功/失败标识 |
+| 2        | code          | int      | 错误码，成功时=0        |
+| 3        | desc          | string   | 结果描述                |
+
+
+##
+##
+##
+##
+##
+$jing$jing 1.5 批量删除多条${tableComment}记录
+
+> **描述**：根据多个$dbPriorityNode.dbField.dbComment删除多条${tableComment}记录。
+
+> **url**：/admin/${tableName}_rest/batch_delete
+>
+> **method**：POST
+
+> **输入**
+
+| 序号 | 字段名称 | 字段类型 | 字段描述     |
+| ---- | -------- | -------- | ------------ |
+| 1    | ids[]       | $dbPriorityKeyJavaType     | $dbPriorityNode.dbField.dbComment，必填 |
+| 2    | ids[]       | $dbPriorityKeyJavaType     | $dbPriorityNode.dbField.dbComment，必填 |
+| ...    | ids[]       | $dbPriorityKeyJavaType     | $dbPriorityNode.dbField.dbComment，必填 |
+| n    | ids[]       | $dbPriorityKeyJavaType     | $dbPriorityNode.dbField.dbComment，必填 |
+
+> **输出**
+
+| 序号     | 字段名称      | 字段类型 | 字段描述                |
+| -------- | ------------- | -------- | ----------------------- |
+| 1        | flag          | boolean  | 接口调用，成功/失败标识 |
+| 2        | code          | int      | 错误码，成功时=0        |
+| 3        | desc          | string   | 结果描述                |
+
+
+##
+##
+##
+##
+##
+$jing$jing 1.6 分页查询${tableComment}
+
+> **描述**：分页查询${tableComment}。
+
+> **url**：/admin/${tableName}_rest/page
+>
+> **method**：GET
+
+> **输入**
+
+| 序号 | 字段名称 | 字段类型 | 字段描述     |
+| ---- | -------- | -------- | ------------ |
+| 1    |page      |int       |第几页 [1,n)   |
+| 2    |limit      |int       |每页多少条 [0,100)   |
+| 3    |safeOrderBy      |int       | 排序 例如 数据库字段名称 desc或asc   |
+##查询入参
+#set($cnt=3)
+#foreach($node in $nodeList)
+    #set($inputType = $node.formItem.inputType)
+    #if($node.formQueryList)
+        #foreach($formQuery in $node.formQueryList)
+            #if($formQuery.foreignQueryFieldNode)##有外键查询
+
+            #else##无外键查询
+                #if($StringUtil.isNotBlank($formQuery.firstCompare))
+                    #set($cnt=$cnt+1)
+                |$cnt|${node.dbField.javaField}First|   $node.dbField.javaType   |$node.formItem.title|
+                #end
+                #if($StringUtil.isNotBlank($formQuery.secondCompare))
+                    #set($cnt=$cnt+1)
+                |$cnt|${node.dbField.javaField}Second|   $node.dbField.javaType   |$node.formItem.title|
+                #end
+            #end
+        #end
+    #end
+#end
+
+> **输出**
+
+| 序号     | 字段名称      | 字段类型 | 字段描述                |
+| -------- | ------------- | -------- | ----------------------- |
+| 1        | flag          | boolean  | 接口调用，成功/失败标识 |
+| 2        | code          | int      | 错误码，成功时=0        |
+| 3        | desc          | string   | 结果描述                |
+| 4        | data          | array   | ${tableComment}详情数组对象            |
+|          |               |          |                         |
+| 字段解释 |               |          |                         |
+#foreach($node in $nodeList)
+| $velocityCount | $node.dbField.javaField              | $node.dbField.javaType          | $node.formItem.title |
+#end

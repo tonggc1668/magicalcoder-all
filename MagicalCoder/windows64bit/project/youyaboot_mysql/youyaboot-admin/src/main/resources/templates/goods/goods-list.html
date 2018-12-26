@@ -1,0 +1,141 @@
+<!--
+代码为自动生成 Created by www.magicalcoder.com
+ 如果你改变了此类 read 请将此行删除
+ 欢迎加入官方QQ群:323237052
+-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head  th:include="magicalcoder/v001/include/head :: commonHead('商品列表')"/>
+<body class="childrenBody layui-hide">
+    <form class="layui-form queryForm">
+        <blockquote class="layui-elem-quote quoteBox">
+            <form class="layui-form-item">
+                <div class="layui-inline security_list_query_param_id">
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" data-name="id" name="idFirst" placeholder="ID" />
+                    </div>
+                </div>
+                <div class="layui-inline security_list_query_param_goodsName">
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" data-name="goodsName" name="goodsNameFirst" placeholder="商品名称" />
+                    </div>
+                </div>
+                <div class="layui-inline security_list_query_param_publishStatus">
+                    <div class="layui-form-label">是否发布</div>
+                    <div class="layui-input-inline">
+                        <input type="radio" data-name="publishStatus" name="publishStatusFirst" lay-skin="primary" value="0" title="否" class="layui-input"/>
+                        <input type="radio" data-name="publishStatus" name="publishStatusFirst" lay-skin="primary" value="1" title="是" class="layui-input"/>
+                    </div>
+                </div>
+                <div class="layui-inline security_list_query_param_goodsStatus">
+                    <div class="layui-input-inline">
+                        <select data-name="goodsStatus" name="goodsStatusFirst" class="layui-input">
+                                <option value="0" >已发布</option>
+                                <option value="1" >待审核</option>
+                                <option value="2" >初始</option>
+                                <option value="3" >特殊</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-inline security_list_query_param_price">
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" data-name="price" name="priceFirst" placeholder="价格" />
+                    </div>
+                </div>
+                <div class="layui-inline security_list_query_param_storeCount">
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" data-name="storeCount" name="storeCountFirst" placeholder="库存" />
+                    </div>
+                </div>
+                <div class="layui-inline security_list_query_param_shortBrief">
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" data-name="shortBrief" name="shortBriefFirst" placeholder="简介" />
+                    </div>
+                </div>
+                <div class="layui-inline security_list_query_param_goodsDescription">
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" data-name="goodsDescription" name="goodsDescriptionFirst" placeholder="描述" />
+                    </div>
+                </div>
+                <div class="layui-inline security_list_query_param_createTime">
+                    <div class="layui-input-inline" >
+                        <input type="text" data-name="createTime" name="createTimeFirst" lay-verify="datetime"  placeholder="起始创建时间" autocomplete="off" class="magicalcoder-laydate layui-input"/>
+                    </div>
+                    <div class="layui-input-inline">-</div>
+                    <div class="layui-input-inline" >
+                        <input type="text" data-name="createTime"  name="createTimeSecond" lay-verify="datetime"  placeholder="终止创建时间" autocomplete="off" class="magicalcoder-laydate layui-input"/>
+                    </div>
+                </div>
+                <div class="layui-inline security_list_query_param_updateTime">
+                    <div class="layui-input-inline" >
+                        <input type="text" data-name="updateTime" name="updateTimeFirst" lay-verify="datetime"  placeholder="起始更新时间" autocomplete="off" class="magicalcoder-laydate layui-input"/>
+                    </div>
+                    <div class="layui-input-inline">-</div>
+                    <div class="layui-input-inline" >
+                        <input type="text" data-name="updateTime"  name="updateTimeSecond" lay-verify="datetime"  placeholder="终止更新时间" autocomplete="off" class="magicalcoder-laydate layui-input"/>
+                    </div>
+                </div>
+                <div class="layui-inline security_list_query_param_imgSrc">
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" data-name="imgSrc" name="imgSrcFirst" placeholder="图片地址" />
+                    </div>
+                </div>
+                <div class="layui-inline security_list_query_param_goodsCategoryId">
+                    <div class="layui-input-inline">
+                        <select  data-name="goodsCategoryId" class="magicalcoder-foreign-select2 layui-input" lay-ignore="true" name="goodsCategoryIdFirst" style="height:30px;width: 200px" data-url="admin/goods_category_rest/search" data-id="id" data-text-fields="name,keyword" placeholder="所属商品"><option value=""></option></select>
+                    </div>
+                </div>
+                <div class="layui-inline security_list_query_operate_search">
+                    <a class="layui-btn search_btn" data-type="reload">搜索</a>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+                <div class="layui-inline security_list_query_operate_add_news">
+                    <a class="layui-btn layui-btn-normal addNews_btn">添加</a>
+                </div>
+                <div class="layui-inline security_list_query_operate_del_all">
+                    <a class="layui-btn layui-btn-danger layui-btn-normal delAll_btn">批量删除</a>
+                </div>
+            </form>
+        </blockquote>
+        <table class="security_list_table" id="newsList" lay-filter="newsListFilter" data-primary-fields="id"></table>
+        <script type="text/html" id="goodsStatusTemplate">
+            <select class="magicalcoder-table-single-select2 security_list_table_form_goodsStatus" name="goodsStatus" lay-ignore="true" data-identify="{{= d.id }}" lay-verify="magicalCoderVerify" magicalcoder-verify=""  placeholder="商品状态">
+                {{#  if(d.goodsStatus+"" == "0"){ 		 }}
+                <option value="0" selected="selected">已发布</option>
+                {{#  }else{							}}
+                <option value="0">已发布</option>
+                {{#  } 								}}
+                {{#  if(d.goodsStatus+"" == "1"){ 		 }}
+                <option value="1" selected="selected">待审核</option>
+                {{#  }else{							}}
+                <option value="1">待审核</option>
+                {{#  } 								}}
+                {{#  if(d.goodsStatus+"" == "2"){ 		 }}
+                <option value="2" selected="selected">初始</option>
+                {{#  }else{							}}
+                <option value="2">初始</option>
+                {{#  } 								}}
+                {{#  if(d.goodsStatus+"" == "3"){ 		 }}
+                <option value="3" selected="selected">特殊</option>
+                {{#  }else{							}}
+                <option value="3">特殊</option>
+                {{#  } 								}}
+            </select>
+        </script>
+        <script type="text/html" id="createTimeTemplate">
+            <input type="text" id="_createTime_{{= d.id }}" name="createTime"  data-identify="{{= d.id }}"  autocomplete="off" class="magicalcoder-table-laydate layui-input security_list_table_form_createTime" value="{{= d.createTime}}" lay-verify="magicalCoderVerify" magicalcoder-verify=""  placeholder="创建时间"/>
+        </script>
+        <script type="text/html" id="updateTimeTemplate">
+            <input type="text" id="_updateTime_{{= d.id }}" name="updateTime"  data-identify="{{= d.id }}"  autocomplete="off" class="magicalcoder-table-laydate layui-input security_list_table_form_updateTime" value="{{= d.updateTime}}" lay-verify="magicalCoderVerify" magicalcoder-verify=""  placeholder="更新时间"/>
+        </script>
+        <!--操作-->
+        <script type="text/html" id="newsListOperateTemplate">
+            <a class="layui-btn layui-btn-sm security_list_table_operate_edit" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-sm security_list_table_operate_children" lay-event="children">更多信息</a>
+            <a class="layui-btn layui-btn-sm layui-btn-danger security_list_table_operate_del" lay-event="del">删除</a>
+        </script>
+    </form>
+    <div th:replace="magicalcoder/v001/include/main-js :: commonMain" />
+    <script type="text/javascript"  th:src="@{/assets/admin/goods/goods-list.js}"></script>
+</body>
+</html>

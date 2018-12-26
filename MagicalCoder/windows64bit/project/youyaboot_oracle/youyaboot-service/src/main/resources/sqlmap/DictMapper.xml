@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+* 代码为自动生成 Created by www.magicalcoder.com
+* 如果你改变了此类 read 请将此行删除
+*  欢迎加入官方QQ群:323237052
+-->
+<mapper namespace="com.magicalcoder.youyaboot.service.dict.mapper.DictMapper">
+    <!-- Dict -->
+    <resultMap id="resultMap" type="Dict">
+        <id column="ID" property="id"/>
+        <result column="DICT_CATEGORY" property="dictCategory" />
+        <result column="CODE" property="code" />
+        <result column="NAME" property="name" />
+        <result column="DICT_DESCRIPTION" property="dictDescription" typeHandler="org.apache.ibatis.type.ClobTypeHandler"/>
+        <result column="PARENT_ID" property="parentId" />
+        <result column="CREATE_TIME" property="createTime" />
+        <result column="UPDATE_TIME" property="updateTime" />
+        <result column="ORDER_NO" property="orderNo" />
+    </resultMap>
+    <!-- 查询单个实体 -->
+    <select id="getModel" parameterType="hashmap" resultMap="resultMap">
+        SELECT  <choose><when test="NotIgnore_!=null and NotIgnore_"><include refid="selectSqlNotIgnoreModel"/> </when><otherwise><include refid="selectSqlIgnoreModel"/></otherwise></choose>
+        FROM  <include refid="tableSql"/>  WHERE 1=1 <include refid="whereSqlModel"/> <include refid="orderGroupLimit"/>
+    </select>
+    <!--根据主键 查询单个实体 -->
+    <select id="getModelByPk" parameterType="hashmap" resultMap="resultMap">
+        SELECT  <choose><when test="NotIgnore_!=null and NotIgnore_"><include refid="selectSqlNotIgnoreModel"/> </when><otherwise><include refid="selectSqlIgnoreModel"/></otherwise></choose>
+        FROM  <include refid="tableSql"/>  <include refid="magicalcoderPkWhereSql"/>
+    </select>
+    <!-- 查询一组实体 -->
+    <select id="getModelList" parameterType="hashmap" resultMap="resultMap">
+        <include refid="pageStart"/>
+        SELECT  <choose><when test="NotIgnore_!=null and NotIgnore_"><include refid="selectSqlNotIgnoreModel"/> </when><otherwise><include refid="selectSqlIgnoreModel"/></otherwise></choose>
+        <include refid="pageParam"/>
+        FROM  <include refid="tableSql"/>  WHERE 1=1 <include refid="whereSqlModel"/> <include refid="orderGroupLimit"/>
+        <include refid="pageEnd"/>
+    </select>
+    <!-- 查询一组实体 in 语句-->
+    <select id="getModelInList" parameterType="hashmap" resultMap="resultMap">
+        <include refid="pageStart"/>
+        SELECT  <choose><when test="NotIgnore_!=null and NotIgnore_"><include refid="selectSqlNotIgnoreModel"/> </when><otherwise><include refid="selectSqlIgnoreModel"/></otherwise></choose>
+        <include refid="pageParam"/>
+        FROM  <include refid="tableSql"/>  WHERE  ID IN
+        <foreach item="id" index="index" collection="idList" open="(" separator="," close=")">#{id}</foreach>
+        <include refid="orderGroupLimit"/>
+        <include refid="pageEnd"/>
+    </select>
+    <!-- 查询一组实体的数量 -->
+    <select id="getModelListCount" parameterType="hashmap" resultType="int">
+        SELECT count(1)  FROM  <include refid="tableSql"/>  WHERE 1=1 <include refid="whereSqlModel"/> <include refid="orderGroupLimit"/>
+    </select>
+    <!-- 插入单个实体 遇到入参null转换成数据库NULL-->
+    <insert id="insertModel" parameterType="Dict"  useGeneratedKeys="true" keyProperty="id" >
+        <selectKey resultType="long" order="BEFORE" keyProperty="id">SELECT <choose><when test="id==null"> <include refid="sequenceNextValSql"/> </when><otherwise> #{id} </otherwise></choose>FROM DUAL</selectKey>
+        INSERT into <include refid="tableSql"/> (<include refid="douFieldSql"/>) values(<include refid="douValueSql"/>)
+    </insert>
+    <!-- 替换单个实体 如果没有则插入 遇到入参null转换成数据库NULL-->
+    <insert id="replaceModel" parameterType="Dict"  useGeneratedKeys="true" keyProperty="id" >
+        <!-- 很抱歉 oracle 没有像mysql replace into 这样 的语句-->
+    </insert>
+    <!-- 插入单个实体 遇到入参null转换成数据库默认值-->
+    <insert id="insertModelWithoutNull" parameterType="Dict"  useGeneratedKeys="true" keyProperty="id" >
+        <selectKey resultType="long" order="BEFORE" keyProperty="id">SELECT <choose><when test="id==null"> <include refid="sequenceNextValSql"/> </when><otherwise> #{id} </otherwise></choose>FROM DUAL</selectKey>
+        INSERT into <include refid="tableSql"/> (<include refid="douFieldWithoutNullSql"/>) values(<include refid="douValueWithoutNullSql"/>)
+    </insert>
+    <!-- 替换单个实体 如果没有则插入 遇到入参null转换成数据库默认值-->
+    <insert id="replaceModelWithoutNull" parameterType="Dict"  useGeneratedKeys="true" keyProperty="id" >
+        <!-- 很抱歉 oracle 没有像mysql replace into 这样 的语句-->
+    </insert>
+    <!-- 批量插入一组实体 -->
+    <insert id="batchInsertModel" parameterType="java.util.List"   useGeneratedKeys="false" keyProperty="id" >
+        INSERT all
+        <foreach collection="list" item="item" index="index" open="" close="" separator="">
+            into <include refid="tableSql"/> (<include refid="batchDouFieldSql"/>) values (<include refid="batchDouValueSql"/>)
+        </foreach>
+        SELECT 1 FROM DUAL
+    </insert>
+    <!-- 批量替换一组实体 -->
+    <insert id="batchReplaceModel" parameterType="java.util.List"  useGeneratedKeys="false" keyProperty="id" >
+        <!-- 很抱歉 oracle 没有像mysql replace into 这样 的语句-->
+    </insert>
+    <insert id="batchInsertModelWithoutNull" parameterType="java.util.List"   useGeneratedKeys="false" keyProperty="id" >
+        INSERT all
+        <foreach collection="list" item="item" index="index" open="" close="" separator="">
+            into <include refid="tableSql"/> (<include refid="batchDouFieldWithoutNullSql"/>) values (<include refid="batchDouValueWithoutNullSql"/>)
+        </foreach>
+        SELECT 1 FROM DUAL
+    </insert>
+    <insert id="batchReplaceModelWithoutNull" parameterType="java.util.List"  useGeneratedKeys="false" keyProperty="id" >
+        <!-- 很抱歉 oracle 没有像mysql replace into 这样 的语句-->
+    </insert>
+
+        <!-- 清空表 操作危险 慎用，暂时注销掉-->
+    <delete id="truncateModel">
+        -- truncate table <include refid="tableSql"/>
+    </delete>
+
+    <!-- 根据主键删除一个实体 magicalCoderPrimaryKeyName 框架封装-->
+    <delete id="deleteModelByPk" parameterType="hashmap">
+        DELETE FROM <include refid="tableSql"/> <include refid="magicalcoderPkWhereSql"/>
+    </delete>
+
+    <delete id="deleteModelList" parameterType="hashmap">
+        DELETE FROM <include refid="tableSql"/> WHERE 1=1 <include refid="whereSqlModel"/>
+    </delete>
+
+    <!-- 批量删除实体 in 根据主键-->
+    <delete id="deleteModelByIds" parameterType="java.util.Set">
+        DELETE FROM <include refid="tableSql"/> WHERE ID IN <foreach item="id" index="index" collection="collection" open="(" separator="," close=")">#{id}</foreach>
+    </delete>
+    <!-- 更新一个实体 -->
+    <update id="updateModel" parameterType="Dict">
+        UPDATE <include refid="tableSql"/> <include refid="updateSetSql"/> <include refid="updatePkWhereSql"/>
+    </update>
+    <!-- 更新一个实体 仅仅当被更新的字段不为空的时候才更新，否则忽略更新-->
+    <update id="updateModelWithoutNull" parameterType="Dict">
+        UPDATE <include refid="tableSql"/> <include refid="updateSetWithoutNullSql"/> <include refid="updatePkWhereSql"/>
+    </update>
+     <!-- 批量更新实体 传入一组实体，分别根据主键作为查询条件-->
+    <update id="batchUpdateModel" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+            UPDATE <include refid="tableSql"/> <include refid="batchUpdateSetSql"/> <include refid="batchUpdatePkWhereSql"/>
+        </foreach>
+    </update>
+    <update id="batchUpdateModelWithoutNull" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="begin" close=";end;" separator=";">
+            UPDATE <include refid="tableSql"/> <include refid="batchUpdateWithoutNullSetSql"/> <include refid="batchUpdatePkWhereSql"/>
+        </foreach>
+    </update>
+    <!-- sql 片段 -->
+   <sql id="selectSqlIgnoreModel">
+        <trim suffixOverrides=",">
+            <if test="idIgnore_ == null or !idIgnore_">ID,</if>
+            <if test="dictCategoryIgnore_ == null or !dictCategoryIgnore_">DICT_CATEGORY,</if>
+            <if test="codeIgnore_ == null or !codeIgnore_">CODE,</if>
+            <if test="nameIgnore_ == null or !nameIgnore_">NAME,</if>
+            <if test="dictDescriptionIgnore_ == null or !dictDescriptionIgnore_">DICT_DESCRIPTION,</if>
+            <if test="parentIdIgnore_ == null or !parentIdIgnore_">PARENT_ID,</if>
+            <if test="createTimeIgnore_ == null or !createTimeIgnore_">CREATE_TIME,</if>
+            <if test="updateTimeIgnore_ == null or !updateTimeIgnore_">UPDATE_TIME,</if>
+            <if test="orderNoIgnore_ == null or !orderNoIgnore_">ORDER_NO</if>
+        </trim>
+    </sql>
+    <sql id="selectSqlNotIgnoreModel">
+        <trim suffixOverrides=",">
+         <if test="idNotIgnore_ != null and idNotIgnore_">ID,</if>
+         <if test="dictCategoryNotIgnore_ != null and dictCategoryNotIgnore_">DICT_CATEGORY,</if>
+         <if test="codeNotIgnore_ != null and codeNotIgnore_">CODE,</if>
+         <if test="nameNotIgnore_ != null and nameNotIgnore_">NAME,</if>
+         <if test="dictDescriptionNotIgnore_ != null and dictDescriptionNotIgnore_">DICT_DESCRIPTION,</if>
+         <if test="parentIdNotIgnore_ != null and parentIdNotIgnore_">PARENT_ID,</if>
+         <if test="createTimeNotIgnore_ != null and createTimeNotIgnore_">CREATE_TIME,</if>
+         <if test="updateTimeNotIgnore_ != null and updateTimeNotIgnore_">UPDATE_TIME,</if>
+         <if test="orderNoNotIgnore_ != null and orderNoNotIgnore_">ORDER_NO</if>
+        </trim>
+    </sql>
+    <sql id="douFieldSql">
+        <trim suffixOverrides=",">
+            <if test="id!=null">"ID",</if> "DICT_CATEGORY","CODE","NAME","DICT_DESCRIPTION","PARENT_ID","CREATE_TIME","UPDATE_TIME","ORDER_NO",
+        </trim>
+    </sql>
+    <sql id="douValueSql">
+        <trim suffixOverrides=",">
+                <choose><when test="id!=null">#{id},</when></choose>
+                <choose><when test="dictCategory!=null">#{dictCategory},</when><otherwise>NULL,</otherwise></choose>
+                <choose><when test="code!=null">#{code},</when><otherwise>NULL,</otherwise></choose>
+                <choose><when test="name!=null">#{name},</when><otherwise>NULL,</otherwise></choose>
+                <choose><when test="dictDescription!=null">#{dictDescription},</when><otherwise>NULL,</otherwise></choose>
+                <choose><when test="parentId!=null">#{parentId},</when><otherwise>NULL,</otherwise></choose>
+                <choose><when test="createTime!=null">#{createTime,jdbcType=TIMESTAMP},</when><otherwise>NULL,</otherwise></choose>
+                <choose><when test="updateTime!=null">#{updateTime,jdbcType=TIMESTAMP},</when><otherwise>NULL,</otherwise></choose>
+                <choose><when test="orderNo!=null">#{orderNo},</when><otherwise>NULL,</otherwise></choose>
+        </trim>
+    </sql>
+
+    <sql id="douFieldWithoutNullSql">
+        <trim suffixOverrides=",">
+                <if test="id!=null">"ID",</if>
+                <if test="dictCategory!=null">"DICT_CATEGORY",</if>
+                <if test="code!=null">"CODE",</if>
+                <if test="name!=null">"NAME",</if>
+                <if test="dictDescription!=null">"DICT_DESCRIPTION",</if>
+                <if test="parentId!=null">"PARENT_ID",</if>
+                <if test="createTime!=null">"CREATE_TIME",</if>
+                <if test="updateTime!=null">"UPDATE_TIME",</if>
+                <if test="orderNo!=null">"ORDER_NO",</if>
+
+        </trim>
+    </sql>
+    <sql id="douValueWithoutNullSql">
+        <trim suffixOverrides=",">
+                <choose><when test="id!=null">#{id},</when></choose>
+                <choose><when test="dictCategory!=null">#{dictCategory},</when></choose>
+                <choose><when test="code!=null">#{code},</when></choose>
+                <choose><when test="name!=null">#{name},</when></choose>
+                <choose><when test="dictDescription!=null">#{dictDescription},</when></choose>
+                <choose><when test="parentId!=null">#{parentId},</when></choose>
+                <choose><when test="createTime!=null">#{createTime,jdbcType=TIMESTAMP},</when></choose>
+                <choose><when test="updateTime!=null">#{updateTime,jdbcType=TIMESTAMP},</when></choose>
+                <choose><when test="orderNo!=null">#{orderNo},</when></choose>
+        </trim>
+    </sql>
+    <sql id="batchDouFieldSql">
+        <trim suffixOverrides=",">
+                "ID",
+                "DICT_CATEGORY",
+                "CODE",
+                "NAME",
+                "DICT_DESCRIPTION",
+                "PARENT_ID",
+                "CREATE_TIME",
+                "UPDATE_TIME",
+                "ORDER_NO",
+
+        </trim>
+    </sql>
+    <sql id="batchDouValueSql">
+        <trim suffixOverrides=",">
+                <choose><when test="item.id!=null">#{item.id}</when><otherwise><include refid="sequenceNextValSql"/></otherwise></choose>,
+                <choose><when test="item.dictCategory!=null">#{item.dictCategory}</when><otherwise> NULL </otherwise></choose>,
+                <choose><when test="item.code!=null">#{item.code}</when><otherwise> NULL </otherwise></choose>,
+                <choose><when test="item.name!=null">#{item.name}</when><otherwise> NULL </otherwise></choose>,
+                <choose><when test="item.dictDescription!=null">#{item.dictDescription}</when><otherwise> NULL </otherwise></choose>,
+                <choose><when test="item.parentId!=null">#{item.parentId}</when><otherwise> NULL </otherwise></choose>,
+                <choose><when test="item.createTime!=null">#{item.createTime,jdbcType=TIMESTAMP}</when><otherwise> NULL </otherwise></choose>,
+                <choose><when test="item.updateTime!=null">#{item.updateTime,jdbcType=TIMESTAMP}</when><otherwise> NULL </otherwise></choose>,
+                <choose><when test="item.orderNo!=null">#{item.orderNo}</when><otherwise> NULL </otherwise></choose>,
+        </trim>
+    </sql>
+    <sql id="batchDouFieldWithoutNullSql">
+        <trim suffixOverrides=",">
+                <choose><when test="item.id!=null">"ID",</when><otherwise>"ID",</otherwise></choose>
+                <choose><when test="item.dictCategory!=null">"DICT_CATEGORY",</when><otherwise></otherwise></choose>
+                <choose><when test="item.code!=null">"CODE",</when><otherwise></otherwise></choose>
+                <choose><when test="item.name!=null">"NAME",</when><otherwise></otherwise></choose>
+                <choose><when test="item.dictDescription!=null">"DICT_DESCRIPTION",</when><otherwise></otherwise></choose>
+                <choose><when test="item.parentId!=null">"PARENT_ID",</when><otherwise></otherwise></choose>
+                <choose><when test="item.createTime!=null">"CREATE_TIME",</when><otherwise></otherwise></choose>
+                <choose><when test="item.updateTime!=null">"UPDATE_TIME",</when><otherwise></otherwise></choose>
+                <choose><when test="item.orderNo!=null">"ORDER_NO",</when><otherwise></otherwise></choose>
+
+        </trim>
+    </sql>
+    <sql id="batchDouValueWithoutNullSql">
+        <trim suffixOverrides=",">
+                <choose><when test="item.id!=null">#{item.id},</when><otherwise><include refid="sequenceNextValSql"/>,</otherwise></choose>
+                <choose><when test="item.dictCategory!=null">#{item.dictCategory},</when><otherwise></otherwise></choose>
+                <choose><when test="item.code!=null">#{item.code},</when><otherwise></otherwise></choose>
+                <choose><when test="item.name!=null">#{item.name},</when><otherwise></otherwise></choose>
+                <choose><when test="item.dictDescription!=null">#{item.dictDescription},</when><otherwise></otherwise></choose>
+                <choose><when test="item.parentId!=null">#{item.parentId},</when><otherwise></otherwise></choose>
+                <choose><when test="item.createTime!=null">#{item.createTime,jdbcType=TIMESTAMP},</when><otherwise></otherwise></choose>
+                <choose><when test="item.updateTime!=null">#{item.updateTime,jdbcType=TIMESTAMP},</when><otherwise></otherwise></choose>
+                <choose><when test="item.orderNo!=null">#{item.orderNo},</when><otherwise></otherwise></choose>
+        </trim>
+    </sql>
+    <sql id="updateSetSql">
+        <set>
+                    <choose> <when test="dictCategory!=null">DICT_CATEGORY=#{dictCategory}</when> <otherwise> DICT_CATEGORY=NULL</otherwise> </choose>,
+                    <choose> <when test="code!=null">CODE=#{code}</when> <otherwise> CODE=NULL</otherwise> </choose>,
+                    <choose> <when test="name!=null">NAME=#{name}</when> <otherwise> NAME=NULL</otherwise> </choose>,
+                    <choose> <when test="dictDescription!=null">DICT_DESCRIPTION=#{dictDescription}</when> <otherwise> DICT_DESCRIPTION=NULL</otherwise> </choose>,
+                    <choose> <when test="parentId!=null">PARENT_ID=#{parentId}</when> <otherwise> PARENT_ID=NULL</otherwise> </choose>,
+                    <choose> <when test="createTime!=null">CREATE_TIME=#{createTime,jdbcType=TIMESTAMP}</when> <otherwise> CREATE_TIME=NULL</otherwise> </choose>,
+                    <choose> <when test="updateTime!=null">UPDATE_TIME=#{updateTime,jdbcType=TIMESTAMP}</when> <otherwise> UPDATE_TIME=NULL</otherwise> </choose>,
+                    <choose> <when test="orderNo!=null">ORDER_NO=#{orderNo}</when> <otherwise> ORDER_NO=NULL</otherwise> </choose>,
+        </set>
+    </sql>
+    <sql id="updateSetWithoutNullSql">
+        <set>
+                    <choose><when test="dictCategory!=null">DICT_CATEGORY=#{dictCategory},</when></choose>
+                    <choose><when test="code!=null">CODE=#{code},</when></choose>
+                    <choose><when test="name!=null">NAME=#{name},</when></choose>
+                    <choose><when test="dictDescription!=null">DICT_DESCRIPTION=#{dictDescription},</when></choose>
+                    <choose><when test="parentId!=null">PARENT_ID=#{parentId},</when></choose>
+                    <choose><when test="createTime!=null">CREATE_TIME=#{createTime,jdbcType=TIMESTAMP},</when></choose>
+                    <choose><when test="updateTime!=null">UPDATE_TIME=#{updateTime,jdbcType=TIMESTAMP},</when></choose>
+                    <choose><when test="orderNo!=null">ORDER_NO=#{orderNo},</when></choose>
+        </set>
+    </sql>
+    <sql id="magicalcoderPkWhereSql">
+        WHERE 1=1
+            AND ID = #{magicalCoderPrimaryKeyName}
+    </sql>
+    <sql id="updatePkWhereSql">
+        WHERE 1=1
+            AND ID = #{id}
+    </sql>
+    <sql id="batchUpdateSetSql">
+        <set>
+                    <choose> <when test="item.dictCategory!=null">DICT_CATEGORY=#{item.dictCategory}</when> <otherwise> DICT_CATEGORY=NULL</otherwise> </choose>,
+                    <choose> <when test="item.code!=null">CODE=#{item.code}</when> <otherwise> CODE=NULL</otherwise> </choose>,
+                    <choose> <when test="item.name!=null">NAME=#{item.name}</when> <otherwise> NAME=NULL</otherwise> </choose>,
+                    <choose> <when test="item.dictDescription!=null">DICT_DESCRIPTION=#{item.dictDescription}</when> <otherwise> DICT_DESCRIPTION=NULL</otherwise> </choose>,
+                    <choose> <when test="item.parentId!=null">PARENT_ID=#{item.parentId}</when> <otherwise> PARENT_ID=NULL</otherwise> </choose>,
+                    <choose> <when test="item.createTime!=null">CREATE_TIME=#{item.createTime,jdbcType=TIMESTAMP}</when> <otherwise> CREATE_TIME=NULL</otherwise> </choose>,
+                    <choose> <when test="item.updateTime!=null">UPDATE_TIME=#{item.updateTime,jdbcType=TIMESTAMP}</when> <otherwise> UPDATE_TIME=NULL</otherwise> </choose>,
+                    <choose> <when test="item.orderNo!=null">ORDER_NO=#{item.orderNo}</when> <otherwise> ORDER_NO=NULL</otherwise> </choose>,
+        </set>
+    </sql>
+    <sql id="batchUpdateWithoutNullSetSql">
+        <set>
+                    <choose> <when test="item.dictCategory!=null">DICT_CATEGORY=#{item.dictCategory},</when></choose>
+                    <choose> <when test="item.code!=null">CODE=#{item.code},</when></choose>
+                    <choose> <when test="item.name!=null">NAME=#{item.name},</when></choose>
+                    <choose> <when test="item.dictDescription!=null">DICT_DESCRIPTION=#{item.dictDescription},</when></choose>
+                    <choose> <when test="item.parentId!=null">PARENT_ID=#{item.parentId},</when></choose>
+                    <choose> <when test="item.createTime!=null">CREATE_TIME=#{item.createTime,jdbcType=TIMESTAMP},</when></choose>
+                    <choose> <when test="item.updateTime!=null">UPDATE_TIME=#{item.updateTime,jdbcType=TIMESTAMP},</when></choose>
+                    <choose> <when test="item.orderNo!=null">ORDER_NO=#{item.orderNo},</when></choose>
+        </set>
+    </sql>
+    <sql id="batchUpdatePkWhereSql">
+        WHERE 1=1
+            AND ID = #{item.id}
+    </sql>
+    <!-- 这里可以加上表名@youyaboot数据库link名称 方便的切换数据库 由于oracle不同于其他数据库，需要自己建立CREATE DATABASE LINK youyabootlink,所以此处可以根据实际情况自己修改模板-->
+    <sql id="tableSql">
+        DICT
+    </sql>
+    <!--序列名默认使用SET_表名 如果您不是这样的取名风格，请手动修改下面的序列名 GET_SEQ_V_A_L_是应该通用函数 参考README.md-->
+    <sql id="sequenceNextValSql">
+        GET_SEQ_V_A_L_('SEQ_DICT')
+    </sql>
+   <sql id="whereSqlModel">
+        <if test="id!=null "> AND ID = #{id}</if>
+        <if test="dictCategory!=null "> AND DICT_CATEGORY = #{dictCategory}</if>
+        <if test="code!=null "> AND CODE = #{code}</if>
+        <if test="name!=null "> AND NAME = #{name}</if>
+        <if test="dictDescription!=null "> AND DICT_DESCRIPTION = #{dictDescription}</if>
+        <if test="parentId!=null "> AND PARENT_ID = #{parentId}</if>
+        <if test="createTime!=null "> AND CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}</if>
+        <if test="updateTime!=null "> AND UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}</if>
+        <if test="orderNo!=null "> AND ORDER_NO = #{orderNo}</if>
+                <if test="codeFirst!=null "> AND CODE <![CDATA[=]]>
+                            #{codeFirst}
+                </if>
+                <if test="nameFirst!=null "> AND NAME <![CDATA[like]]>
+                            CONCAT('%',#{nameFirst},'%')
+                </if>
+                <if test="parentIdFirst!=null "> AND PARENT_ID <![CDATA[=]]>
+                            #{parentIdFirst}
+                </if>
+        <!--<if test="whereSql!=null"> ${whereSql}</if>-->
+    </sql>
+
+    <sql id="safeGroupBy">
+        <if test="safeGroupBy!=null and safeGroupBy!=''">
+            group by
+            <choose>
+                <when test="safeGroupBy != null and safeGroupBy == 'ID'">  ID </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'DICT_CATEGORY'">  DICT_CATEGORY </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'CODE'">  CODE </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'NAME'">  NAME </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'DICT_DESCRIPTION'">  DICT_DESCRIPTION </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'PARENT_ID'">  PARENT_ID </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'CREATE_TIME'">  CREATE_TIME </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'UPDATE_TIME'">  UPDATE_TIME </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'ORDER_NO'">  ORDER_NO </when>
+            </choose>
+        </if>
+    </sql>
+    <sql id="safeOrderBy">
+        <if test="safeOrderBy!=null and safeOrderBy!=''">
+            <choose>
+                <when test="safeOrderBy != null and (safeOrderBy == 'ID desc'  or safeOrderBy == 'id desc')"> ORDER BY ID DESC </when>
+                <when test="safeOrderBy != null and (safeOrderBy == 'ID asc'  or safeOrderBy == 'id asc')"> ORDER BY ID ASC </when>
+                <when test="safeOrderBy != null and (safeOrderBy == 'DICT_CATEGORY desc'  or safeOrderBy == 'dict_category desc')"> ORDER BY DICT_CATEGORY DESC </when>
+                <when test="safeOrderBy != null and (safeOrderBy == 'DICT_CATEGORY asc'  or safeOrderBy == 'dict_category asc')"> ORDER BY DICT_CATEGORY ASC </when>
+                <when test="safeOrderBy != null and (safeOrderBy == 'CODE desc'  or safeOrderBy == 'code desc')"> ORDER BY CODE DESC </when>
+                <when test="safeOrderBy != null and (safeOrderBy == 'CODE asc'  or safeOrderBy == 'code asc')"> ORDER BY CODE ASC </when>
+                <when test="safeOrderBy != null and (safeOrderBy == 'NAME desc'  or safeOrderBy == 'name desc')"> ORDER BY NAME DESC </when>
+                <when test="safeOrderBy != null and (safeOrderBy == 'NAME asc'  or safeOrderBy == 'name asc')"> ORDER BY NAME ASC </when>
+                <when test="safeOrderBy != null and (safeOrderBy == 'DICT_DESCRIPTION desc'  or safeOrderBy == 'dict_description desc')"> ORDER BY DICT_DESCRIPTION DESC </when>
+                <when test="safeOrderBy != null and (safeOrderBy == 'DICT_DESCRIPTION asc'  or safeOrderBy == 'dict_description asc')"> ORDER BY DICT_DESCRIPTION ASC </when>
+                <when test="safeOrderBy != null and (safeOrderBy == 'PARENT_ID desc'  or safeOrderBy == 'parent_id desc')"> ORDER BY PARENT_ID DESC </when>
+                <when test="safeOrderBy != null and (safeOrderBy == 'PARENT_ID asc'  or safeOrderBy == 'parent_id asc')"> ORDER BY PARENT_ID ASC </when>
+                <when test="safeOrderBy != null and (safeOrderBy == 'CREATE_TIME desc'  or safeOrderBy == 'create_time desc')"> ORDER BY CREATE_TIME DESC </when>
+                <when test="safeOrderBy != null and (safeOrderBy == 'CREATE_TIME asc'  or safeOrderBy == 'create_time asc')"> ORDER BY CREATE_TIME ASC </when>
+                <when test="safeOrderBy != null and (safeOrderBy == 'UPDATE_TIME desc'  or safeOrderBy == 'update_time desc')"> ORDER BY UPDATE_TIME DESC </when>
+                <when test="safeOrderBy != null and (safeOrderBy == 'UPDATE_TIME asc'  or safeOrderBy == 'update_time asc')"> ORDER BY UPDATE_TIME ASC </when>
+                <when test="safeOrderBy != null and (safeOrderBy == 'ORDER_NO desc'  or safeOrderBy == 'order_no desc')"> ORDER BY ORDER_NO DESC </when>
+                <when test="safeOrderBy != null and (safeOrderBy == 'ORDER_NO asc'  or safeOrderBy == 'order_no asc')"> ORDER BY ORDER_NO ASC </when>
+            </choose>
+        </if>
+    </sql>
+
+    <sql id="orderGroupLimit">
+        <if test="limit == null">
+            <include refid="safeGroupBy"/>
+            <if test="notSafeGroupBy != null and notSafeGroupBy != ''"> GROUP BY ${notSafeGroupBy}</if>
+            <include refid="safeOrderBy"/>
+            <if test="notSafeOrderBy != null and notSafeOrderBy != ''"> ORDER BY ${notSafeOrderBy}</if>
+        </if>
+    </sql>
+    <!--说到这 sqlserver的分页实在是复杂 个人还是中意 mysql的 limit 不过为了兼容sqlserver各个版本 还是采取以下方式，不用offset了-->
+    <sql id="pageParam">
+        <if test="limit != null">
+            , ROW_NUMBER() OVER(<choose><when test="(safeOrderBy==null or safeOrderBy=='') and (notSafeOrderBy==null or notSafeOrderBy=='')"> ORDER BY ID </when><otherwise><include refid="safeOrderBy"/><if test="notSafeOrderBy != null and notSafeOrderBy != ''"> ORDER BY ${notSafeOrderBy}</if></otherwise></choose>)  AS MC_ROW_NUM_
+        </if>
+    </sql>
+    <sql id="pageStart">
+        <if test="limit != null">
+            SELECT * FROM  (
+        </if>
+    </sql>
+    <sql id="pageEnd">
+        <if test="limit != null">
+            ) MC_TMP_  WHERE <choose><when test="start != null">MC_ROW_NUM_ > #{start} AND MC_ROW_NUM_ <![CDATA[<=]]> #{start}+#{limit}</when><otherwise> MC_ROW_NUM_ <![CDATA[<=]]> #{limit}</otherwise></choose>
+        </if>
+    </sql>
+</mapper>

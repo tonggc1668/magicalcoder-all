@@ -1,0 +1,2 @@
+##批量导出数据库
+pg_dump --dbname=youyaboot --file=/home/postgresql/youyaboot.sql;

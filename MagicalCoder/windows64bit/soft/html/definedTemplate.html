@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>自定义模板</title>
+    <link href="assets/layui/css/layui.css" rel="stylesheet" media="all">
+    <style>
+        body {width: 100%;height: 100%;}
+        .layui-col-md12{
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="layui-fluid">
+    <div class="layui-row drag-mc-leaf-keep">
+        <div class="layui-col-md12">
+            <div class="layui-collapse tag-collapse drag-mc-leaf-keep">
+                <div class="layui-colla-item">
+                    <h2 class="layui-colla-title">使用说明:点我可查看详细帮助</h2>
+                    <div class="layui-colla-content">
+                        <div class="layui-row drag-mc-leaf-keep">
+                            <div class="layui-col-md12">
+                                <ul class="drag-mc-leaf-keep">
+                                    <li class="">此功能用于定制个性模板,第一次使用可以选择配置示例</li>
+                                    <li class="">{模板版本}指软件解压包\soft\vms下的目录名称,您可以为自己创建多个版本目录,便于老版本代码兼容,例如youyaboot_mysql;</li>
+                                    <li class="">{模板相对路径}指相对于{模板版本}下的剩余路径;.vm文件的相对路径</li>
+                                    <li class="">{代码保存相对路径}是相对于{代码保存目录}的剩余路径,也是最终输出代码的路径,路径中包含的(upvlc)分别代表变量名p:parent c:child u:Up l:lower v:variable (u)首字母大写如类名 (l)全部小写 (v)驼峰变量名 (pu)父类类名(pl)父类小写(pv)父类变量 (cu)子类类名(cl)子类小写(cv)子类变量 父类子类属于高级属性用于生成多个文件</li>
+                                    <li class="">{\soft\vms\MagicalCoderVmUtil.class}是模板中的工具类,也是给您用于扩展的类,请在你的工程新建vms.MagicalCoderVmUtil.java,编译完直接覆盖此文件(运行期无法删除只能覆盖,支持热部署),编写好工具方法后,便可以在模板中直接引用,参考soft\vms\demo.vm中的使用；具体参考视频教程自定义模板系列</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md12">
+            <label class="layui-form-label">当前数据库</label>
+            <div class="layui-input-block">
+                <div class="layui-inline">
+                    <div class="layui-input-inline" id="databaseName">youyaboot</div>
+                    <div class="layui-input-inline">
+                        <label class="layui-form-label">模板版本</label>
+                    </div>
+                    <div class="layui-input-inline">
+                        <input type="text" placeholder="vms下的文件夹名称" autocomplete="off" class="layui-input" id="vmVersion">
+                    </div>
+                    <div class="layui-input-inline">
+                        <a class="layui-btn" id="saveAs">另存为新的配置示例</a>
+                        <a class="layui-btn" id="deleteAs">删除此配置示例</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md12" style="margin-top: 10px;">
+            <label class="layui-form-label">配置示例</label>
+            <div class="layui-input-block">
+                <div class="layui-btn-group" id="configDemo">
+                    <button class="layui-btn example"  name="youyaboot_mysql">youyaboot_mysql</button>
+                    <button class="layui-btn example"  name="youyaboot_oracle">youyaboot_oracle</button>
+                    <button class="layui-btn example"  name="youyaboot_postgresql">youyaboot_postgresql</button>
+                    <button class="layui-btn example"  name="youyaboot_sqlserver">youyaboot_sqlserver</button>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md12">
+            <label class="layui-form-label">表格操作</label>
+            <div class="layui-input-block">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <button class="layui-btn "  name="save">保存</button>
+                        <button class="layui-btn "  name="add">新增</button>
+                        <button class="layui-btn  layui-btn-danger"  name="clear">清空</button>
+                    </div>
+                    <div class="layui-inline">
+                        <div class="layui-input-inline">
+                            <input type="text" placeholder="输入查找字符串" autocomplete="off" class="layui-input" id="source" name="source">
+                        </div>
+                        <div class="layui-form-mid">-</div>
+                        <div class="layui-input-inline">
+                            <input type="text" placeholder="输入替换后的字符串" autocomplete="off" class="layui-input" id="target" name="target">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <div class="layui-input-inline">
+                            <button class="layui-btn " name="replace">立即替换</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md12">
+            <label class="layui-form-label">
+            </label>
+            <table class="layui-table">
+                <thead>
+                <tr class="">
+                    <th  width="30%" class="" title="指相对于{模板版本}下的剩余路径">模板相对路径:相对于soft/vms/{模板版本}</th>
+                    <th  width="50%" class="" title="(u)首字母大写如类名 (l)全部小写 (v)驼峰变量名(pu)父类类名(pl)父类小写(pv)父类变量(cu)子类类名(cl)子类小写(cv)子类变量 父类子类属于高级属性用于生成多个文件">代码保存相对路径:相对于主界面{代码保存目录}</th>
+                    <th  width="20%" class="">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+<script type='text/javascript' src="js/jquery-min-1.8.2.js"></script>
+<script type='text/javascript' src="js/definedTemplate.js"></script>
+<script type="text/javascript" src="assets/layui/layui.js"></script>
+<script>
+
+    layui.use(['jquery','form','element','layer'], function(){
+        var form = layui.form,element=layui.element,$=layui.jquery
+        var layer = layui.layer;
+        form.render()
+        //各种基于事件的操作，下面会有进一步介绍
+        var definedTemplate = new DefinedTemplate(layer);
+        definedTemplate.init();
+    });
+</script>
+</html>

@@ -1,0 +1,319 @@
+#parse("vms/$version/common/variable/head.vm")
+##找出主键
+#parse("vms/$version/common/asert/priorityKey.vm")
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+#parse("vms/$version/common/comment/XmlDesc.vm")
+#set($Y='`')
+<mapper namespace="com.${companyName}.${projectName}.service.${lowerEntity}.mapper.${Entity}Mapper">
+    <!-- ${Entity} -->
+    #* 不用<where>标签 有利于保护代码 避免因null导致清库 获取全量更新 *#
+    <resultMap id="resultMap" type="$Entity">
+        #foreach( $node in $nodeList)
+            #if($node.dbField.dbPriorityKey)
+                <id column="$node.dbField.dbRealName" property="$node.dbField.javaField"/>
+            #else
+                <result column="$node.dbField.dbRealName" property="$node.dbField.javaField" #if($node.dbField.dbType == '2004')typeHandler="org.apache.ibatis.type.BlobTypeHandler"#elseif($node.dbField.dbType=='2005')typeHandler="org.apache.ibatis.type.ClobTypeHandler"#end/>
+            #end
+        #end
+    </resultMap>
+    <!-- 查询单个实体 -->
+    <select id="getModel" parameterType="hashmap" resultMap="resultMap">
+        select  <choose><when test="NotIgnore_!=null and NotIgnore_"><include refid="selectSqlNotIgnoreModel"/> </when><otherwise><include refid="selectSqlIgnoreModel"/></otherwise></choose>
+        from  <include refid="tableSql"/>  where 1=1 <include refid="whereSqlModel"/> <include refid="orderGroupLimit"/>
+    </select>
+    <!--根据主键 查询单个实体 -->
+    <select id="getModelByPk" parameterType="hashmap" resultMap="resultMap">
+        select  <choose><when test="NotIgnore_!=null and NotIgnore_"><include refid="selectSqlNotIgnoreModel"/> </when><otherwise><include refid="selectSqlIgnoreModel"/></otherwise></choose>
+        from  <include refid="tableSql"/>  <include refid="magicalcoderPkWhereSql"/>
+    </select>
+    <!-- 查询一组实体 -->
+    <select id="getModelList" parameterType="hashmap" resultMap="resultMap">
+        select  <choose><when test="NotIgnore_!=null and NotIgnore_"><include refid="selectSqlNotIgnoreModel"/> </when><otherwise><include refid="selectSqlIgnoreModel"/></otherwise></choose>
+        from  <include refid="tableSql"/>  where 1=1 <include refid="whereSqlModel"/> <include refid="orderGroupLimit"/>
+    </select>
+    <!-- 查询一组实体 in 语句-->
+    <select id="getModelInList" parameterType="hashmap" resultMap="resultMap">
+        select  <choose><when test="NotIgnore_!=null and NotIgnore_"><include refid="selectSqlNotIgnoreModel"/> </when><otherwise><include refid="selectSqlIgnoreModel"/></otherwise></choose>
+        from  <include refid="tableSql"/>  where  ${Y}$dbPriorityKeySqlField${Y} in
+        <foreach item="id" index="index" collection="idList" open="(" separator="," close=")">#{id}</foreach>
+        <include refid="orderGroupLimit"/>
+    </select>
+    <!-- 查询一组实体的数量 -->
+    <select id="getModelListCount" parameterType="hashmap" resultType="int">
+        select count(1)  from  <include refid="tableSql"/>  where 1=1 <include refid="whereSqlModel"/> <include refid="orderGroupLimit"/>
+    </select>
+    <!-- 插入单个实体 遇到入参null转换成数据库NULL-->
+    <insert id="insertModel" parameterType="$Entity" #if($hasDbPriorityKey) useGeneratedKeys="true" keyProperty="$dbPriorityKeyJavaField" #end>
+        insert into <include refid="tableSql"/> (<include refid="douFieldSql"/>) values(<include refid="douValueSql"/>)
+    </insert>
+    <!-- 替换单个实体 如果没有则插入 遇到入参null转换成数据库NULL-->
+    <insert id="replaceModel" parameterType="$Entity" #if($hasDbPriorityKey) useGeneratedKeys="true" keyProperty="$dbPriorityKeyJavaField" #end>
+        replace into <include refid="tableSql"/> (<include refid="douFieldSql"/>) values(<include refid="douValueSql"/>)
+    </insert>
+    <!-- 插入单个实体 遇到入参null转换成数据库默认值-->
+    <insert id="insertModelWithoutNull" parameterType="$Entity" #if($hasDbPriorityKey) useGeneratedKeys="true" keyProperty="$dbPriorityKeyJavaField" #end>
+        insert into <include refid="tableSql"/> (<include refid="douFieldWithoutNullSql"/>) values(<include refid="douValueWithoutNullSql"/>)
+    </insert>
+    <!-- 替换单个实体 如果没有则插入 遇到入参null转换成数据库默认值-->
+    <insert id="replaceModelWithoutNull" parameterType="$Entity" #if($hasDbPriorityKey) useGeneratedKeys="true" keyProperty="$dbPriorityKeyJavaField" #end>
+        replace into <include refid="tableSql"/> (<include refid="douFieldWithoutNullSql"/>) values(<include refid="douValueWithoutNullSql"/>)
+    </insert>
+    <!-- 批量插入一组实体 -->
+    <insert id="batchInsertModel" parameterType="java.util.List"  #if($hasDbPriorityKey) useGeneratedKeys="true" keyProperty="$dbPriorityKeyJavaField" #end>
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            insert into <include refid="tableSql"/> (<include refid="batchDouFieldSql"/>) values (<include refid="batchDouValueSql"/>)
+        </foreach>
+    </insert>
+    <!-- 批量替换一组实体 -->
+    <insert id="batchReplaceModel" parameterType="java.util.List" #if($hasDbPriorityKey) useGeneratedKeys="true" keyProperty="$dbPriorityKeyJavaField" #end>
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            replace into <include refid="tableSql"/> (<include refid="batchDouFieldSql"/>) values (<include refid="batchDouValueSql"/>)
+        </foreach>
+    </insert>
+    <insert id="batchInsertModelWithoutNull" parameterType="java.util.List"  #if($hasDbPriorityKey) useGeneratedKeys="true" keyProperty="$dbPriorityKeyJavaField" #end>
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            insert into <include refid="tableSql"/> (<include refid="batchDouFieldWithoutNullSql"/>) values (<include refid="batchDouValueWithoutNullSql"/>)
+        </foreach>
+    </insert>
+    <insert id="batchReplaceModelWithoutNull" parameterType="java.util.List" #if($hasDbPriorityKey) useGeneratedKeys="true" keyProperty="$dbPriorityKeyJavaField" #end>
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            replace into <include refid="tableSql"/> (<include refid="batchDouFieldWithoutNullSql"/>) values (<include refid="batchDouValueWithoutNullSql"/>)
+        </foreach>
+    </insert>
+
+        <!-- 清空表 操作危险 慎用，暂时注销掉-->
+    <delete id="truncateModel">
+        -- truncate table <include refid="tableSql"/>
+    </delete>
+
+    <!-- 根据主键删除一个实体 magicalCoderPrimaryKeyName 框架封装-->
+    <delete id="deleteModelByPk" parameterType="hashmap">
+        delete from <include refid="tableSql"/> <include refid="magicalcoderPkWhereSql"/>
+    </delete>
+
+    <delete id="deleteModelList" parameterType="hashmap">
+        delete from <include refid="tableSql"/> where 1=1 <include refid="whereSqlModel"/>
+    </delete>
+
+#if($hasDbPriorityKey)
+    <!-- 批量删除实体 in 根据主键-->
+    <delete id="deleteModelByIds" parameterType="java.util.Set">
+        delete from <include refid="tableSql"/> where ${Y}$dbPriorityKeySqlField${Y} in <foreach item="id" index="index" collection="collection" open="(" separator="," close=")">#{id}</foreach>
+    </delete>
+#end
+    <!-- 更新一个实体 -->
+    <update id="updateModel" parameterType="$Entity">
+        update <include refid="tableSql"/> <include refid="updateSetSql"/> <include refid="updatePkWhereSql"/>
+    </update>
+    <!-- 更新一个实体 仅仅当被更新的字段不为空的时候才更新，否则忽略更新-->
+    <update id="updateModelWithoutNull" parameterType="$Entity">
+        update <include refid="tableSql"/> <include refid="updateSetWithoutNullSql"/> <include refid="updatePkWhereSql"/>
+    </update>
+     <!-- 批量更新实体 传入一组实体，分别根据主键作为查询条件-->
+    <update id="batchUpdateModel" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update <include refid="tableSql"/> <include refid="batchUpdateSetSql"/> <include refid="batchUpdatePkWhereSql"/>
+        </foreach>
+    </update>
+    <update id="batchUpdateModelWithoutNull" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update <include refid="tableSql"/> <include refid="batchUpdateWithoutNullSetSql"/> <include refid="batchUpdatePkWhereSql"/>
+        </foreach>
+    </update>
+    <!-- sql 片段 -->
+   <sql id="selectSqlIgnoreModel">
+        <trim suffixOverrides=",">
+    #foreach( $node in $nodeList)
+        #parse("vms/$version/common/util/douHao.vm")
+            <if test="${node.dbField.javaField}Ignore_ == null or !${node.dbField.javaField}Ignore_">${Y}$node.dbField.dbRealName${Y}#if($douHao),#end</if>
+    #end
+        </trim>
+    </sql>
+    <sql id="selectSqlNotIgnoreModel">
+        <trim suffixOverrides=",">
+    #foreach( $node in $nodeList)
+        #parse("vms/$version/common/util/douHao.vm")
+	        <if test="${node.dbField.javaField}NotIgnore_ != null and ${node.dbField.javaField}NotIgnore_">${Y}$node.dbField.dbRealName${Y}#if($douHao),#end</if>
+    #end
+        </trim>
+    </sql>
+    #*单表sql mysql十分强大 如果主键null 它会自动使用自增 *#
+    <sql id="douFieldSql">
+        <trim suffixOverrides=",">
+            #foreach($node in $nodeList)
+                #if($node.dbField.dbPriorityKey)            <if test="$node.dbField.javaField!=null">${Y}$node.dbField.dbRealName${Y},</if> #else${Y}$node.dbField.dbRealName${Y},#end
+            #end
+
+        </trim>
+    </sql>
+    <sql id="douValueSql">
+        <trim suffixOverrides=",">
+            #foreach( $node in $nodeList)
+                <choose><when test="$node.dbField.javaField!=null">#{$node.dbField.javaField#if($CreateVmUtil.isTimestemp($node.dbField.javaType)),jdbcType=TIMESTAMP#end},</when>#if(!$node.dbField.dbPriorityKey)<otherwise>NULL,</otherwise>#end</choose>
+            #end
+        </trim>
+    </sql>
+
+    <sql id="douFieldWithoutNullSql">
+        <trim suffixOverrides=",">
+            #foreach($node in $nodeList)
+                <if test="$node.dbField.javaField!=null">${Y}$node.dbField.dbRealName${Y},</if>
+            #end
+
+        </trim>
+    </sql>
+    <sql id="douValueWithoutNullSql">
+        <trim suffixOverrides=",">
+            #foreach( $node in $nodeList)
+                <choose><when test="$node.dbField.javaField!=null">#{$node.dbField.javaField#if($CreateVmUtil.isTimestemp($node.dbField.javaType)),jdbcType=TIMESTAMP#end},</when></choose>
+            #end
+        </trim>
+    </sql>
+    #*批量sql 暂时无法得知主键策略 先按数据库自增处理 *#
+    <sql id="batchDouFieldSql">
+        <trim suffixOverrides=",">
+            #foreach($node in $nodeList)
+                #if($node.dbField.dbPriorityKey)                <if test="item.$node.dbField.javaField!=null">${Y}$node.dbField.dbRealName${Y},</if> #else${Y}$node.dbField.dbRealName${Y},#end
+            #end
+
+        </trim>
+    </sql>
+    <sql id="batchDouValueSql">
+        <trim suffixOverrides=",">
+            #foreach( $node in $nodeList)
+                <choose><when test="item.$node.dbField.javaField!=null">#{item.$node.dbField.javaField#if($CreateVmUtil.isTimestemp($node.dbField.javaType)),jdbcType=TIMESTAMP#end},</when>#if(!$node.dbField.dbPriorityKey)<otherwise>NULL,</otherwise>#end</choose>
+            #end
+        </trim>
+    </sql>
+    <sql id="batchDouFieldWithoutNullSql">
+        <trim suffixOverrides=",">
+            #foreach($node in $nodeList)
+                <if test="item.$node.dbField.javaField!=null">${Y}$node.dbField.dbRealName${Y},</if>
+            #end
+
+        </trim>
+    </sql>
+    <sql id="batchDouValueWithoutNullSql">
+        <trim suffixOverrides=",">
+            #foreach( $node in $nodeList)
+                <choose><when test="item.$node.dbField.javaField!=null">#{item.$node.dbField.javaField#if($CreateVmUtil.isTimestemp($node.dbField.javaType)),jdbcType=TIMESTAMP#end},</when></choose>
+            #end
+        </trim>
+    </sql>
+    <sql id="updateSetSql">
+        <set>
+            #foreach( $node in $nodeList)
+                #if(!$node.dbField.dbPriorityKey)
+                    <choose> <when test="$node.dbField.javaField!=null">${Y}${node.dbField.dbRealName}${Y}=#{$node.dbField.javaField#if($node.dbField.javaType == 'Date' || $node.dbField.javaType == 'Time' || $node.dbField.javaType == 'Timestamp'),jdbcType=TIMESTAMP#end}</when> <otherwise> ${Y}${node.dbField.dbRealName}${Y}=NULL</otherwise> </choose>,
+                #end
+            #end
+        </set>
+    </sql>
+    <sql id="updateSetWithoutNullSql">
+        <set>
+            #foreach( $node in $nodeList)
+                #if(!$node.dbField.dbPriorityKey)
+                    <choose><when test="$node.dbField.javaField!=null">${Y}${node.dbField.dbRealName}${Y}=#{$node.dbField.javaField#if($node.dbField.javaType == 'Date' || $node.dbField.javaType == 'Time' || $node.dbField.javaType == 'Timestamp'),jdbcType=TIMESTAMP#end},</when></choose>
+                #end
+            #end
+        </set>
+    </sql>
+    <sql id="magicalcoderPkWhereSql">
+        where 1=1
+    ##普通查询属性
+        #if($hasDbPriorityKey)
+            and ${Y}$dbPriorityKeySqlField${Y} = #{magicalCoderPrimaryKeyName}
+        #elseif($hasDbUniqueNodes)
+            #foreach($uniqueNode in $dbUniqueNodes)
+                and ${Y}$uniqueNode.dbField.dbRealName${Y} = #{magicalCoderPrimaryKeyName}
+            #end
+        #end
+    </sql>
+    <sql id="updatePkWhereSql">
+        where 1=1
+        #if($hasDbPriorityKey)
+            and ${Y}$dbPriorityKeySqlField${Y} = #{$dbPriorityKeyJavaField}
+        #elseif($hasDbUniqueNodes)
+            #foreach($uniqueNode in $dbUniqueNodes)
+                and ${Y}$uniqueNode.dbField.dbRealName${Y} = #{$uniqueNode.dbField.javaField}
+            #end
+        #end
+    </sql>
+    <sql id="batchUpdateSetSql">
+        <set>
+            #foreach( $node in $nodeList)
+                #if(!$node.dbField.dbPriorityKey)
+                    <choose> <when test="item.$node.dbField.javaField!=null">${Y}${node.dbField.dbRealName}${Y}=#{item.$node.dbField.javaField#if($node.dbField.javaType == 'Date' || $node.dbField.javaType == 'Time' || $node.dbField.javaType == 'Timestamp'),jdbcType=TIMESTAMP#end}</when> <otherwise> ${Y}${node.dbField.dbRealName}${Y}=NULL</otherwise> </choose>,
+                #end
+            #end
+        </set>
+    </sql>
+    <sql id="batchUpdateWithoutNullSetSql">
+        <set>
+            #foreach( $node in $nodeList)
+                #if(!$node.dbField.dbPriorityKey)
+                    <choose> <when test="item.$node.dbField.javaField!=null">${Y}${node.dbField.dbRealName}${Y}=#{item.$node.dbField.javaField#if($node.dbField.javaType == 'Date' || $node.dbField.javaType == 'Time' || $node.dbField.javaType == 'Timestamp'),jdbcType=TIMESTAMP#end},</when></choose>
+                #end
+            #end
+        </set>
+    </sql>
+    <sql id="batchUpdatePkWhereSql">
+        where 1=1
+        #if($hasDbPriorityKey)
+            and ${Y}$dbPriorityKeySqlField${Y} = #{item.$dbPriorityKeyJavaField}
+        #elseif($hasDbUniqueNodes)
+            #foreach($uniqueNode in $dbUniqueNodes)
+                and ${Y}$uniqueNode.dbField.dbRealName${Y} = #{item.$uniqueNode.dbField.javaField}
+            #end
+        #end
+    </sql>
+    <!-- 这里可以加上数据库名称 方便的切换数据库-->
+    <sql id="tableSql">
+        ${databaseRealName}.${tableRealName}
+    </sql>
+
+   <sql id="whereSqlModel">
+##普通查询属性
+#foreach( $node in $nodeList)
+    #if($node.dbField.javaType == 'Date' || $node.dbField.javaType == 'Time' || $node.dbField.javaType == 'Timestamp')
+        <if test="$node.dbField.javaField!=null "> and ${Y}$node.dbField.dbRealName${Y} = #{$node.dbField.javaField,jdbcType=TIMESTAMP}</if>
+    #else
+        <if test="$node.dbField.javaField!=null "> and ${Y}$node.dbField.dbRealName${Y} = #{$node.dbField.javaField}</if>
+    #end
+#end
+   #parse("vms/$version/sql/include/query/where.vm")
+        <!--<if test="whereSql!=null"> ${whereSql}</if>-->
+    </sql>
+
+    <sql id="safeGroupBy">
+        <if test="safeGroupBy!=null and safeGroupBy!=''">
+            group by
+            <choose>
+            #foreach( $node in $nodeList)
+                <when test="safeGroupBy != null and safeGroupBy == '$node.dbField.dbRealName'">  ${Y}$node.dbField.dbRealName${Y} </when>
+            #end
+            </choose>
+        </if>
+    </sql>
+    <sql id="safeOrderBy">
+        <if test="safeOrderBy!=null and safeOrderBy!=''">
+            <choose>
+                #foreach( $node in $nodeList)
+                <when test="safeOrderBy != null and safeOrderBy == '$node.dbField.dbRealName desc'"> order by  ${Y}$node.dbField.dbRealName${Y} desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == '$node.dbField.dbRealName asc'"> order by ${Y}$node.dbField.dbRealName${Y} asc </when>
+                #end
+            </choose>
+        </if>
+    </sql>
+
+    <sql id="orderGroupLimit">
+        <include refid="safeGroupBy"/>
+        <if test="notSafeGroupBy != null and notSafeGroupBy != ''"> group by ${notSafeGroupBy}</if>
+        <include refid="safeOrderBy"/>
+        <if test="notSafeOrderBy != null and notSafeOrderBy != ''"> order by ${notSafeOrderBy}</if>
+        <if test="limit != null"> LIMIT <if test="start != null">#{start},</if>#{limit} </if>
+    </sql>
+
+</mapper>

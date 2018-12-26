@@ -1,0 +1,17 @@
+#parse("vms/$version/common/variable/head.vm")
+#parse("vms/$version/common/asert/hasBigDecimal.vm")
+#parse("vms/$version/common/asert/hasDateQuery.vm")
+#parse("vms/$version/common/asert/oneToMany.vm")
+package com.${companyName}.${projectName}.model.defined;
+
+import com.${companyName}.${projectName}.model.${otmManyCB.dbField.foreignVmDbFieldNode.dbTable.upEntity};
+import lombok.Data;
+import java.sql.*;
+import java.math.*;
+#parse("vms/$version/common/comment/ClassDesc.vm")
+@Data
+public class ${Entity}Many extends ${otmManyCB.dbField.foreignVmDbFieldNode.dbTable.upEntity}{
+
+    private $otmManyCB.dbField.javaType $otmManyCB.dbField.javaField;//$otmManyCB.dbField.dbComment
+
+}

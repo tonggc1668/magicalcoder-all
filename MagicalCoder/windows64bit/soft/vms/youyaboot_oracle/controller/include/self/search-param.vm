@@ -1,0 +1,12 @@
+##查询入参
+#set($needSearch = false)
+#foreach($node in $nodeList)
+    #set($inputType = $node.formItem.inputType)
+    #if($node.formQueryList)
+        #foreach($formQuery in $node.formQueryList)
+            #if($formQuery.foreignInputSelectShow == 1)
+                #set($needSearch = true)
+            #end
+        #end
+    #end
+#end

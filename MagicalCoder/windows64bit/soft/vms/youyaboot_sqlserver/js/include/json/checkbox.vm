@@ -1,0 +1,23 @@
+## 智能控制是switch 还是radio
+
+#set($selectValueList = $TableFieldUtil.selectValueList($node.formItem.selectValue))
+#foreach($sv in $selectValueList)
+
+#end
+
+{field: '$node.dbField.javaField', title: '$node.formItem.title', align:'center', templet:function(d){
+    var checked = d.$node.dbField.javaField ? 'checked' : '';
+    var html = []
+    var checked
+    #foreach($sv in $selectValueList)
+    if(d.$node.dbField.javaField == $sv.key){
+        checked = "checked"
+    }else{
+        checked = ""
+    }
+    html.push('<input type="checkbox" '+checked+' class="magicalcoder-table-checkbox security_list_table_form_$node.dbField.javaField" name="${node.dbField.javaField}[\'$sv.key\']" title="$sv.value"/>')
+    #end
+    return html.join('')
+    }
+    ,sort:$node.viewTable.sort
+},

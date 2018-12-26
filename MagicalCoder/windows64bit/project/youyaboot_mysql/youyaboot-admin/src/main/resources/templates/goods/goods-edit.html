@@ -1,0 +1,111 @@
+
+<!--
+代码为自动生成 Created by www.magicalcoder.com
+ 如果你改变了此类 read 请将此行删除
+ 欢迎加入官方QQ群:323237052
+-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head  th:include="magicalcoder/v001/include/head :: commonHead('商品编辑')"/>
+
+<body class="childrenBody layui-hide">
+<form class="layui-form" style="width:80%;">
+
+        <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_id">
+        <label class="layui-form-label">ID</label>
+        <div class="layui-input-block">
+            <input type="text" disabled="true" class="layui-input" name="id"  placeholder="主键自动生成，无需手动编辑,如果重置则变成增加数据"/>
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_goodsName">
+        <label class="layui-form-label">商品名称</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="goodsName" placeholder="请输入商品名称" lay-verify="magicalCoderVerify" magicalcoder-verify="" value="" />
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_publishStatus">
+        <label class="layui-form-label">是否发布</label>
+        <div class="layui-input-block">
+            <input type="checkbox" name="publishStatus" lay-skin="switch" lay-text="是|否" lay-verify="magicalCoderVerify" magicalcoder-verify=""  />
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_goodsStatus">
+        <label class="layui-form-label">商品状态</label>
+        <div class="layui-input-block">
+            <select name="goodsStatus" class="layui-input" lay-verify="magicalCoderVerify" magicalcoder-verify=""  placeholder="商品状态">
+                <option value="0" >已发布</option>
+                <option value="1" >待审核</option>
+                <option value="2" >初始</option>
+                <option value="3" >特殊</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_price">
+        <label class="layui-form-label">价格</label>
+        <div class="layui-input-block">
+            <input type="text" class="magicalcoder-rate layui-input" name="price" placeholder="请输入价格" lay-verify="magicalCoderVerify" magicalcoder-verify="" value="" />
+            <div name="priceRate"></div>
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_storeCount">
+        <label class="layui-form-label">库存</label>
+        <div class="layui-input-block">
+            <input type="text" class="magicalcoder-slider layui-input" name="storeCount" placeholder="请输入库存" lay-verify="magicalCoderVerify|mc_required|mc_number|mc_digits" magicalcoder-verify="|minValues=1|maxValues=12|minLength=1|maxLength=2|definedOne=\d+" value="0 " />
+            <div name="storeCountSlider"></div>
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_shortBrief">
+        <label class="layui-form-label">简介</label>
+        <div class="layui-input-block">
+            <textarea name="shortBrief" placeholder="请输入简介" class="magicalcoder-code layui-textarea" lay-verify="magicalCoderVerify" magicalcoder-verify="" ></textarea>
+            <pre class="layui-code" name="shortBriefCode"></pre>
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_goodsDescription">
+        <label class="layui-form-label">描述</label>
+        <div class="layui-input-block">
+            <textarea id="goodsDescription" name="goodsDescription" placeholder="请输入描述"   class="magicalcoder-layedit layui-textarea layui-hide" lay-verify="goodsDescriptionVerifyEdit|magicalCoderVerify" magicalcoder-verify="" ></textarea>
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_createTime">
+        <label class="layui-form-label">创建时间</label>
+        <div class="layui-input-block">
+            <input type="text"  name="createTime" placeholder="请选择创建时间"  autocomplete="off" class="magicalcoder-laydate layui-input" lay-verify="magicalCoderVerify" magicalcoder-verify="" value="" />
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_updateTime">
+        <label class="layui-form-label">更新时间</label>
+        <div class="layui-input-block">
+            <input type="text"  name="updateTime" placeholder="请选择更新时间"  autocomplete="off" class="magicalcoder-laydate layui-input" lay-verify="magicalCoderVerify" magicalcoder-verify="" value="" />
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_imgSrc">
+        <label class="layui-form-label">图片地址</label>
+        <div class="layui-input-block">
+            <a class="layui-btn a_imgSrc " >
+                <i class="layui-icon" >&#xe67c;</i>上传文件或图片
+            </a>
+            <input class="magicalcoder-layupload layui-input" name="imgSrc" type="text" lay-verify="magicalCoderVerify" magicalcoder-verify="" value=""  placeholder="图片地址"/>
+            <div class="layui-upload-list">
+                <img class="layui-textarea layui-upload-img img_imgSrc" />
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_goodsCategoryId">
+        <label class="layui-form-label">所属商品</label>
+        <div class="layui-input-block">
+            <select name="goodsCategoryId"  data-url="admin/goods_category_rest/search" data-id="id" data-text-fields="name,keyword" class="magicalcoder-foreign-select2 layui-input" lay-ignore="true" lay-verify="magicalCoderVerify" magicalcoder-verify="" data-value=""  placeholder="所属商品"><option value=""></option></select>
+        </div>
+    </div>
+
+    <div class="layui-form-item layui-row layui-col-xs12">
+        <div class="layui-input-block">
+            <button class="layui-btn security_edit_form_operate_save" lay-submit="" lay-filter="save">立即提交</button>
+            <button type="reset" class="layui-hide layui-btn layui-btn-primary" >重置</button>
+        </div>
+    </div>
+</form>
+    <div th:replace="magicalcoder/v001/include/main-js :: commonMain" />
+    <script type="text/javascript"  th:src="@{/assets/admin/goods/goods-edit.js}"></script>
+</body>
+</html>

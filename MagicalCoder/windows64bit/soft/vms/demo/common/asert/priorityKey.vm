@@ -1,0 +1,22 @@
+##自增主键
+#set($hasDbPriorityKey = false)
+#set($hasAutoIncrease = false)
+#set($dbPriorityKeySqlField = '')
+#set($dbPriorityKeyJavaField = '')
+#set($dbPriorityKeyJavaType = '')
+#set($dbPriorityKeyJavaGetName = '')
+#set($dbPriorityKeyJavaSetName = '')
+#foreach( $node in $nodeList)
+    #if($node.dbField.dbAutoIncrease)
+        #set($dbPriorityKeySqlField = $node.dbField.dbName)
+        #set($dbPriorityKeyJavaField = $node.dbField.javaField)
+        #set($dbPriorityKeyJavaType = $node.dbField.javaType)
+        #set($dbPriorityKeyJavaGetName = $node.dbField.javaGetName)
+        #set($dbPriorityKeyJavaSetName = $node.dbField.javaSetName)
+        #set($hasDbPriorityKey = true)
+        #set($hasAutoIncrease = true)
+    #end
+#end
+##唯一键
+#set($dbUniqueNodes = $TableFieldUtil.uniqueNodes($nodeList))
+#set($hasDbUniqueNodes = ($dbUniqueNodes && $dbUniqueNodes.size()>0))

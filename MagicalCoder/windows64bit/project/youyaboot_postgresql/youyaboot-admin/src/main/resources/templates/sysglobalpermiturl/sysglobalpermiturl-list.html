@@ -1,0 +1,45 @@
+<!--
+代码为自动生成 Created by www.magicalcoder.com
+ 如果你改变了此类 read 请将此行删除
+ 欢迎加入官方QQ群:323237052
+-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head  th:include="magicalcoder/v001/include/head :: commonHead('后端请求地址全局允许过滤器列表')"/>
+<body class="childrenBody layui-hide">
+    <form class="layui-form queryForm">
+        <blockquote class="layui-elem-quote quoteBox">
+            <form class="layui-form-item">
+                <div class="layui-inline security_list_query_param_permitName">
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" name="permitNameFirst" placeholder="通过名称" />
+                    </div>
+                </div>
+                <div class="layui-inline security_list_query_param_moduleId">
+                     <div class="layui-input-inline">
+                        <select class="magicalcoder-foreign-select2 layui-input" lay-ignore="true" name="moduleIdFirst" style="height:30px;width: 200px" data-url="admin/sys_module_rest/search" data-id="id" data-text-fields="moduleTitle" placeholder="所属模块"><option value=""></option></select>
+                    </div>
+                </div>
+                <div class="layui-inline security_list_query_operate_search">
+                    <a class="layui-btn search_btn" data-type="reload">搜索</a>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+                <div class="layui-inline security_list_query_operate_add_news">
+                    <a class="layui-btn layui-btn-normal addNews_btn">添加</a>
+                </div>
+                <div class="layui-inline security_list_query_operate_del_all">
+                    <a class="layui-btn layui-btn-danger layui-btn-normal delAll_btn">批量删除</a>
+                </div>
+            </form>
+        </blockquote>
+        <table class="security_list_table" id="newsList" lay-filter="newsListFilter" data-primary-fields="id"></table>
+        <!--操作-->
+        <script type="text/html" id="newsListOperateTemplate">
+            <a class="layui-btn layui-btn-sm security_list_table_operate_edit" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-sm layui-btn-danger security_list_table_operate_del" lay-event="del">删除</a>
+        </script>
+    </form>
+    <div th:replace="magicalcoder/v001/include/main-js :: commonMain" />
+    <script type="text/javascript"  th:src="@{/assets/admin/sysglobalpermiturl/sysglobalpermiturl-list.js}"></script>
+</body>
+</html>

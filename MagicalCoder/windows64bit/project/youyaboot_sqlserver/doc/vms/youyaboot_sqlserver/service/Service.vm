@@ -1,0 +1,21 @@
+#parse("vms/$version/common/variable/head.vm")
+#parse("vms/$version/common/asert/priorityKey.vm")
+#parse("vms/$version/common/asert/hasDateQuery.vm")
+package com.${companyName}.${projectName}.service.${lowerEntity}.service;
+
+import com.${companyName}.${commonUtilName}.core.service.ICommonService;
+import com.${companyName}.${projectName}.model.${Entity};
+import java.util.List;
+import java.util.Map;
+#if($hasDateQuery)
+import java.util.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
+#end
+import java.math.*;
+#parse("vms/$version/common/comment/ClassDesc.vm")
+
+public interface ${Entity}Service extends ICommonService<${Entity},${dbPriorityKeyJavaType}>{
+
+
+}

@@ -1,0 +1,8 @@
+#parse("vms/$version/common/variable/head.vm")
+package com.${companyName}.${projectName}.service.${lowerEntity}.constant;
+
+#parse("vms/$version/common/comment/ClassDesc.vm")
+
+public interface ${Entity}Constant{
+
+}

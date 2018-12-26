@@ -1,0 +1,40 @@
+#parse("vms/$version/common/variable/head.vm")
+#parse("vms/$version/common/asert/priorityKey.vm")
+
+#parse("vms/$version/common/comment/html-desc.vm")
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head  th:include="magicalcoder/$jshtmlVersion/include/head :: commonHead('${tableComment}编辑')"/>
+
+<body class="childrenBody layui-hide">
+<form class="layui-form" style="width:80%;">
+
+    #set($sortedNodeList=$CreateVmUtil.sortFormItem($nodeList))
+    #foreach($node in $sortedNodeList)
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_$node.dbField.javaField">
+        <label class="layui-form-label">$node.formItem.title</label>
+        <div class="layui-input-block">
+        #if($node.dbField.dbPriorityKey)
+            #if($node.dbField.dbAutoIncrease)
+            <input type="text" disabled="true" class="layui-input" name="${node.dbField.javaField}"  placeholder="主键自动生成，无需手动编辑,如果重置则变成增加数据"/>
+            #else
+            <input type="text" class="layui-input" name="${node.dbField.javaField}"  placeholder="${node.formItem.title}请保证唯一，如果已存在则会覆盖，如果不填写则新增"/>
+            #end
+        #else
+            #parse("vms/$version/jsp/include/entity-edit-form.vm")
+        #end
+        </div>
+    </div>
+    #end
+
+    <div class="layui-form-item layui-row layui-col-xs12">
+        <div class="layui-input-block">
+            <button class="layui-btn security_edit_form_operate_save" lay-submit="" lay-filter="save">立即提交</button>
+            <button type="reset" class="layui-hide layui-btn layui-btn-primary" >重置</button>
+        </div>
+    </div>
+</form>
+    <div th:replace="magicalcoder/${jshtmlVersion}/include/main-js :: commonMain" />
+    <script type="text/javascript"  th:src="@{/assets/admin/${lowerEntity}/${lowerEntity}-edit.js}"></script>
+</body>
+</html>

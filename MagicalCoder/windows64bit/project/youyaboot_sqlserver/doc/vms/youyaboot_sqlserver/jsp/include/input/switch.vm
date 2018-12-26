@@ -1,0 +1,23 @@
+#set($layText="")
+#set($isFirst=true)##设置个开关
+#set($selectValueMap = $TableFieldUtil.parseJsonToMap($node.formItem.selectValue))
+#if($selectValueMap.get('inputType') == 'switch')
+    #set($keyValueList = $selectValueMap.get('keyValueList'))
+    #if($keyValueList )
+        #foreach($sv in $keyValueList)
+            #if($sv.key != "")
+                #if($isFirst)
+                    #set($isFirst=false)
+                    #set($layText="$sv.value")
+                #else
+                    #if($sv.key)
+                        #set($layText="$sv.value|$layText")
+                    #else
+                        #set($layText="$layText|$sv.value")
+                    #end
+                #end
+            #end
+        #end
+    #end
+#end
+            <input type="checkbox" name="${node.dbField.javaField}" lay-skin="switch" lay-text="$layText" lay-verify="magicalCoderVerify#parse("vms/$version/jsp/include/formvalidate/lay-verify.vm")" #if($node.formItem.defaultValue=='1' || $node.formItem.defaultValue=='true') checked="checked"#end #if($node.formItem.disabled)disabled="true"#end/>

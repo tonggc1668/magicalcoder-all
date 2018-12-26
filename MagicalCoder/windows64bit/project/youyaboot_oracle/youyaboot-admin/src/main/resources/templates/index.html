@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head  th:include="magicalcoder/v001/include/head-index :: commonHead('管理后台')"/>
+
+<body class="main_body">
+	<div class="layui-layout layui-layout-admin">
+		<!-- 顶部 -->
+		<div th:replace="magicalcoder/v001/include/header :: commonHeader" />
+		<!-- 左侧导航 -->
+		<div th:replace="magicalcoder/v001/include/left :: commonLeft" />
+		<!-- 右侧内容 -->
+		<div th:replace="magicalcoder/v001/include/center :: commonCenter" />
+		<!-- 底部 -->
+		<div th:replace="magicalcoder/v001/include/footer :: commonFooter" />
+
+	</div>
+
+	<!-- 移动导航 -->
+	<div class="site-tree-mobile"><i class="layui-icon">&#xe602;</i></div>
+	<div class="site-mobile-shade"></div>
+	<div th:replace="magicalcoder/v001/include/common-js :: commonJs" />
+</body>
+</html>

@@ -1,0 +1,601 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+* 代码为自动生成 Created by www.magicalcoder.com
+* 如果你改变了此类 read 请将此行删除
+*  欢迎加入官方QQ群:323237052
+-->
+
+<mapper namespace="com.magicalcoder.youyaboot.service.alltype.mapper.AllTypeMapper">
+    <!-- AllType -->
+    <!-- 查询单个实体 -->
+    <select id="getModel" parameterType="hashmap" resultType="AllType">
+        select  <choose><when test="NotIgnore_!=null and NotIgnore_"><include refid="selectSqlNotIgnoreModel"/> </when><otherwise><include refid="selectSqlIgnoreModel"/></otherwise></choose>
+        from all_type allType where 1=1 <include refid="whereSqlModel"/> <include refid="orderGroupLimit"/>
+    </select>
+    <!--根据主键 查询单个实体 -->
+    <select id="getModelByPk" parameterType="hashmap" resultType="AllType">
+        select  <choose><when test="NotIgnore_!=null and NotIgnore_"><include refid="selectSqlNotIgnoreModel"/> </when><otherwise><include refid="selectSqlIgnoreModel"/></otherwise></choose>
+        from all_type allType where 1=1
+            and allType.long_id = #{magicalCoderPrimaryKeyName}
+    </select>
+    <!-- 查询一组实体 -->
+    <select id="getModelList" parameterType="hashmap" resultType="AllType">
+        select  <choose><when test="NotIgnore_!=null and NotIgnore_"><include refid="selectSqlNotIgnoreModel"/> </when><otherwise><include refid="selectSqlIgnoreModel"/></otherwise></choose>
+        from all_type allType where 1=1 <include refid="whereSqlModel"/> <include refid="orderGroupLimit"/>
+    </select>
+    <!-- 查询一组实体 in 语句-->
+    <select id="getModelInList" parameterType="hashmap" resultType="AllType">
+        select  <choose><when test="NotIgnore_!=null and NotIgnore_"><include refid="selectSqlNotIgnoreModel"/> </when><otherwise><include refid="selectSqlIgnoreModel"/></otherwise></choose>
+        from all_type allType where  allType.long_id in
+        <foreach item="id" index="index" collection="idList" open="(" separator="," close=")">#{longId}</foreach>
+        <include refid="orderGroupLimit"/>
+    </select>
+    <!-- 查询一组实体的数量 -->
+    <select id="getModelListCount" parameterType="hashmap" resultType="int">
+        select count(1)  from all_type allType
+        where 1=1 <include refid="whereSqlModel"/> <include refid="orderGroupLimit"/>
+    </select>
+    <!-- 插入单个实体 -->
+    <insert id="insertModel" parameterType="AllType"  useGeneratedKeys="true" keyProperty="longId" >
+        <include refid="insertModelSql"/>
+    </insert>
+    <sql id="insertModelSql">
+        insert into all_type (
+            <trim suffixOverrides=",">
+            <if test="longId!=null">"long_id",</if>
+            "bytes_binary",
+            "bytes_blob",
+            "bytes_mediumblob",
+            "bytes_varbinary",
+            "bytes_tinyblob",
+            "bytes_longblob",
+            "boolean_bit",
+            "boolean_bool",
+            "boolean_boolean",
+            "string_enum",
+            "string_char",
+            "string_longtext",
+            "string_mediumtext",
+            "string_varchar",
+            "string_set",
+            "string_tinytext",
+            "string_text",
+            "byte_tinyint",
+            "short_smallint",
+            "integer_int",
+            "integer_mediumint",
+            "float_float",
+            "double_double",
+            "double_real",
+            "bigdecimal_decimal",
+            "bigdecimal_numeric",
+            "date_date",
+            "date_year",
+            "time_time",
+            "timestemp_datetime",
+            "timestemp_timestemp",
+            </trim>
+        )
+        values(
+            <trim suffixOverrides=",">
+            <if test="longId!=null">#{longId},</if>
+            <choose> <when test="bytesBinary==null"> NULL  </when> <otherwise>#{bytesBinary}</otherwise> </choose>,
+            <choose> <when test="bytesBlob==null"> NULL  </when> <otherwise>#{bytesBlob}</otherwise> </choose>,
+            <choose> <when test="bytesMediumblob==null"> NULL  </when> <otherwise>#{bytesMediumblob}</otherwise> </choose>,
+            <choose> <when test="bytesVarbinary==null"> NULL  </when> <otherwise>#{bytesVarbinary}</otherwise> </choose>,
+            <choose> <when test="bytesTinyblob==null"> NULL  </when> <otherwise>#{bytesTinyblob}</otherwise> </choose>,
+            <choose> <when test="bytesLongblob==null"> NULL  </when> <otherwise>#{bytesLongblob}</otherwise> </choose>,
+            <choose> <when test="booleanBit==null"> NULL  </when> <otherwise>#{booleanBit}</otherwise> </choose>,
+            <choose> <when test="booleanBool==null"> NULL  </when> <otherwise>#{booleanBool}</otherwise> </choose>,
+            <choose> <when test="booleanBoolean==null"> NULL  </when> <otherwise>#{booleanBoolean}</otherwise> </choose>,
+            <choose> <when test="stringEnum==null"> NULL  </when> <otherwise>#{stringEnum}</otherwise> </choose>,
+            <choose> <when test="stringChar==null"> NULL  </when> <otherwise>#{stringChar}</otherwise> </choose>,
+            <choose> <when test="stringLongtext==null"> NULL  </when> <otherwise>#{stringLongtext}</otherwise> </choose>,
+            <choose> <when test="stringMediumtext==null"> NULL  </when> <otherwise>#{stringMediumtext}</otherwise> </choose>,
+            <choose> <when test="stringVarchar==null"> NULL  </when> <otherwise>#{stringVarchar}</otherwise> </choose>,
+            <choose> <when test="stringSet==null"> NULL  </when> <otherwise>#{stringSet}</otherwise> </choose>,
+            <choose> <when test="stringTinytext==null"> NULL  </when> <otherwise>#{stringTinytext}</otherwise> </choose>,
+            <choose> <when test="stringText==null"> NULL  </when> <otherwise>#{stringText}</otherwise> </choose>,
+            <choose> <when test="byteTinyint==null"> NULL  </when> <otherwise>#{byteTinyint}</otherwise> </choose>,
+            <choose> <when test="shortSmallint==null"> NULL  </when> <otherwise>#{shortSmallint}</otherwise> </choose>,
+            <choose> <when test="integerInt==null"> NULL  </when> <otherwise>#{integerInt}</otherwise> </choose>,
+            <choose> <when test="integerMediumint==null"> NULL  </when> <otherwise>#{integerMediumint}</otherwise> </choose>,
+            <choose> <when test="floatFloat==null"> NULL  </when> <otherwise>#{floatFloat}</otherwise> </choose>,
+            <choose> <when test="doubleDouble==null"> NULL  </when> <otherwise>#{doubleDouble}</otherwise> </choose>,
+            <choose> <when test="doubleReal==null"> NULL  </when> <otherwise>#{doubleReal}</otherwise> </choose>,
+            <choose> <when test="bigdecimalDecimal==null"> NULL  </when> <otherwise>#{bigdecimalDecimal}</otherwise> </choose>,
+            <choose> <when test="bigdecimalNumeric==null"> NULL  </when> <otherwise>#{bigdecimalNumeric}</otherwise> </choose>,
+            <choose> <when test="dateDate==null"> NULL  </when> <otherwise>#{dateDate,jdbcType=TIMESTAMP}</otherwise> </choose>,
+            <choose> <when test="dateYear==null"> NULL  </when> <otherwise>#{dateYear,jdbcType=TIMESTAMP}</otherwise> </choose>,
+            <choose> <when test="timeTime==null"> NULL  </when> <otherwise>#{timeTime,jdbcType=TIMESTAMP}</otherwise> </choose>,
+            <choose> <when test="timestempDatetime==null"> NULL  </when> <otherwise>#{timestempDatetime,jdbcType=TIMESTAMP}</otherwise> </choose>,
+            <choose> <when test="timestempTimestemp==null">  NULL   </when> <otherwise>#{timestempTimestemp,jdbcType=TIMESTAMP}</otherwise> </choose>,
+            </trim>
+        )
+    </sql>
+    <!-- 替换单个实体 如果没有则插入 -->
+    <insert id="replaceModel" parameterType="AllType" >
+        <include refid="deleteModelSql"/> ;
+        <include refid="insertModelSql"/>
+    </insert>
+    <!-- 批量插入一组实体 -->
+    <insert id="batchInsertModel" parameterType="java.util.List"   useGeneratedKeys="true" keyProperty="longId" >
+        <include refid="batchInsertModelSql"/>
+    </insert>
+    <sql id="batchInsertModelSql">
+        insert into all_type (
+            <trim suffixOverrides=",">
+            "bytes_binary",
+            "bytes_blob",
+            "bytes_mediumblob",
+            "bytes_varbinary",
+            "bytes_tinyblob",
+            "bytes_longblob",
+            "boolean_bit",
+            "boolean_bool",
+            "boolean_boolean",
+            "string_enum",
+            "string_char",
+            "string_longtext",
+            "string_mediumtext",
+            "string_varchar",
+            "string_set",
+            "string_tinytext",
+            "string_text",
+            "byte_tinyint",
+            "short_smallint",
+            "integer_int",
+            "integer_mediumint",
+            "float_float",
+            "double_double",
+            "double_real",
+            "bigdecimal_decimal",
+            "bigdecimal_numeric",
+            "date_date",
+            "date_year",
+            "time_time",
+            "timestemp_datetime",
+            "timestemp_timestemp",
+            </trim>
+        )
+        values
+        <foreach collection="list" item= "item" index ="index" separator=",">
+            (
+            <trim suffixOverrides=",">
+                <choose><when test="item.bytesBinary==null">  NULL  </when><otherwise>#{item.bytesBinary}</otherwise></choose>,
+                <choose><when test="item.bytesBlob==null">  NULL  </when><otherwise>#{item.bytesBlob}</otherwise></choose>,
+                <choose><when test="item.bytesMediumblob==null">  NULL  </when><otherwise>#{item.bytesMediumblob}</otherwise></choose>,
+                <choose><when test="item.bytesVarbinary==null">  NULL  </when><otherwise>#{item.bytesVarbinary}</otherwise></choose>,
+                <choose><when test="item.bytesTinyblob==null">  NULL  </when><otherwise>#{item.bytesTinyblob}</otherwise></choose>,
+                <choose><when test="item.bytesLongblob==null">  NULL  </when><otherwise>#{item.bytesLongblob}</otherwise></choose>,
+                <choose><when test="item.booleanBit==null">  NULL  </when><otherwise>#{item.booleanBit}</otherwise></choose>,
+                <choose><when test="item.booleanBool==null">  NULL  </when><otherwise>#{item.booleanBool}</otherwise></choose>,
+                <choose><when test="item.booleanBoolean==null">  NULL  </when><otherwise>#{item.booleanBoolean}</otherwise></choose>,
+                <choose><when test="item.stringEnum==null">  NULL  </when><otherwise>#{item.stringEnum}</otherwise></choose>,
+                <choose><when test="item.stringChar==null">  NULL  </when><otherwise>#{item.stringChar}</otherwise></choose>,
+                <choose><when test="item.stringLongtext==null">  NULL  </when><otherwise>#{item.stringLongtext}</otherwise></choose>,
+                <choose><when test="item.stringMediumtext==null">  NULL  </when><otherwise>#{item.stringMediumtext}</otherwise></choose>,
+                <choose><when test="item.stringVarchar==null">  NULL  </when><otherwise>#{item.stringVarchar}</otherwise></choose>,
+                <choose><when test="item.stringSet==null">  NULL  </when><otherwise>#{item.stringSet}</otherwise></choose>,
+                <choose><when test="item.stringTinytext==null">  NULL  </when><otherwise>#{item.stringTinytext}</otherwise></choose>,
+                <choose><when test="item.stringText==null">  NULL  </when><otherwise>#{item.stringText}</otherwise></choose>,
+                <choose><when test="item.byteTinyint==null">  NULL  </when><otherwise>#{item.byteTinyint}</otherwise></choose>,
+                <choose><when test="item.shortSmallint==null">  NULL  </when><otherwise>#{item.shortSmallint}</otherwise></choose>,
+                <choose><when test="item.integerInt==null">  NULL  </when><otherwise>#{item.integerInt}</otherwise></choose>,
+                <choose><when test="item.integerMediumint==null">  NULL  </when><otherwise>#{item.integerMediumint}</otherwise></choose>,
+                <choose><when test="item.floatFloat==null">  NULL  </when><otherwise>#{item.floatFloat}</otherwise></choose>,
+                <choose><when test="item.doubleDouble==null">  NULL  </when><otherwise>#{item.doubleDouble}</otherwise></choose>,
+                <choose><when test="item.doubleReal==null">  NULL  </when><otherwise>#{item.doubleReal}</otherwise></choose>,
+                <choose><when test="item.bigdecimalDecimal==null">  NULL  </when><otherwise>#{item.bigdecimalDecimal}</otherwise></choose>,
+                <choose><when test="item.bigdecimalNumeric==null">  NULL  </when><otherwise>#{item.bigdecimalNumeric}</otherwise></choose>,
+                <choose><when test="item.dateDate==null">NULL</when><otherwise>#{item.dateDate,jdbcType=TIMESTAMP}</otherwise></choose>,
+                <choose><when test="item.dateYear==null">NULL</when><otherwise>#{item.dateYear,jdbcType=TIMESTAMP}</otherwise></choose>,
+                <choose><when test="item.timeTime==null">NULL</when><otherwise>#{item.timeTime,jdbcType=TIMESTAMP}</otherwise></choose>,
+                <choose><when test="item.timestempDatetime==null">NULL</when><otherwise>#{item.timestempDatetime,jdbcType=TIMESTAMP}</otherwise></choose>,
+                <choose><when test="item.timestempTimestemp==null">NULL</when><otherwise>#{item.timestempTimestemp,jdbcType=TIMESTAMP}</otherwise></choose>,
+            </trim>
+            )
+        </foreach >
+    </sql>
+    <!-- 批量替换一组实体 -->
+    <insert id="batchReplaceModel" parameterType="java.util.List" >
+        <include refid="batchDeleteModelListSql"/> ;
+        <include refid="batchInsertModelSql"/>
+    </insert>
+
+        <!-- 清空表 操作危险 慎用，暂时注销掉-->
+    <delete id="truncateModel">
+        -- truncate table all_type
+    </delete>
+    <!-- 删除一个实体-->
+    <delete id="deleteModel" parameterType="hashmap">
+        <include refid="deleteModelSql"/>
+    </delete>
+    <sql id="deleteModelSql">
+        delete from all_type allType
+        where 1=1
+                and allType.long_id = #{longId}
+    </sql>
+
+    <!-- 根据主键删除一个实体 magicalCoderPrimaryKeyName 框架封装-->
+    <delete id="deleteModelByPk" parameterType="hashmap">
+        delete from all_type allType
+        where 1=1
+                and allType.long_id = #{magicalCoderPrimaryKeyName}
+    </delete>
+
+    <delete id="deleteModelList" parameterType="hashmap">
+        delete from all_type allType
+        where 1=1
+            <include refid="whereSqlModel"/>
+    </delete>
+
+    <!-- 批量删除实体 in 根据主键-->
+    <delete id="batchDeleteModel" parameterType="java.util.Set">
+        delete from all_type allType where allType.long_id in
+        <foreach item="id" index="index" collection="collection" open="(" separator="," close=")">#{longId}</foreach>
+    </delete>
+    <!-- 批量删除实体  根据一些唯一键-->
+    <delete id="batchDeleteModelList" parameterType="java.util.List">
+        <include refid="batchDeleteModelListSql"/>
+    </delete>
+    <sql id="batchDeleteModelListSql">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            delete from all_type allType
+            where 1=1
+                    and allType.long_id = #{item.longId}
+        </foreach>
+    </sql>
+
+    <!-- 更新一个实体 -->
+    <update id="updateModel" parameterType="AllType">
+        update all_type
+        <set>
+                    <choose> <when test="bytesBinary!=null">bytes_binary=#{bytesBinary}</when> <otherwise> bytes_binary=NULL</otherwise> </choose>,
+                    <choose> <when test="bytesBlob!=null">bytes_blob=#{bytesBlob}</when> <otherwise> bytes_blob=NULL</otherwise> </choose>,
+                    <choose> <when test="bytesMediumblob!=null">bytes_mediumblob=#{bytesMediumblob}</when> <otherwise> bytes_mediumblob=NULL</otherwise> </choose>,
+                    <choose> <when test="bytesVarbinary!=null">bytes_varbinary=#{bytesVarbinary}</when> <otherwise> bytes_varbinary=NULL</otherwise> </choose>,
+                    <choose> <when test="bytesTinyblob!=null">bytes_tinyblob=#{bytesTinyblob}</when> <otherwise> bytes_tinyblob=NULL</otherwise> </choose>,
+                    <choose> <when test="bytesLongblob!=null">bytes_longblob=#{bytesLongblob}</when> <otherwise> bytes_longblob=NULL</otherwise> </choose>,
+                    <choose> <when test="booleanBit!=null">boolean_bit=#{booleanBit}</when> <otherwise> boolean_bit=NULL</otherwise> </choose>,
+                    <choose> <when test="booleanBool!=null">boolean_bool=#{booleanBool}</when> <otherwise> boolean_bool=NULL</otherwise> </choose>,
+                    <choose> <when test="booleanBoolean!=null">boolean_boolean=#{booleanBoolean}</when> <otherwise> boolean_boolean=NULL</otherwise> </choose>,
+                    <choose> <when test="stringEnum!=null">string_enum=#{stringEnum}</when> <otherwise> string_enum=NULL</otherwise> </choose>,
+                    <choose> <when test="stringChar!=null">string_char=#{stringChar}</when> <otherwise> string_char=NULL</otherwise> </choose>,
+                    <choose> <when test="stringLongtext!=null">string_longtext=#{stringLongtext}</when> <otherwise> string_longtext=NULL</otherwise> </choose>,
+                    <choose> <when test="stringMediumtext!=null">string_mediumtext=#{stringMediumtext}</when> <otherwise> string_mediumtext=NULL</otherwise> </choose>,
+                    <choose> <when test="stringVarchar!=null">string_varchar=#{stringVarchar}</when> <otherwise> string_varchar=NULL</otherwise> </choose>,
+                    <choose> <when test="stringSet!=null">string_set=#{stringSet}</when> <otherwise> string_set=NULL</otherwise> </choose>,
+                    <choose> <when test="stringTinytext!=null">string_tinytext=#{stringTinytext}</when> <otherwise> string_tinytext=NULL</otherwise> </choose>,
+                    <choose> <when test="stringText!=null">string_text=#{stringText}</when> <otherwise> string_text=NULL</otherwise> </choose>,
+                    <choose> <when test="byteTinyint!=null">byte_tinyint=#{byteTinyint}</when> <otherwise> byte_tinyint=NULL</otherwise> </choose>,
+                    <choose> <when test="shortSmallint!=null">short_smallint=#{shortSmallint}</when> <otherwise> short_smallint=NULL</otherwise> </choose>,
+                    <choose> <when test="integerInt!=null">integer_int=#{integerInt}</when> <otherwise> integer_int=NULL</otherwise> </choose>,
+                    <choose> <when test="integerMediumint!=null">integer_mediumint=#{integerMediumint}</when> <otherwise> integer_mediumint=NULL</otherwise> </choose>,
+                    <choose> <when test="floatFloat!=null">float_float=#{floatFloat}</when> <otherwise> float_float=NULL</otherwise> </choose>,
+                    <choose> <when test="doubleDouble!=null">double_double=#{doubleDouble}</when> <otherwise> double_double=NULL</otherwise> </choose>,
+                    <choose> <when test="doubleReal!=null">double_real=#{doubleReal}</when> <otherwise> double_real=NULL</otherwise> </choose>,
+                    <choose> <when test="bigdecimalDecimal!=null">bigdecimal_decimal=#{bigdecimalDecimal}</when> <otherwise> bigdecimal_decimal=NULL</otherwise> </choose>,
+                    <choose> <when test="bigdecimalNumeric!=null">bigdecimal_numeric=#{bigdecimalNumeric}</when> <otherwise> bigdecimal_numeric=NULL</otherwise> </choose>,
+                    <choose> <when test="dateDate!=null">date_date=#{dateDate,jdbcType=TIMESTAMP}</when> <otherwise> date_date=NULL</otherwise> </choose>,
+                    <choose> <when test="dateYear!=null">date_year=#{dateYear,jdbcType=TIMESTAMP}</when> <otherwise> date_year=NULL</otherwise> </choose>,
+                    <choose> <when test="timeTime!=null">time_time=#{timeTime,jdbcType=TIMESTAMP}</when> <otherwise> time_time=NULL</otherwise> </choose>,
+                    <choose> <when test="timestempDatetime!=null">timestemp_datetime=#{timestempDatetime,jdbcType=TIMESTAMP}</when> <otherwise> timestemp_datetime=NULL</otherwise> </choose>,
+                    <choose> <when test="timestempTimestemp!=null">timestemp_timestemp=#{timestempTimestemp,jdbcType=TIMESTAMP}</when> <otherwise> timestemp_timestemp=NULL</otherwise> </choose>,
+        </set>
+        where 1=1
+                and long_id = #{longId}
+    </update>
+    <!-- 更新一个实体 仅仅当被更新的字段不为空的时候才更新，否则忽略更新-->
+    <update id="updateModelWithoutNull" parameterType="AllType">
+        update all_type
+        <set>
+                <choose><when test="bytesBinary!=null">bytes_binary=#{bytesBinary},</when></choose>
+                <choose><when test="bytesBlob!=null">bytes_blob=#{bytesBlob},</when></choose>
+                <choose><when test="bytesMediumblob!=null">bytes_mediumblob=#{bytesMediumblob},</when></choose>
+                <choose><when test="bytesVarbinary!=null">bytes_varbinary=#{bytesVarbinary},</when></choose>
+                <choose><when test="bytesTinyblob!=null">bytes_tinyblob=#{bytesTinyblob},</when></choose>
+                <choose><when test="bytesLongblob!=null">bytes_longblob=#{bytesLongblob},</when></choose>
+                <choose><when test="booleanBit!=null">boolean_bit=#{booleanBit},</when></choose>
+                <choose><when test="booleanBool!=null">boolean_bool=#{booleanBool},</when></choose>
+                <choose><when test="booleanBoolean!=null">boolean_boolean=#{booleanBoolean},</when></choose>
+                <choose><when test="stringEnum!=null">string_enum=#{stringEnum},</when></choose>
+                <choose><when test="stringChar!=null">string_char=#{stringChar},</when></choose>
+                <choose><when test="stringLongtext!=null">string_longtext=#{stringLongtext},</when></choose>
+                <choose><when test="stringMediumtext!=null">string_mediumtext=#{stringMediumtext},</when></choose>
+                <choose><when test="stringVarchar!=null">string_varchar=#{stringVarchar},</when></choose>
+                <choose><when test="stringSet!=null">string_set=#{stringSet},</when></choose>
+                <choose><when test="stringTinytext!=null">string_tinytext=#{stringTinytext},</when></choose>
+                <choose><when test="stringText!=null">string_text=#{stringText},</when></choose>
+                <choose><when test="byteTinyint!=null">byte_tinyint=#{byteTinyint},</when></choose>
+                <choose><when test="shortSmallint!=null">short_smallint=#{shortSmallint},</when></choose>
+                <choose><when test="integerInt!=null">integer_int=#{integerInt},</when></choose>
+                <choose><when test="integerMediumint!=null">integer_mediumint=#{integerMediumint},</when></choose>
+                <choose><when test="floatFloat!=null">float_float=#{floatFloat},</when></choose>
+                <choose><when test="doubleDouble!=null">double_double=#{doubleDouble},</when></choose>
+                <choose><when test="doubleReal!=null">double_real=#{doubleReal},</when></choose>
+                <choose><when test="bigdecimalDecimal!=null">bigdecimal_decimal=#{bigdecimalDecimal},</when></choose>
+                <choose><when test="bigdecimalNumeric!=null">bigdecimal_numeric=#{bigdecimalNumeric},</when></choose>
+                <choose><when test="dateDate!=null">date_date=#{dateDate,jdbcType=TIMESTAMP},</when></choose>
+                <choose><when test="dateYear!=null">date_year=#{dateYear,jdbcType=TIMESTAMP},</when></choose>
+                <choose><when test="timeTime!=null">time_time=#{timeTime,jdbcType=TIMESTAMP},</when></choose>
+                <choose><when test="timestempDatetime!=null">timestemp_datetime=#{timestempDatetime,jdbcType=TIMESTAMP},</when></choose>
+                <choose><when test="timestempTimestemp!=null">timestemp_timestemp=#{timestempTimestemp,jdbcType=TIMESTAMP},</when></choose>
+        </set>
+        where 1=1
+                and long_id = #{longId}
+    </update>
+     <!-- 批量更新实体 传入一组实体，分别根据主键作为查询条件-->
+    <update id="batchUpdateModel"  parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update all_type
+            <set>
+                        <choose> <when test="bytesBinary!=null">bytes_binary=#{item.bytesBinary}</when> <otherwise> bytes_binary=NULL</otherwise> </choose>,
+                        <choose> <when test="bytesBlob!=null">bytes_blob=#{item.bytesBlob}</when> <otherwise> bytes_blob=NULL</otherwise> </choose>,
+                        <choose> <when test="bytesMediumblob!=null">bytes_mediumblob=#{item.bytesMediumblob}</when> <otherwise> bytes_mediumblob=NULL</otherwise> </choose>,
+                        <choose> <when test="bytesVarbinary!=null">bytes_varbinary=#{item.bytesVarbinary}</when> <otherwise> bytes_varbinary=NULL</otherwise> </choose>,
+                        <choose> <when test="bytesTinyblob!=null">bytes_tinyblob=#{item.bytesTinyblob}</when> <otherwise> bytes_tinyblob=NULL</otherwise> </choose>,
+                        <choose> <when test="bytesLongblob!=null">bytes_longblob=#{item.bytesLongblob}</when> <otherwise> bytes_longblob=NULL</otherwise> </choose>,
+                        <choose> <when test="booleanBit!=null">boolean_bit=#{item.booleanBit}</when> <otherwise> boolean_bit=NULL</otherwise> </choose>,
+                        <choose> <when test="booleanBool!=null">boolean_bool=#{item.booleanBool}</when> <otherwise> boolean_bool=NULL</otherwise> </choose>,
+                        <choose> <when test="booleanBoolean!=null">boolean_boolean=#{item.booleanBoolean}</when> <otherwise> boolean_boolean=NULL</otherwise> </choose>,
+                        <choose> <when test="stringEnum!=null">string_enum=#{item.stringEnum}</when> <otherwise> string_enum=NULL</otherwise> </choose>,
+                        <choose> <when test="stringChar!=null">string_char=#{item.stringChar}</when> <otherwise> string_char=NULL</otherwise> </choose>,
+                        <choose> <when test="stringLongtext!=null">string_longtext=#{item.stringLongtext}</when> <otherwise> string_longtext=NULL</otherwise> </choose>,
+                        <choose> <when test="stringMediumtext!=null">string_mediumtext=#{item.stringMediumtext}</when> <otherwise> string_mediumtext=NULL</otherwise> </choose>,
+                        <choose> <when test="stringVarchar!=null">string_varchar=#{item.stringVarchar}</when> <otherwise> string_varchar=NULL</otherwise> </choose>,
+                        <choose> <when test="stringSet!=null">string_set=#{item.stringSet}</when> <otherwise> string_set=NULL</otherwise> </choose>,
+                        <choose> <when test="stringTinytext!=null">string_tinytext=#{item.stringTinytext}</when> <otherwise> string_tinytext=NULL</otherwise> </choose>,
+                        <choose> <when test="stringText!=null">string_text=#{item.stringText}</when> <otherwise> string_text=NULL</otherwise> </choose>,
+                        <choose> <when test="byteTinyint!=null">byte_tinyint=#{item.byteTinyint}</when> <otherwise> byte_tinyint=NULL</otherwise> </choose>,
+                        <choose> <when test="shortSmallint!=null">short_smallint=#{item.shortSmallint}</when> <otherwise> short_smallint=NULL</otherwise> </choose>,
+                        <choose> <when test="integerInt!=null">integer_int=#{item.integerInt}</when> <otherwise> integer_int=NULL</otherwise> </choose>,
+                        <choose> <when test="integerMediumint!=null">integer_mediumint=#{item.integerMediumint}</when> <otherwise> integer_mediumint=NULL</otherwise> </choose>,
+                        <choose> <when test="floatFloat!=null">float_float=#{item.floatFloat}</when> <otherwise> float_float=NULL</otherwise> </choose>,
+                        <choose> <when test="doubleDouble!=null">double_double=#{item.doubleDouble}</when> <otherwise> double_double=NULL</otherwise> </choose>,
+                        <choose> <when test="doubleReal!=null">double_real=#{item.doubleReal}</when> <otherwise> double_real=NULL</otherwise> </choose>,
+                        <choose> <when test="bigdecimalDecimal!=null">bigdecimal_decimal=#{item.bigdecimalDecimal}</when> <otherwise> bigdecimal_decimal=NULL</otherwise> </choose>,
+                        <choose> <when test="bigdecimalNumeric!=null">bigdecimal_numeric=#{item.bigdecimalNumeric}</when> <otherwise> bigdecimal_numeric=NULL</otherwise> </choose>,
+                        <choose> <when test="dateDate!=null">date_date=#{item.dateDate,jdbcType=TIMESTAMP}</when> <otherwise> date_date=NULL</otherwise> </choose>,
+                        <choose> <when test="dateYear!=null">date_year=#{item.dateYear,jdbcType=TIMESTAMP}</when> <otherwise> date_year=NULL</otherwise> </choose>,
+                        <choose> <when test="timeTime!=null">time_time=#{item.timeTime,jdbcType=TIMESTAMP}</when> <otherwise> time_time=NULL</otherwise> </choose>,
+                        <choose> <when test="timestempDatetime!=null">timestemp_datetime=#{item.timestempDatetime,jdbcType=TIMESTAMP}</when> <otherwise> timestemp_datetime=NULL</otherwise> </choose>,
+                        <choose> <when test="timestempTimestemp!=null">timestemp_timestemp=#{item.timestempTimestemp,jdbcType=TIMESTAMP}</when> <otherwise> timestemp_timestemp=NULL</otherwise> </choose>,
+            </set>
+            where 1=1
+                   and long_id = #{item.longId}
+        </foreach>
+    </update>
+
+    <!-- sql 片段 -->
+   <sql id="selectSqlIgnoreModel">
+        <trim suffixOverrides=",">
+         <if test="longIdIgnore_ == null or !longIdIgnore_">allType.long_id longId,</if>
+         <if test="bytesBinaryIgnore_ == null or !bytesBinaryIgnore_">allType.bytes_binary bytesBinary,</if>
+         <if test="bytesBlobIgnore_ == null or !bytesBlobIgnore_">allType.bytes_blob bytesBlob,</if>
+         <if test="bytesMediumblobIgnore_ == null or !bytesMediumblobIgnore_">allType.bytes_mediumblob bytesMediumblob,</if>
+         <if test="bytesVarbinaryIgnore_ == null or !bytesVarbinaryIgnore_">allType.bytes_varbinary bytesVarbinary,</if>
+         <if test="bytesTinyblobIgnore_ == null or !bytesTinyblobIgnore_">allType.bytes_tinyblob bytesTinyblob,</if>
+         <if test="bytesLongblobIgnore_ == null or !bytesLongblobIgnore_">allType.bytes_longblob bytesLongblob,</if>
+         <if test="booleanBitIgnore_ == null or !booleanBitIgnore_">allType.boolean_bit booleanBit,</if>
+         <if test="booleanBoolIgnore_ == null or !booleanBoolIgnore_">allType.boolean_bool booleanBool,</if>
+         <if test="booleanBooleanIgnore_ == null or !booleanBooleanIgnore_">allType.boolean_boolean booleanBoolean,</if>
+         <if test="stringEnumIgnore_ == null or !stringEnumIgnore_">allType.string_enum stringEnum,</if>
+         <if test="stringCharIgnore_ == null or !stringCharIgnore_">allType.string_char stringChar,</if>
+         <if test="stringLongtextIgnore_ == null or !stringLongtextIgnore_">allType.string_longtext stringLongtext,</if>
+         <if test="stringMediumtextIgnore_ == null or !stringMediumtextIgnore_">allType.string_mediumtext stringMediumtext,</if>
+         <if test="stringVarcharIgnore_ == null or !stringVarcharIgnore_">allType.string_varchar stringVarchar,</if>
+         <if test="stringSetIgnore_ == null or !stringSetIgnore_">allType.string_set stringSet,</if>
+         <if test="stringTinytextIgnore_ == null or !stringTinytextIgnore_">allType.string_tinytext stringTinytext,</if>
+         <if test="stringTextIgnore_ == null or !stringTextIgnore_">allType.string_text stringText,</if>
+         <if test="byteTinyintIgnore_ == null or !byteTinyintIgnore_">allType.byte_tinyint byteTinyint,</if>
+         <if test="shortSmallintIgnore_ == null or !shortSmallintIgnore_">allType.short_smallint shortSmallint,</if>
+         <if test="integerIntIgnore_ == null or !integerIntIgnore_">allType.integer_int integerInt,</if>
+         <if test="integerMediumintIgnore_ == null or !integerMediumintIgnore_">allType.integer_mediumint integerMediumint,</if>
+         <if test="floatFloatIgnore_ == null or !floatFloatIgnore_">allType.float_float floatFloat,</if>
+         <if test="doubleDoubleIgnore_ == null or !doubleDoubleIgnore_">allType.double_double doubleDouble,</if>
+         <if test="doubleRealIgnore_ == null or !doubleRealIgnore_">allType.double_real doubleReal,</if>
+         <if test="bigdecimalDecimalIgnore_ == null or !bigdecimalDecimalIgnore_">allType.bigdecimal_decimal bigdecimalDecimal,</if>
+         <if test="bigdecimalNumericIgnore_ == null or !bigdecimalNumericIgnore_">allType.bigdecimal_numeric bigdecimalNumeric,</if>
+         <if test="dateDateIgnore_ == null or !dateDateIgnore_">allType.date_date dateDate,</if>
+         <if test="dateYearIgnore_ == null or !dateYearIgnore_">allType.date_year dateYear,</if>
+         <if test="timeTimeIgnore_ == null or !timeTimeIgnore_">allType.time_time timeTime,</if>
+         <if test="timestempDatetimeIgnore_ == null or !timestempDatetimeIgnore_">allType.timestemp_datetime timestempDatetime,</if>
+         <if test="timestempTimestempIgnore_ == null or !timestempTimestempIgnore_">allType.timestemp_timestemp timestempTimestemp</if>
+        </trim>
+    </sql>
+    <sql id="selectSqlNotIgnoreModel">
+        <trim suffixOverrides=",">
+         <if test="longIdNotIgnore_ != null and longIdNotIgnore_">allType.long_id longId,</if>
+         <if test="bytesBinaryNotIgnore_ != null and bytesBinaryNotIgnore_">allType.bytes_binary bytesBinary,</if>
+         <if test="bytesBlobNotIgnore_ != null and bytesBlobNotIgnore_">allType.bytes_blob bytesBlob,</if>
+         <if test="bytesMediumblobNotIgnore_ != null and bytesMediumblobNotIgnore_">allType.bytes_mediumblob bytesMediumblob,</if>
+         <if test="bytesVarbinaryNotIgnore_ != null and bytesVarbinaryNotIgnore_">allType.bytes_varbinary bytesVarbinary,</if>
+         <if test="bytesTinyblobNotIgnore_ != null and bytesTinyblobNotIgnore_">allType.bytes_tinyblob bytesTinyblob,</if>
+         <if test="bytesLongblobNotIgnore_ != null and bytesLongblobNotIgnore_">allType.bytes_longblob bytesLongblob,</if>
+         <if test="booleanBitNotIgnore_ != null and booleanBitNotIgnore_">allType.boolean_bit booleanBit,</if>
+         <if test="booleanBoolNotIgnore_ != null and booleanBoolNotIgnore_">allType.boolean_bool booleanBool,</if>
+         <if test="booleanBooleanNotIgnore_ != null and booleanBooleanNotIgnore_">allType.boolean_boolean booleanBoolean,</if>
+         <if test="stringEnumNotIgnore_ != null and stringEnumNotIgnore_">allType.string_enum stringEnum,</if>
+         <if test="stringCharNotIgnore_ != null and stringCharNotIgnore_">allType.string_char stringChar,</if>
+         <if test="stringLongtextNotIgnore_ != null and stringLongtextNotIgnore_">allType.string_longtext stringLongtext,</if>
+         <if test="stringMediumtextNotIgnore_ != null and stringMediumtextNotIgnore_">allType.string_mediumtext stringMediumtext,</if>
+         <if test="stringVarcharNotIgnore_ != null and stringVarcharNotIgnore_">allType.string_varchar stringVarchar,</if>
+         <if test="stringSetNotIgnore_ != null and stringSetNotIgnore_">allType.string_set stringSet,</if>
+         <if test="stringTinytextNotIgnore_ != null and stringTinytextNotIgnore_">allType.string_tinytext stringTinytext,</if>
+         <if test="stringTextNotIgnore_ != null and stringTextNotIgnore_">allType.string_text stringText,</if>
+         <if test="byteTinyintNotIgnore_ != null and byteTinyintNotIgnore_">allType.byte_tinyint byteTinyint,</if>
+         <if test="shortSmallintNotIgnore_ != null and shortSmallintNotIgnore_">allType.short_smallint shortSmallint,</if>
+         <if test="integerIntNotIgnore_ != null and integerIntNotIgnore_">allType.integer_int integerInt,</if>
+         <if test="integerMediumintNotIgnore_ != null and integerMediumintNotIgnore_">allType.integer_mediumint integerMediumint,</if>
+         <if test="floatFloatNotIgnore_ != null and floatFloatNotIgnore_">allType.float_float floatFloat,</if>
+         <if test="doubleDoubleNotIgnore_ != null and doubleDoubleNotIgnore_">allType.double_double doubleDouble,</if>
+         <if test="doubleRealNotIgnore_ != null and doubleRealNotIgnore_">allType.double_real doubleReal,</if>
+         <if test="bigdecimalDecimalNotIgnore_ != null and bigdecimalDecimalNotIgnore_">allType.bigdecimal_decimal bigdecimalDecimal,</if>
+         <if test="bigdecimalNumericNotIgnore_ != null and bigdecimalNumericNotIgnore_">allType.bigdecimal_numeric bigdecimalNumeric,</if>
+         <if test="dateDateNotIgnore_ != null and dateDateNotIgnore_">allType.date_date dateDate,</if>
+         <if test="dateYearNotIgnore_ != null and dateYearNotIgnore_">allType.date_year dateYear,</if>
+         <if test="timeTimeNotIgnore_ != null and timeTimeNotIgnore_">allType.time_time timeTime,</if>
+         <if test="timestempDatetimeNotIgnore_ != null and timestempDatetimeNotIgnore_">allType.timestemp_datetime timestempDatetime,</if>
+         <if test="timestempTimestempNotIgnore_ != null and timestempTimestempNotIgnore_">allType.timestemp_timestemp timestempTimestemp</if>
+        </trim>
+    </sql>
+
+   <sql id="whereSqlModel">
+        <if test="longId!=null "> and allType.long_id = #{longId}</if>
+        <if test="bytesBinary!=null "> and allType.bytes_binary = #{bytesBinary}</if>
+        <if test="bytesBlob!=null "> and allType.bytes_blob = #{bytesBlob}</if>
+        <if test="bytesMediumblob!=null "> and allType.bytes_mediumblob = #{bytesMediumblob}</if>
+        <if test="bytesVarbinary!=null "> and allType.bytes_varbinary = #{bytesVarbinary}</if>
+        <if test="bytesTinyblob!=null "> and allType.bytes_tinyblob = #{bytesTinyblob}</if>
+        <if test="bytesLongblob!=null "> and allType.bytes_longblob = #{bytesLongblob}</if>
+        <if test="booleanBit!=null "> and allType.boolean_bit = #{booleanBit}</if>
+        <if test="booleanBool!=null "> and allType.boolean_bool = #{booleanBool}</if>
+        <if test="booleanBoolean!=null "> and allType.boolean_boolean = #{booleanBoolean}</if>
+        <if test="stringEnum!=null "> and allType.string_enum = #{stringEnum}</if>
+        <if test="stringChar!=null "> and allType.string_char = #{stringChar}</if>
+        <if test="stringLongtext!=null "> and allType.string_longtext = #{stringLongtext}</if>
+        <if test="stringMediumtext!=null "> and allType.string_mediumtext = #{stringMediumtext}</if>
+        <if test="stringVarchar!=null "> and allType.string_varchar = #{stringVarchar}</if>
+        <if test="stringSet!=null "> and allType.string_set = #{stringSet}</if>
+        <if test="stringTinytext!=null "> and allType.string_tinytext = #{stringTinytext}</if>
+        <if test="stringText!=null "> and allType.string_text = #{stringText}</if>
+        <if test="byteTinyint!=null "> and allType.byte_tinyint = #{byteTinyint}</if>
+        <if test="shortSmallint!=null "> and allType.short_smallint = #{shortSmallint}</if>
+        <if test="integerInt!=null "> and allType.integer_int = #{integerInt}</if>
+        <if test="integerMediumint!=null "> and allType.integer_mediumint = #{integerMediumint}</if>
+        <if test="floatFloat!=null "> and allType.float_float = #{floatFloat}</if>
+        <if test="doubleDouble!=null "> and allType.double_double = #{doubleDouble}</if>
+        <if test="doubleReal!=null "> and allType.double_real = #{doubleReal}</if>
+        <if test="bigdecimalDecimal!=null "> and allType.bigdecimal_decimal = #{bigdecimalDecimal}</if>
+        <if test="bigdecimalNumeric!=null "> and allType.bigdecimal_numeric = #{bigdecimalNumeric}</if>
+        <if test="dateDate!=null "> and allType.date_date = #{dateDate,jdbcType=TIMESTAMP}</if>
+        <if test="dateYear!=null "> and allType.date_year = #{dateYear,jdbcType=TIMESTAMP}</if>
+        <if test="timeTime!=null "> and allType.time_time = #{timeTime,jdbcType=TIMESTAMP}</if>
+        <if test="timestempDatetime!=null "> and allType.timestemp_datetime = #{timestempDatetime,jdbcType=TIMESTAMP}</if>
+        <if test="timestempTimestemp!=null "> and allType.timestemp_timestemp = #{timestempTimestemp,jdbcType=TIMESTAMP}</if>
+        <!--<if test="whereSql!=null"> ${whereSql}</if>-->
+    </sql>
+
+    <sql id="safeGroupBy">
+        <if test="safeGroupBy!=null and safeGroupBy!=''">
+            group by
+            <choose>
+                <when test="safeGroupBy != null and safeGroupBy == 'long_id'">  long_id </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'bytes_binary'">  bytes_binary </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'bytes_blob'">  bytes_blob </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'bytes_mediumblob'">  bytes_mediumblob </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'bytes_varbinary'">  bytes_varbinary </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'bytes_tinyblob'">  bytes_tinyblob </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'bytes_longblob'">  bytes_longblob </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'boolean_bit'">  boolean_bit </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'boolean_bool'">  boolean_bool </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'boolean_boolean'">  boolean_boolean </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'string_enum'">  string_enum </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'string_char'">  string_char </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'string_longtext'">  string_longtext </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'string_mediumtext'">  string_mediumtext </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'string_varchar'">  string_varchar </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'string_set'">  string_set </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'string_tinytext'">  string_tinytext </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'string_text'">  string_text </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'byte_tinyint'">  byte_tinyint </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'short_smallint'">  short_smallint </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'integer_int'">  integer_int </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'integer_mediumint'">  integer_mediumint </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'float_float'">  float_float </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'double_double'">  double_double </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'double_real'">  double_real </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'bigdecimal_decimal'">  bigdecimal_decimal </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'bigdecimal_numeric'">  bigdecimal_numeric </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'date_date'">  date_date </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'date_year'">  date_year </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'time_time'">  time_time </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'timestemp_datetime'">  timestemp_datetime </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'timestemp_timestemp'">  timestemp_timestemp </when>
+            </choose>
+        </if>
+    </sql>
+    <sql id="safeOrderBy">
+        <if test="safeOrderBy!=null and safeOrderBy!=''">
+            order by
+            <choose>
+                <when test="safeOrderBy != null and safeOrderBy == 'long_id desc'">  long_id desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'long_id asc'"> long_id asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'bytes_binary desc'">  bytes_binary desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'bytes_binary asc'"> bytes_binary asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'bytes_blob desc'">  bytes_blob desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'bytes_blob asc'"> bytes_blob asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'bytes_mediumblob desc'">  bytes_mediumblob desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'bytes_mediumblob asc'"> bytes_mediumblob asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'bytes_varbinary desc'">  bytes_varbinary desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'bytes_varbinary asc'"> bytes_varbinary asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'bytes_tinyblob desc'">  bytes_tinyblob desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'bytes_tinyblob asc'"> bytes_tinyblob asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'bytes_longblob desc'">  bytes_longblob desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'bytes_longblob asc'"> bytes_longblob asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'boolean_bit desc'">  boolean_bit desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'boolean_bit asc'"> boolean_bit asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'boolean_bool desc'">  boolean_bool desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'boolean_bool asc'"> boolean_bool asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'boolean_boolean desc'">  boolean_boolean desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'boolean_boolean asc'"> boolean_boolean asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'string_enum desc'">  string_enum desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'string_enum asc'"> string_enum asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'string_char desc'">  string_char desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'string_char asc'"> string_char asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'string_longtext desc'">  string_longtext desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'string_longtext asc'"> string_longtext asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'string_mediumtext desc'">  string_mediumtext desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'string_mediumtext asc'"> string_mediumtext asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'string_varchar desc'">  string_varchar desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'string_varchar asc'"> string_varchar asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'string_set desc'">  string_set desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'string_set asc'"> string_set asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'string_tinytext desc'">  string_tinytext desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'string_tinytext asc'"> string_tinytext asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'string_text desc'">  string_text desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'string_text asc'"> string_text asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'byte_tinyint desc'">  byte_tinyint desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'byte_tinyint asc'"> byte_tinyint asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'short_smallint desc'">  short_smallint desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'short_smallint asc'"> short_smallint asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'integer_int desc'">  integer_int desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'integer_int asc'"> integer_int asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'integer_mediumint desc'">  integer_mediumint desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'integer_mediumint asc'"> integer_mediumint asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'float_float desc'">  float_float desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'float_float asc'"> float_float asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'double_double desc'">  double_double desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'double_double asc'"> double_double asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'double_real desc'">  double_real desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'double_real asc'"> double_real asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'bigdecimal_decimal desc'">  bigdecimal_decimal desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'bigdecimal_decimal asc'"> bigdecimal_decimal asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'bigdecimal_numeric desc'">  bigdecimal_numeric desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'bigdecimal_numeric asc'"> bigdecimal_numeric asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'date_date desc'">  date_date desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'date_date asc'"> date_date asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'date_year desc'">  date_year desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'date_year asc'"> date_year asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'time_time desc'">  time_time desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'time_time asc'"> time_time asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'timestemp_datetime desc'">  timestemp_datetime desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'timestemp_datetime asc'"> timestemp_datetime asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'timestemp_timestemp desc'">  timestemp_timestemp desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'timestemp_timestemp asc'"> timestemp_timestemp asc </when>
+            </choose>
+        </if>
+    </sql>
+
+    <sql id="orderGroupLimit">
+         <include refid="safeGroupBy"/>
+         <if test="notSafeGroupBy != null and notSafeGroupBy != ''"> group by ${notSafeGroupBy}</if>
+         <include refid="safeOrderBy"/>
+         <if test="notSafeOrderBy != null and notSafeOrderBy != ''"> order by ${notSafeOrderBy}</if>
+                <if test="limit != null"> LIMIT #{limit} <if test="start != null"> OFFSET #{start}</if> </if>
+    </sql>
+
+</mapper>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head  th:include="magicalcoder/v001/include/head :: commonHead('分配权限')"/>
+
+<body class="childrenBody">
+<form class="layui-form" style="width:80%;">
+    <!--权限树-->
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <div id="auth-tree"></div>
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 layui-hide">
+        <div class="layui-input-block security_edit_form_operate_save">
+            <button class="layui-btn" name="submit"  lay-submit="" lay-filter="save">立即提交</button>
+        </div>
+    </div>
+</form>
+<button class="layui-btn layui-hide" name="reload">重新加载</button>
+
+    <div th:replace="magicalcoder/v001/include/main-js :: commonMain" />
+    <script type="text/javascript"  th:src="@{/assets/admin/sysrole/sysrole-permission.js}"></script>
+
+</body>
+</html>

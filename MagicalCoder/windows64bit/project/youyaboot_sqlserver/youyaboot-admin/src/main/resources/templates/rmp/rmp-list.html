@@ -1,0 +1,26 @@
+<!--
+代码为自动生成 Created by www.magicalcoder.com
+ 如果你改变了此类 read 请将此行删除
+ 欢迎加入官方QQ群:323237052
+-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head  th:include="magicalcoder/include/head :: commonHead('角色模块权限列表')"/>
+<body class="childrenBody">
+    <form class="layui-form queryForm">
+        <blockquote class="layui-elem-quote quoteBox">
+            <form class="layui-form-item ">
+                <div class="layui-inline">
+                     <label class="layui-form-label">在这个页面开发吧 需要什么接口 你先自己造数据，我给你提供你需要的格式，字段需要根据数据库字段一致；templates\rmp\rmp-list.html</label>
+                    <div class="layui-input-inline">
+                        <select class="magicalcoder-foreign-select2 layui-input" lay-ignore="true" name="roleIdFirst" style="height:30px;width: 200px" data-url="admin/sys_role_rest/search" data-id="id" data-text-fields="roleName"></select>
+                    </div>
+                </div>
+
+            </form>
+        </blockquote>
+    </form>
+    <div th:replace="magicalcoder/include/main-js :: commonMain" />
+    <script type="text/javascript"  th:src="@{/assets/admin/rmp/rmp-list.js}"></script>
+</body>
+</html>

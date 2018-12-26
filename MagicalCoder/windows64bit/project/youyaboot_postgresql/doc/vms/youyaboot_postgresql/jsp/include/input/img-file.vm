@@ -1,0 +1,7 @@
+            <a class="layui-btn a_${node.dbField.javaField} #if($node.formItem.disabled)layui-hide#end" >
+                <i class="layui-icon" >&#xe67c;</i>上传文件或图片
+            </a>
+            <input class="magicalcoder-layupload layui-input" name="${node.dbField.javaField}" type="text" lay-verify="magicalCoderVerify#parse("vms/$version/jsp/include/formvalidate/lay-verify.vm")" value="$node.formItem.defaultValue" #if($node.formItem.disabled)disabled="true"#end placeholder="$node.formItem.placeholder"/>
+            <div class="layui-upload-list">
+                <img class="layui-textarea layui-upload-img img_${node.dbField.javaField}" />
+            </div>

@@ -1,0 +1,35 @@
+##自增主键
+##是否有主键
+#set($hasDbPriorityKey = false)
+##是否有自增
+#set($hasAutoIncrease = false)
+##主键数据库字段名
+#set($dbPriorityKeySqlField = '')
+##主键字段java变量名
+#set($dbPriorityKeyJavaField = '')
+##主键java类型
+#set($dbPriorityKeyJavaType = '')
+##主键java get名称
+#set($dbPriorityKeyJavaGetName = '')
+##主键java set名称
+#set($dbPriorityKeyJavaSetName = '')
+##主键数据库sqlType类型
+#set($dbPriorityKeyDbType = '')
+##主键字段
+#set($dbPriorityNode = {})
+#foreach( $node in $nodeList)
+    #if($node.dbField.dbPriorityKey)
+        #set($dbPriorityNode = $node)
+        #set($dbPriorityKeySqlField = $node.dbField.dbRealName)
+        #set($dbPriorityKeyJavaField = $node.dbField.javaField)
+        #set($dbPriorityKeyJavaType = $node.dbField.javaType)
+        #set($dbPriorityKeyJavaGetName = $node.dbField.javaGetName)
+        #set($dbPriorityKeyJavaSetName = $node.dbField.javaSetName)
+        #set($dbPriorityKeyDbType = $node.dbField.dbType)
+        #set($hasDbPriorityKey = true)
+        #set($hasAutoIncrease = true)
+    #end
+#end
+##唯一键
+#set($dbUniqueNodes = $TableFieldUtil.uniqueNodes($nodeList))
+#set($hasDbUniqueNodes = ($dbUniqueNodes && $dbUniqueNodes.size()>0))

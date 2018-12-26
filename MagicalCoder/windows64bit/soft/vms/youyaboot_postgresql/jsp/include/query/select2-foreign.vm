@@ -1,0 +1,29 @@
+##外键搜索输入框下拉
+#set($dataTextFields="")
+#set($isFirst=true)##设置个开关
+#set($foreignNodeList = $RemoteApiUtil.getNodeList($node.dbField.foreignVmDbFieldNode.dbTable.id))
+#foreach($foreignNode in $foreignNodeList)
+    #if($foreignNode.formQueryList)
+        #foreach($formQuery in $foreignNode.formQueryList)
+            #if($formQuery.foreignInputSelectShow==1)
+                #if($isFirst)
+                    #set($dataTextFields="$foreignNode.dbField.javaField")
+                    #set($isFirst=false)
+                #else
+                    #set($dataTextFields="$dataTextFields,$foreignNode.dbField.javaField")
+                #end
+            #end
+        #end
+    #end
+#end
+#if($StringUtil.isNotBlank($formQuery.firstCompare))
+                    <div class="layui-input-inline">
+                        <select  data-name="${node.dbField.javaField}" class="magicalcoder-foreign-select2 layui-input" lay-ignore="true" name="${node.dbField.javaField}First" style="height:30px;width: 200px" data-url="admin/${node.dbField.foreignVmDbFieldNode.dbTable.tableName}_rest/search" data-id="$node.dbField.foreignVmDbFieldNode.dbField.javaField" data-text-fields="$dataTextFields" placeholder="$node.formItem.title"><option value=""></option></select>
+                    </div>
+#end
+#if($StringUtil.isNotBlank($formQuery.secondCompare))
+                    <label class="layui-form-label">-</label>
+                    <div class="layui-input-inline">
+                        <select data-name="${node.dbField.javaField}" class="magicalcoder-foreign-select2 layui-input" lay-ignore="true" name="${node.dbField.javaField}Second" style="height:30px;width: 200px" data-url="admin/${node.dbField.foreignVmDbFieldNode.dbTable.tableName}_rest/search" data-id="$node.dbField.foreignVmDbFieldNode.dbField.javaField" data-text-fields="$dataTextFields" placeholder="$node.formItem.title"><option value=""></option></select>
+                    </div>
+#end

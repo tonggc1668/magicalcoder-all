@@ -1,0 +1,33 @@
+##这是一个普通bean的写法 请保证你的模板文件以utf-8编码保存 使用另存为utf-8即可 否则会编码问题出现乱码
+## 包结构 请到dbProject中拿数据projectName项目名称 companyName公司名称 
+package com.${dbProject.projectName}.${dbProject.companyName}.entity
+##如果你想让你的文件能被覆盖 请加上这段文字 否则文件只能新增不能修改
+/**
+* 代码为自动生成 Created by www.magicalcoder.com
+* 如果你改变了此类 read 请将此行删除
+* 欢迎加入官方QQ群:323237052
+*/
+
+public class ${dbTable.upEntity} {
+
+    ##书写所有成员变量
+    #foreach($node in $nodeList)
+	#if($node.dbField.javaType == 'Date')
+    @DateTimeFormat( pattern = "yyyy-MM-dd HH:mm:ss" )
+	#end
+
+    private $node.dbField.javaType $node.dbField.javaField;//$node.dbField.dbComment
+    #end
+
+    ##书写所有的get set方法
+    #foreach($node in $nodeList)
+
+    public $node.dbField.javaType ${node.dbField.javaGetName}(){
+        return $node.dbField.javaField;
+    }
+    public void ${node.dbField.javaSetName}(${node.dbField.javaType} ${node.dbField.javaField}){
+        this.$node.dbField.javaField = $node.dbField.javaField;
+    }
+    #end
+
+}

@@ -1,0 +1,27 @@
+#set($selectValueMap = $TableFieldUtil.parseJsonToMap($node.formItem.selectValue))
+#if($StringUtil.isNotBlank($formQuery.firstCompare))
+                    <div class="layui-form-label">$node.formItem.title</div>
+                    <div class="layui-input-inline">
+                #if($selectValueMap.get('inputType') == 'radio')
+                    #set($keyValueList = $selectValueMap.get('keyValueList'))
+                    #if($keyValueList )
+                        #foreach($sv in $keyValueList)
+                            <input type="radio" data-name="${node.dbField.javaField}" name="${node.dbField.javaField}First" lay-skin="primary" value="$sv.key" title="$sv.value" class="layui-input"/>
+                        #end
+                    #end
+                #end
+                    </div>
+#end
+#if($StringUtil.isNotBlank($formQuery.secondCompare))
+                    <div class="layui-input-inline">-</div>
+                    <div class="layui-input-inline">
+            #if($selectValueMap.get('inputType') == 'radio')
+                #set($keyValueList = $selectValueMap.get('keyValueList'))
+                #if($keyValueList )
+                    #foreach($sv in $keyValueList)
+                        <input type="radio" data-name="${node.dbField.javaField}" name="${node.dbField.javaField}Second" lay-skin="primary" value="$sv.key" title="$sv.value" class="layui-input"/>
+                    #end
+                #end
+            #end
+					</div>
+#end

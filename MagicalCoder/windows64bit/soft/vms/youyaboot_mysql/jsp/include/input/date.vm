@@ -1,0 +1,1 @@
+            <input type="text"  name="${node.dbField.javaField}" placeholder="请选择$node.formItem.title"  autocomplete="off" class="magicalcoder-laydate layui-input" lay-verify="magicalCoderVerify#parse("vms/$version/jsp/include/formvalidate/lay-verify.vm")" value="$node.formItem.defaultValue" #if($node.formItem.disabled)disabled="true"#end/>

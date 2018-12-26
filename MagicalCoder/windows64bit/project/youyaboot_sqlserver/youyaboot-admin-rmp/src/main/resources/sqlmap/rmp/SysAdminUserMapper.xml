@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+* 代码为自动生成 Created by www.magicalcoder.com
+* 如果你改变了此类 read 请将此行删除
+*  欢迎加入官方QQ群:323237052
+-->
+<mapper namespace="com.magicalcoder.youyaboot.admin.rmp.mapper.SysAdminUserMapper">
+    <!-- SysAdminUser -->
+    <resultMap id="resultMap" type="SysAdminUser">
+                <id column="id" property="id"/>
+                <result column="username" property="username" />
+                <result column="password" property="password" />
+                <result column="real_name" property="realName" />
+                <result column="email" property="email" />
+                <result column="telephone" property="telephone" />
+                <result column="mobile_phone" property="mobilePhone" />
+                <result column="address" property="address" />
+                <result column="create_time" property="createTime" />
+                <result column="update_time" property="updateTime" />
+                <result column="role_id" property="roleId" />
+                <result column="enabled" property="enabled" />
+                <result column="credentials_non_expired" property="credentialsNonExpired" />
+                <result column="account_non_expired" property="accountNonExpired" />
+                <result column="account_non_locked" property="accountNonLocked" />
+    </resultMap>
+    <!-- 查询单个实体 -->
+    <select id="getModel" parameterType="hashmap" resultMap="resultMap">
+        select  <choose><when test="NotIgnore_!=null and NotIgnore_"><include refid="selectSqlNotIgnoreModel"/> </when><otherwise><include refid="selectSqlIgnoreModel"/></otherwise></choose>
+        from  <include refid="tableSql"/>  where 1=1 <include refid="whereSqlModel"/> <include refid="orderGroupLimit"/>
+    </select>
+    <!--根据主键 查询单个实体 -->
+    <select id="getModelByPk" parameterType="hashmap" resultMap="resultMap">
+        select  <choose><when test="NotIgnore_!=null and NotIgnore_"><include refid="selectSqlNotIgnoreModel"/> </when><otherwise><include refid="selectSqlIgnoreModel"/></otherwise></choose>
+        from  <include refid="tableSql"/>  <include refid="magicalcoderPkWhereSql"/>
+    </select>
+    <!-- 查询一组实体 -->
+    <select id="getModelList" parameterType="hashmap" resultMap="resultMap">
+        <include refid="pageStart"/>
+        select  <choose><when test="NotIgnore_!=null and NotIgnore_"><include refid="selectSqlNotIgnoreModel"/> </when><otherwise><include refid="selectSqlIgnoreModel"/></otherwise></choose>
+        <include refid="pageParam"/>
+        from  <include refid="tableSql"/>  where 1=1 <include refid="whereSqlModel"/> <include refid="orderGroupLimit"/>
+        <include refid="pageEnd"/>
+    </select>
+    <!-- 查询一组实体 in 语句-->
+    <select id="getModelInList" parameterType="hashmap" resultMap="resultMap">
+        <include refid="pageStart"/>
+        select  <choose><when test="NotIgnore_!=null and NotIgnore_"><include refid="selectSqlNotIgnoreModel"/> </when><otherwise><include refid="selectSqlIgnoreModel"/></otherwise></choose>
+        <include refid="pageParam"/>
+        from  <include refid="tableSql"/>  where  "id" in
+        <foreach item="id" index="index" collection="idList" open="(" separator="," close=")">#{id}</foreach>
+        <include refid="orderGroupLimit"/>
+        <include refid="pageEnd"/>
+    </select>
+    <!-- 查询一组实体的数量 -->
+    <select id="getModelListCount" parameterType="hashmap" resultType="int">
+        select count(1)  from  <include refid="tableSql"/>  where 1=1 <include refid="whereSqlModel"/> <include refid="orderGroupLimit"/>
+    </select>
+    <!-- 插入单个实体 遇到入参null转换成数据库NULL-->
+    <insert id="insertModel" parameterType="SysAdminUser"  useGeneratedKeys="true" keyProperty="id" >
+        insert into <include refid="tableSql"/> (<include refid="douFieldSql"/>) values(<include refid="douValueSql"/>)
+    </insert>
+    <!-- 替换单个实体 如果没有则插入 遇到入参null转换成数据库NULL-->
+    <insert id="replaceModel" parameterType="SysAdminUser"  useGeneratedKeys="true" keyProperty="id" >
+        <!-- 很抱歉 postgresql 没有像mysql replace into 这样 的语句-->
+    </insert>
+    <!-- 插入单个实体 遇到入参null转换成数据库默认值-->
+    <insert id="insertModelWithoutNull" parameterType="SysAdminUser"  useGeneratedKeys="true" keyProperty="id" >
+        insert into <include refid="tableSql"/> (<include refid="douFieldWithoutNullSql"/>) values(<include refid="douValueWithoutNullSql"/>)
+    </insert>
+    <!-- 替换单个实体 如果没有则插入 遇到入参null转换成数据库默认值-->
+    <insert id="replaceModelWithoutNull" parameterType="SysAdminUser"  useGeneratedKeys="false" keyProperty="id" >
+        <!-- 很抱歉 postgresql 没有像mysql replace into 这样 的语句-->
+    </insert>
+    <!-- 批量插入一组实体 -->
+    <insert id="batchInsertModel" parameterType="java.util.List"   useGeneratedKeys="false" keyProperty="id" >
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            insert into <include refid="tableSql"/> (<include refid="batchDouFieldSql"/>) values (<include refid="batchDouValueSql"/>)
+        </foreach>
+    </insert>
+    <!-- 批量替换一组实体 -->
+    <insert id="batchReplaceModel" parameterType="java.util.List"  useGeneratedKeys="false" keyProperty="id" >
+        <!-- 很抱歉 postgresql 没有像mysql replace into 这样 的语句-->
+    </insert>
+    <insert id="batchInsertModelWithoutNull" parameterType="java.util.List"   useGeneratedKeys="false" keyProperty="id" >
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            insert into <include refid="tableSql"/> (<include refid="batchDouFieldWithoutNullSql"/>) values (<include refid="batchDouValueWithoutNullSql"/>)
+        </foreach>
+    </insert>
+    <insert id="batchReplaceModelWithoutNull" parameterType="java.util.List"  useGeneratedKeys="false" keyProperty="id" >
+        <!-- 很抱歉 postgresql 没有像mysql replace into 这样 的语句-->
+    </insert>
+
+        <!-- 清空表 操作危险 慎用，暂时注销掉-->
+    <delete id="truncateModel">
+        -- truncate table <include refid="tableSql"/>
+    </delete>
+
+    <!-- 根据主键删除一个实体 magicalCoderPrimaryKeyName 框架封装-->
+    <delete id="deleteModelByPk" parameterType="hashmap">
+        delete from <include refid="tableSql"/> <include refid="magicalcoderPkWhereSql"/>
+    </delete>
+
+    <delete id="deleteModelList" parameterType="hashmap">
+        delete from <include refid="tableSql"/> where 1=1 <include refid="whereSqlModel"/>
+    </delete>
+
+    <!-- 批量删除实体 in 根据主键-->
+    <delete id="deleteModelByIds" parameterType="java.util.Set">
+        delete from <include refid="tableSql"/> where "id" in <foreach item="id" index="index" collection="collection" open="(" separator="," close=")">#{id}</foreach>
+    </delete>
+    <!-- 更新一个实体 -->
+    <update id="updateModel" parameterType="SysAdminUser">
+        update <include refid="tableSql"/> <include refid="updateSetSql"/> <include refid="updatePkWhereSql"/>
+    </update>
+    <!-- 更新一个实体 仅仅当被更新的字段不为空的时候才更新，否则忽略更新-->
+    <update id="updateModelWithoutNull" parameterType="SysAdminUser">
+        update <include refid="tableSql"/> <include refid="updateSetWithoutNullSql"/> <include refid="updatePkWhereSql"/>
+    </update>
+     <!-- 批量更新实体 传入一组实体，分别根据主键作为查询条件-->
+    <update id="batchUpdateModel" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update <include refid="tableSql"/> <include refid="batchUpdateSetSql"/> <include refid="batchUpdatePkWhereSql"/>
+        </foreach>
+    </update>
+    <update id="batchUpdateModelWithoutNull" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update <include refid="tableSql"/> <include refid="batchUpdateWithoutNullSetSql"/> <include refid="batchUpdatePkWhereSql"/>
+        </foreach>
+    </update>
+    <!-- sql 片段 -->
+   <sql id="selectSqlIgnoreModel">
+        <trim suffixOverrides=",">
+            <if test="idIgnore_ == null or !idIgnore_">"id",</if>
+            <if test="usernameIgnore_ == null or !usernameIgnore_">"username",</if>
+            <if test="passwordIgnore_ == null or !passwordIgnore_">"password",</if>
+            <if test="realNameIgnore_ == null or !realNameIgnore_">"real_name",</if>
+            <if test="emailIgnore_ == null or !emailIgnore_">"email",</if>
+            <if test="telephoneIgnore_ == null or !telephoneIgnore_">"telephone",</if>
+            <if test="mobilePhoneIgnore_ == null or !mobilePhoneIgnore_">"mobile_phone",</if>
+            <if test="addressIgnore_ == null or !addressIgnore_">"address",</if>
+            <if test="createTimeIgnore_ == null or !createTimeIgnore_">"create_time",</if>
+            <if test="updateTimeIgnore_ == null or !updateTimeIgnore_">"update_time",</if>
+            <if test="roleIdIgnore_ == null or !roleIdIgnore_">"role_id",</if>
+            <if test="enabledIgnore_ == null or !enabledIgnore_">"enabled",</if>
+            <if test="credentialsNonExpiredIgnore_ == null or !credentialsNonExpiredIgnore_">"credentials_non_expired",</if>
+            <if test="accountNonExpiredIgnore_ == null or !accountNonExpiredIgnore_">"account_non_expired",</if>
+            <if test="accountNonLockedIgnore_ == null or !accountNonLockedIgnore_">"account_non_locked"</if>
+        </trim>
+    </sql>
+    <sql id="selectSqlNotIgnoreModel">
+        <trim suffixOverrides=",">
+         <if test="idNotIgnore_ != null and idNotIgnore_">"id",</if>
+         <if test="usernameNotIgnore_ != null and usernameNotIgnore_">"username",</if>
+         <if test="passwordNotIgnore_ != null and passwordNotIgnore_">"password",</if>
+         <if test="realNameNotIgnore_ != null and realNameNotIgnore_">"real_name",</if>
+         <if test="emailNotIgnore_ != null and emailNotIgnore_">"email",</if>
+         <if test="telephoneNotIgnore_ != null and telephoneNotIgnore_">"telephone",</if>
+         <if test="mobilePhoneNotIgnore_ != null and mobilePhoneNotIgnore_">"mobile_phone",</if>
+         <if test="addressNotIgnore_ != null and addressNotIgnore_">"address",</if>
+         <if test="createTimeNotIgnore_ != null and createTimeNotIgnore_">"create_time",</if>
+         <if test="updateTimeNotIgnore_ != null and updateTimeNotIgnore_">"update_time",</if>
+         <if test="roleIdNotIgnore_ != null and roleIdNotIgnore_">"role_id",</if>
+         <if test="enabledNotIgnore_ != null and enabledNotIgnore_">"enabled",</if>
+         <if test="credentialsNonExpiredNotIgnore_ != null and credentialsNonExpiredNotIgnore_">"credentials_non_expired",</if>
+         <if test="accountNonExpiredNotIgnore_ != null and accountNonExpiredNotIgnore_">"account_non_expired",</if>
+         <if test="accountNonLockedNotIgnore_ != null and accountNonLockedNotIgnore_">"account_non_locked"</if>
+        </trim>
+    </sql>
+    <sql id="douFieldSql">
+        <trim suffixOverrides=",">
+            <if test="id!=null">"id",</if> "username","password","real_name","email","telephone","mobile_phone","address","create_time","update_time","role_id","enabled","credentials_non_expired","account_non_expired","account_non_locked",
+        </trim>
+    </sql>
+    <sql id="douValueSql">
+        <trim suffixOverrides=",">
+                <choose><when test="id!=null">#{id},</when></choose>
+                <choose><when test="username!=null">#{username},</when><otherwise>NULL,</otherwise></choose>
+                <choose><when test="password!=null">#{password},</when><otherwise>NULL,</otherwise></choose>
+                <choose><when test="realName!=null">#{realName},</when><otherwise>NULL,</otherwise></choose>
+                <choose><when test="email!=null">#{email},</when><otherwise>NULL,</otherwise></choose>
+                <choose><when test="telephone!=null">#{telephone},</when><otherwise>NULL,</otherwise></choose>
+                <choose><when test="mobilePhone!=null">#{mobilePhone},</when><otherwise>NULL,</otherwise></choose>
+                <choose><when test="address!=null">#{address},</when><otherwise>NULL,</otherwise></choose>
+                <choose><when test="createTime!=null">#{createTime,jdbcType=TIMESTAMP},</when><otherwise>NULL,</otherwise></choose>
+                <choose><when test="updateTime!=null">#{updateTime,jdbcType=TIMESTAMP},</when><otherwise>NULL,</otherwise></choose>
+                <choose><when test="roleId!=null">#{roleId},</when><otherwise>NULL,</otherwise></choose>
+                <choose><when test="enabled!=null">#{enabled},</when><otherwise>NULL,</otherwise></choose>
+                <choose><when test="credentialsNonExpired!=null">#{credentialsNonExpired},</when><otherwise>NULL,</otherwise></choose>
+                <choose><when test="accountNonExpired!=null">#{accountNonExpired},</when><otherwise>NULL,</otherwise></choose>
+                <choose><when test="accountNonLocked!=null">#{accountNonLocked},</when><otherwise>NULL,</otherwise></choose>
+        </trim>
+    </sql>
+
+    <sql id="douFieldWithoutNullSql">
+        <trim suffixOverrides=",">
+                <if test="id!=null">"id",</if>
+                <if test="username!=null">"username",</if>
+                <if test="password!=null">"password",</if>
+                <if test="realName!=null">"real_name",</if>
+                <if test="email!=null">"email",</if>
+                <if test="telephone!=null">"telephone",</if>
+                <if test="mobilePhone!=null">"mobile_phone",</if>
+                <if test="address!=null">"address",</if>
+                <if test="createTime!=null">"create_time",</if>
+                <if test="updateTime!=null">"update_time",</if>
+                <if test="roleId!=null">"role_id",</if>
+                <if test="enabled!=null">"enabled",</if>
+                <if test="credentialsNonExpired!=null">"credentials_non_expired",</if>
+                <if test="accountNonExpired!=null">"account_non_expired",</if>
+                <if test="accountNonLocked!=null">"account_non_locked",</if>
+
+        </trim>
+    </sql>
+    <sql id="douValueWithoutNullSql">
+        <trim suffixOverrides=",">
+                <choose><when test="id!=null">#{id},</when></choose>
+                <choose><when test="username!=null">#{username},</when></choose>
+                <choose><when test="password!=null">#{password},</when></choose>
+                <choose><when test="realName!=null">#{realName},</when></choose>
+                <choose><when test="email!=null">#{email},</when></choose>
+                <choose><when test="telephone!=null">#{telephone},</when></choose>
+                <choose><when test="mobilePhone!=null">#{mobilePhone},</when></choose>
+                <choose><when test="address!=null">#{address},</when></choose>
+                <choose><when test="createTime!=null">#{createTime,jdbcType=TIMESTAMP},</when></choose>
+                <choose><when test="updateTime!=null">#{updateTime,jdbcType=TIMESTAMP},</when></choose>
+                <choose><when test="roleId!=null">#{roleId},</when></choose>
+                <choose><when test="enabled!=null">#{enabled},</when></choose>
+                <choose><when test="credentialsNonExpired!=null">#{credentialsNonExpired},</when></choose>
+                <choose><when test="accountNonExpired!=null">#{accountNonExpired},</when></choose>
+                <choose><when test="accountNonLocked!=null">#{accountNonLocked},</when></choose>
+        </trim>
+    </sql>
+    <sql id="batchDouFieldSql">
+        <trim suffixOverrides=",">
+                <if test="item.id!=null">"id",</if> "username","password","real_name","email","telephone","mobile_phone","address","create_time","update_time","role_id","enabled","credentials_non_expired","account_non_expired","account_non_locked",
+        </trim>
+    </sql>
+    <sql id="batchDouValueSql">
+        <trim suffixOverrides=",">
+                <choose><when test="item.id!=null">#{item.id},</when></choose>
+                <choose><when test="item.username!=null">#{item.username},</when><otherwise>NULL,</otherwise></choose>
+                <choose><when test="item.password!=null">#{item.password},</when><otherwise>NULL,</otherwise></choose>
+                <choose><when test="item.realName!=null">#{item.realName},</when><otherwise>NULL,</otherwise></choose>
+                <choose><when test="item.email!=null">#{item.email},</when><otherwise>NULL,</otherwise></choose>
+                <choose><when test="item.telephone!=null">#{item.telephone},</when><otherwise>NULL,</otherwise></choose>
+                <choose><when test="item.mobilePhone!=null">#{item.mobilePhone},</when><otherwise>NULL,</otherwise></choose>
+                <choose><when test="item.address!=null">#{item.address},</when><otherwise>NULL,</otherwise></choose>
+                <choose><when test="item.createTime!=null">#{item.createTime,jdbcType=TIMESTAMP},</when><otherwise>NULL,</otherwise></choose>
+                <choose><when test="item.updateTime!=null">#{item.updateTime,jdbcType=TIMESTAMP},</when><otherwise>NULL,</otherwise></choose>
+                <choose><when test="item.roleId!=null">#{item.roleId},</when><otherwise>NULL,</otherwise></choose>
+                <choose><when test="item.enabled!=null">#{item.enabled},</when><otherwise>NULL,</otherwise></choose>
+                <choose><when test="item.credentialsNonExpired!=null">#{item.credentialsNonExpired},</when><otherwise>NULL,</otherwise></choose>
+                <choose><when test="item.accountNonExpired!=null">#{item.accountNonExpired},</when><otherwise>NULL,</otherwise></choose>
+                <choose><when test="item.accountNonLocked!=null">#{item.accountNonLocked},</when><otherwise>NULL,</otherwise></choose>
+        </trim>
+    </sql>
+    <sql id="batchDouFieldWithoutNullSql">
+        <trim suffixOverrides=",">
+                <if test="item.id!=null">"id",</if>
+                <if test="item.username!=null">"username",</if>
+                <if test="item.password!=null">"password",</if>
+                <if test="item.realName!=null">"real_name",</if>
+                <if test="item.email!=null">"email",</if>
+                <if test="item.telephone!=null">"telephone",</if>
+                <if test="item.mobilePhone!=null">"mobile_phone",</if>
+                <if test="item.address!=null">"address",</if>
+                <if test="item.createTime!=null">"create_time",</if>
+                <if test="item.updateTime!=null">"update_time",</if>
+                <if test="item.roleId!=null">"role_id",</if>
+                <if test="item.enabled!=null">"enabled",</if>
+                <if test="item.credentialsNonExpired!=null">"credentials_non_expired",</if>
+                <if test="item.accountNonExpired!=null">"account_non_expired",</if>
+                <if test="item.accountNonLocked!=null">"account_non_locked",</if>
+
+        </trim>
+    </sql>
+    <sql id="batchDouValueWithoutNullSql">
+        <trim suffixOverrides=",">
+                <choose><when test="item.id!=null">#{item.id},</when></choose>
+                <choose><when test="item.username!=null">#{item.username},</when></choose>
+                <choose><when test="item.password!=null">#{item.password},</when></choose>
+                <choose><when test="item.realName!=null">#{item.realName},</when></choose>
+                <choose><when test="item.email!=null">#{item.email},</when></choose>
+                <choose><when test="item.telephone!=null">#{item.telephone},</when></choose>
+                <choose><when test="item.mobilePhone!=null">#{item.mobilePhone},</when></choose>
+                <choose><when test="item.address!=null">#{item.address},</when></choose>
+                <choose><when test="item.createTime!=null">#{item.createTime,jdbcType=TIMESTAMP},</when></choose>
+                <choose><when test="item.updateTime!=null">#{item.updateTime,jdbcType=TIMESTAMP},</when></choose>
+                <choose><when test="item.roleId!=null">#{item.roleId},</when></choose>
+                <choose><when test="item.enabled!=null">#{item.enabled},</when></choose>
+                <choose><when test="item.credentialsNonExpired!=null">#{item.credentialsNonExpired},</when></choose>
+                <choose><when test="item.accountNonExpired!=null">#{item.accountNonExpired},</when></choose>
+                <choose><when test="item.accountNonLocked!=null">#{item.accountNonLocked},</when></choose>
+        </trim>
+    </sql>
+    <sql id="updateSetSql">
+        <set>
+                    <choose> <when test="username!=null">"username"=#{username}</when> <otherwise> "username"=NULL</otherwise> </choose>,
+                    <choose> <when test="password!=null">"password"=#{password}</when> <otherwise> "password"=NULL</otherwise> </choose>,
+                    <choose> <when test="realName!=null">"real_name"=#{realName}</when> <otherwise> "real_name"=NULL</otherwise> </choose>,
+                    <choose> <when test="email!=null">"email"=#{email}</when> <otherwise> "email"=NULL</otherwise> </choose>,
+                    <choose> <when test="telephone!=null">"telephone"=#{telephone}</when> <otherwise> "telephone"=NULL</otherwise> </choose>,
+                    <choose> <when test="mobilePhone!=null">"mobile_phone"=#{mobilePhone}</when> <otherwise> "mobile_phone"=NULL</otherwise> </choose>,
+                    <choose> <when test="address!=null">"address"=#{address}</when> <otherwise> "address"=NULL</otherwise> </choose>,
+                    <choose> <when test="createTime!=null">"create_time"=#{createTime,jdbcType=TIMESTAMP}</when> <otherwise> "create_time"=NULL</otherwise> </choose>,
+                    <choose> <when test="updateTime!=null">"update_time"=#{updateTime,jdbcType=TIMESTAMP}</when> <otherwise> "update_time"=NULL</otherwise> </choose>,
+                    <choose> <when test="roleId!=null">"role_id"=#{roleId}</when> <otherwise> "role_id"=NULL</otherwise> </choose>,
+                    <choose> <when test="enabled!=null">"enabled"=#{enabled}</when> <otherwise> "enabled"=NULL</otherwise> </choose>,
+                    <choose> <when test="credentialsNonExpired!=null">"credentials_non_expired"=#{credentialsNonExpired}</when> <otherwise> "credentials_non_expired"=NULL</otherwise> </choose>,
+                    <choose> <when test="accountNonExpired!=null">"account_non_expired"=#{accountNonExpired}</when> <otherwise> "account_non_expired"=NULL</otherwise> </choose>,
+                    <choose> <when test="accountNonLocked!=null">"account_non_locked"=#{accountNonLocked}</when> <otherwise> "account_non_locked"=NULL</otherwise> </choose>,
+        </set>
+    </sql>
+    <sql id="updateSetWithoutNullSql">
+        <set>
+                    <choose><when test="username!=null">"username"=#{username},</when></choose>
+                    <choose><when test="password!=null">"password"=#{password},</when></choose>
+                    <choose><when test="realName!=null">"real_name"=#{realName},</when></choose>
+                    <choose><when test="email!=null">"email"=#{email},</when></choose>
+                    <choose><when test="telephone!=null">"telephone"=#{telephone},</when></choose>
+                    <choose><when test="mobilePhone!=null">"mobile_phone"=#{mobilePhone},</when></choose>
+                    <choose><when test="address!=null">"address"=#{address},</when></choose>
+                    <choose><when test="createTime!=null">"create_time"=#{createTime,jdbcType=TIMESTAMP},</when></choose>
+                    <choose><when test="updateTime!=null">"update_time"=#{updateTime,jdbcType=TIMESTAMP},</when></choose>
+                    <choose><when test="roleId!=null">"role_id"=#{roleId},</when></choose>
+                    <choose><when test="enabled!=null">"enabled"=#{enabled},</when></choose>
+                    <choose><when test="credentialsNonExpired!=null">"credentials_non_expired"=#{credentialsNonExpired},</when></choose>
+                    <choose><when test="accountNonExpired!=null">"account_non_expired"=#{accountNonExpired},</when></choose>
+                    <choose><when test="accountNonLocked!=null">"account_non_locked"=#{accountNonLocked},</when></choose>
+        </set>
+    </sql>
+    <sql id="magicalcoderPkWhereSql">
+        where 1=1
+            and "id" = #{magicalCoderPrimaryKeyName}
+    </sql>
+    <sql id="updatePkWhereSql">
+        where 1=1
+            and "id" = #{id}
+    </sql>
+    <sql id="batchUpdateSetSql">
+        <set>
+                    <choose> <when test="item.username!=null">"username"=#{item.username}</when> <otherwise> "username"=NULL</otherwise> </choose>,
+                    <choose> <when test="item.password!=null">"password"=#{item.password}</when> <otherwise> "password"=NULL</otherwise> </choose>,
+                    <choose> <when test="item.realName!=null">"real_name"=#{item.realName}</when> <otherwise> "real_name"=NULL</otherwise> </choose>,
+                    <choose> <when test="item.email!=null">"email"=#{item.email}</when> <otherwise> "email"=NULL</otherwise> </choose>,
+                    <choose> <when test="item.telephone!=null">"telephone"=#{item.telephone}</when> <otherwise> "telephone"=NULL</otherwise> </choose>,
+                    <choose> <when test="item.mobilePhone!=null">"mobile_phone"=#{item.mobilePhone}</when> <otherwise> "mobile_phone"=NULL</otherwise> </choose>,
+                    <choose> <when test="item.address!=null">"address"=#{item.address}</when> <otherwise> "address"=NULL</otherwise> </choose>,
+                    <choose> <when test="item.createTime!=null">"create_time"=#{item.createTime,jdbcType=TIMESTAMP}</when> <otherwise> "create_time"=NULL</otherwise> </choose>,
+                    <choose> <when test="item.updateTime!=null">"update_time"=#{item.updateTime,jdbcType=TIMESTAMP}</when> <otherwise> "update_time"=NULL</otherwise> </choose>,
+                    <choose> <when test="item.roleId!=null">"role_id"=#{item.roleId}</when> <otherwise> "role_id"=NULL</otherwise> </choose>,
+                    <choose> <when test="item.enabled!=null">"enabled"=#{item.enabled}</when> <otherwise> "enabled"=NULL</otherwise> </choose>,
+                    <choose> <when test="item.credentialsNonExpired!=null">"credentials_non_expired"=#{item.credentialsNonExpired}</when> <otherwise> "credentials_non_expired"=NULL</otherwise> </choose>,
+                    <choose> <when test="item.accountNonExpired!=null">"account_non_expired"=#{item.accountNonExpired}</when> <otherwise> "account_non_expired"=NULL</otherwise> </choose>,
+                    <choose> <when test="item.accountNonLocked!=null">"account_non_locked"=#{item.accountNonLocked}</when> <otherwise> "account_non_locked"=NULL</otherwise> </choose>,
+        </set>
+    </sql>
+    <sql id="batchUpdateWithoutNullSetSql">
+        <set>
+                    <choose> <when test="item.username!=null">"username"=#{item.username},</when></choose>
+                    <choose> <when test="item.password!=null">"password"=#{item.password},</when></choose>
+                    <choose> <when test="item.realName!=null">"real_name"=#{item.realName},</when></choose>
+                    <choose> <when test="item.email!=null">"email"=#{item.email},</when></choose>
+                    <choose> <when test="item.telephone!=null">"telephone"=#{item.telephone},</when></choose>
+                    <choose> <when test="item.mobilePhone!=null">"mobile_phone"=#{item.mobilePhone},</when></choose>
+                    <choose> <when test="item.address!=null">"address"=#{item.address},</when></choose>
+                    <choose> <when test="item.createTime!=null">"create_time"=#{item.createTime,jdbcType=TIMESTAMP},</when></choose>
+                    <choose> <when test="item.updateTime!=null">"update_time"=#{item.updateTime,jdbcType=TIMESTAMP},</when></choose>
+                    <choose> <when test="item.roleId!=null">"role_id"=#{item.roleId},</when></choose>
+                    <choose> <when test="item.enabled!=null">"enabled"=#{item.enabled},</when></choose>
+                    <choose> <when test="item.credentialsNonExpired!=null">"credentials_non_expired"=#{item.credentialsNonExpired},</when></choose>
+                    <choose> <when test="item.accountNonExpired!=null">"account_non_expired"=#{item.accountNonExpired},</when></choose>
+                    <choose> <when test="item.accountNonLocked!=null">"account_non_locked"=#{item.accountNonLocked},</when></choose>
+        </set>
+    </sql>
+    <sql id="batchUpdatePkWhereSql">
+        where 1=1
+            and "id" = #{item.id}
+    </sql>
+    <!-- 这里可以加上数据库名称 方便的切换数据库-->
+    <sql id="tableSql">
+        sys_admin_user
+    </sql>
+
+   <sql id="whereSqlModel">
+        <if test="id!=null "> and "id" = #{id}</if>
+        <if test="username!=null "> and "username" = #{username}</if>
+        <if test="password!=null "> and "password" = #{password}</if>
+        <if test="realName!=null "> and "real_name" = #{realName}</if>
+        <if test="email!=null "> and "email" = #{email}</if>
+        <if test="telephone!=null "> and "telephone" = #{telephone}</if>
+        <if test="mobilePhone!=null "> and "mobile_phone" = #{mobilePhone}</if>
+        <if test="address!=null "> and "address" = #{address}</if>
+        <if test="createTime!=null "> and "create_time" = #{createTime,jdbcType=TIMESTAMP}</if>
+        <if test="updateTime!=null "> and "update_time" = #{updateTime,jdbcType=TIMESTAMP}</if>
+        <if test="roleId!=null "> and "role_id" = #{roleId}</if>
+        <if test="enabled!=null "> and "enabled" = #{enabled}</if>
+        <if test="credentialsNonExpired!=null "> and "credentials_non_expired" = #{credentialsNonExpired}</if>
+        <if test="accountNonExpired!=null "> and "account_non_expired" = #{accountNonExpired}</if>
+        <if test="accountNonLocked!=null "> and "account_non_locked" = #{accountNonLocked}</if>
+                <if test="usernameFirst!=null "> and username <![CDATA[like]]>
+                            concat('%',#{usernameFirst},'%')
+                </if>
+                <if test="roleIdFirst!=null "> and role_id <![CDATA[=]]>
+                            #{roleIdFirst}
+                </if>
+        <!--<if test="whereSql!=null"> ${whereSql}</if>-->
+    </sql>
+
+    <sql id="safeGroupBy">
+        <if test="safeGroupBy!=null and safeGroupBy!=''">
+            group by
+            <choose>
+                <when test="safeGroupBy != null and safeGroupBy == 'id'">  "id" </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'username'">  "username" </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'password'">  "password" </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'real_name'">  "real_name" </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'email'">  "email" </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'telephone'">  "telephone" </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'mobile_phone'">  "mobile_phone" </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'address'">  "address" </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'create_time'">  "create_time" </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'update_time'">  "update_time" </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'role_id'">  "role_id" </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'enabled'">  "enabled" </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'credentials_non_expired'">  "credentials_non_expired" </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'account_non_expired'">  "account_non_expired" </when>
+                <when test="safeGroupBy != null and safeGroupBy == 'account_non_locked'">  "account_non_locked" </when>
+            </choose>
+        </if>
+    </sql>
+    <sql id="safeOrderBy">
+        <if test="safeOrderBy!=null and safeOrderBy!=''">
+            <choose>
+                <when test="safeOrderBy != null and safeOrderBy == 'id desc'"> order by "id" desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'id asc'"> order by "id" asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'username desc'"> order by "username" desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'username asc'"> order by "username" asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'password desc'"> order by "password" desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'password asc'"> order by "password" asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'real_name desc'"> order by "real_name" desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'real_name asc'"> order by "real_name" asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'email desc'"> order by "email" desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'email asc'"> order by "email" asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'telephone desc'"> order by "telephone" desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'telephone asc'"> order by "telephone" asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'mobile_phone desc'"> order by "mobile_phone" desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'mobile_phone asc'"> order by "mobile_phone" asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'address desc'"> order by "address" desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'address asc'"> order by "address" asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'create_time desc'"> order by "create_time" desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'create_time asc'"> order by "create_time" asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'update_time desc'"> order by "update_time" desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'update_time asc'"> order by "update_time" asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'role_id desc'"> order by "role_id" desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'role_id asc'"> order by "role_id" asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'enabled desc'"> order by "enabled" desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'enabled asc'"> order by "enabled" asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'credentials_non_expired desc'"> order by "credentials_non_expired" desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'credentials_non_expired asc'"> order by "credentials_non_expired" asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'account_non_expired desc'"> order by "account_non_expired" desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'account_non_expired asc'"> order by "account_non_expired" asc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'account_non_locked desc'"> order by "account_non_locked" desc </when>
+                <when test="safeOrderBy != null and safeOrderBy == 'account_non_locked asc'"> order by "account_non_locked" asc </when>
+            </choose>
+        </if>
+    </sql>
+
+    <sql id="orderGroupLimit">
+        <if test="limit == null">
+            <include refid="safeGroupBy"/>
+            <if test="notSafeGroupBy != null and notSafeGroupBy != ''"> group by ${notSafeGroupBy}</if>
+            <include refid="safeOrderBy"/>
+            <if test="notSafeOrderBy != null and notSafeOrderBy != ''"> order by ${notSafeOrderBy}</if>
+        </if>
+    </sql>
+    <!--说到这 sqlserver的分页实在是复杂 个人还是中意 mysql的 limit 不过为了兼容sqlserver各个版本 还是采取以下方式，不用offset了-->
+    <sql id="pageParam">
+        <if test="limit != null">
+            , ROW_NUMBER() OVER(<choose><when test="(safeOrderBy==null or safeOrderBy=='') and (notSafeOrderBy==null or notSafeOrderBy=='')"> order by "id" </when><otherwise><include refid="safeOrderBy"/><if test="notSafeOrderBy != null and notSafeOrderBy != ''"> order by ${notSafeOrderBy}</if></otherwise></choose>)  as mc_row_num_
+        </if>
+    </sql>
+    <sql id="pageStart">
+        <if test="limit != null">
+            SELECT * FROM  (
+        </if>
+    </sql>
+    <sql id="pageEnd">
+        <if test="limit != null">
+            ) mc_tmp_  WHERE <choose><when test="start != null">mc_row_num_ > #{start} AND mc_row_num_ <![CDATA[<=]]> #{start}+#{limit}</when><otherwise> mc_row_num_ <![CDATA[<=]]> #{limit}</otherwise></choose>
+        </if>
+    </sql>
+</mapper>

@@ -1,0 +1,79 @@
+
+<!--
+代码为自动生成 Created by www.magicalcoder.com
+ 如果你改变了此类 read 请将此行删除
+ 欢迎加入官方QQ群:323237052
+-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head  th:include="magicalcoder/v001/include/head :: commonHead('系统日志编辑')"/>
+
+<body class="childrenBody layui-hide">
+<form class="layui-form" style="width:80%;">
+
+        <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_id">
+        <label class="layui-form-label">主键</label>
+        <div class="layui-input-block">
+            <input type="text" disabled="true" class="layui-input" name="id"  placeholder="主键自动生成，无需手动编辑,如果重置则变成增加数据"/>
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_adminUserId">
+        <label class="layui-form-label">管理员</label>
+        <div class="layui-input-block">
+             <select name="adminUserId"  data-url="admin/sys_admin_user_rest/search" data-id="id" data-text-fields="username" class="magicalcoder-foreign-select2 layui-input" lay-ignore="true" lay-verify="magicalCoderVerify" magicalcoder-verify="" data-value="" disabled="true" placeholder="请输入管理员"><option value=""></option></select>
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_userName">
+        <label class="layui-form-label">管理员名称</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="userName" placeholder="请输入管理员名称" lay-verify="magicalCoderVerify" magicalcoder-verify="" value="" disabled="true"/>
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_tableName">
+        <label class="layui-form-label">表名</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="tableName" placeholder="请输入表名" lay-verify="magicalCoderVerify" magicalcoder-verify="" value="" disabled="true"/>
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_operateType">
+        <label class="layui-form-label">操作类型</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="operateType" placeholder="请输入操作类型" lay-verify="magicalCoderVerify" magicalcoder-verify="|minLength=0" value="" disabled="true"/>
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_url">
+        <label class="layui-form-label">链接</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="url" placeholder="请输入链接" lay-verify="magicalCoderVerify" magicalcoder-verify="" value="" disabled="true"/>
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_primaryIdValue">
+        <label class="layui-form-label">主键值</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="primaryIdValue" placeholder="请输入主键值" lay-verify="magicalCoderVerify" magicalcoder-verify="" value="" disabled="true"/>
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_formBody">
+        <label class="layui-form-label">提交内容</label>
+        <div class="layui-input-block">
+            <textarea name="formBody" placeholder="请输入提交内容" class="layui-textarea" lay-verify="magicalCoderVerify" magicalcoder-verify="|minLength=0" disabled="true"></textarea>
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_createTime">
+        <label class="layui-form-label">创建时间</label>
+        <div class="layui-input-block">
+    <input type="text"  name="createTime" placeholder="请选择创建时间"  autocomplete="off" class="magicalcoder-laydate layui-input" lay-verify="magicalCoderVerify" magicalcoder-verify="" value="" disabled="true"/>
+        </div>
+    </div>
+
+    <div class="layui-form-item layui-row layui-col-xs12">
+        <div class="layui-input-block">
+            <button class="layui-btn security_edit_form_operate_save" lay-submit="" lay-filter="save">立即提交</button>
+            <button type="reset" class="layui-hide layui-btn layui-btn-primary" >重置</button>
+        </div>
+    </div>
+</form>
+    <div th:replace="magicalcoder/v001/include/main-js :: commonMain" />
+    <script type="text/javascript"  th:src="@{/assets/admin/syslogadminoperate/syslogadminoperate-edit.js}"></script>
+</body>
+</html>

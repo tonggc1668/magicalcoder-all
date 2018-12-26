@@ -1,0 +1,79 @@
+
+<!--
+代码为自动生成 Created by www.magicalcoder.com
+ 如果你改变了此类 read 请将此行删除
+ 欢迎加入官方QQ群:323237052
+-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head  th:include="magicalcoder/v001/include/head :: commonHead('字典编辑')"/>
+
+<body class="childrenBody layui-hide">
+<form class="layui-form" style="width:80%;">
+
+        <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_id">
+        <label class="layui-form-label">主键</label>
+        <div class="layui-input-block">
+            <input type="text" disabled="true" class="layui-input" name="id"  placeholder="主键自动生成，无需手动编辑,如果重置则变成增加数据"/>
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_dictCategory">
+        <label class="layui-form-label">字典大类</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="dictCategory" placeholder="请输入字典大类" lay-verify="magicalCoderVerify" magicalcoder-verify="" value="" />
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_code">
+        <label class="layui-form-label">编码</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="code" placeholder="请输入编码" lay-verify="magicalCoderVerify|mc_required" magicalcoder-verify="" value="" />
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_name">
+        <label class="layui-form-label">名称</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="name" placeholder="请输入名称" lay-verify="magicalCoderVerify|mc_required" magicalcoder-verify="" value="" />
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_dictDescription">
+        <label class="layui-form-label">描述</label>
+        <div class="layui-input-block">
+            <textarea name="dictDescription" placeholder="请输入描述" class="layui-textarea" lay-verify="magicalCoderVerify" magicalcoder-verify="" ></textarea>
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_parentId">
+        <label class="layui-form-label">所属父类</label>
+        <div class="layui-input-block">
+            <select name="parentId"  data-url="admin/dict_rest/search" data-id="id" data-text-fields="code,name" class="magicalcoder-foreign-select2 layui-input" lay-ignore="true" lay-verify="magicalCoderVerify" magicalcoder-verify="" data-value=""  placeholder="请输入所属父类"><option value=""></option></select>
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_createTime">
+        <label class="layui-form-label">创建时间</label>
+        <div class="layui-input-block">
+            <input type="text"  name="createTime" placeholder="请选择创建时间"  autocomplete="off" class="magicalcoder-laydate layui-input" lay-verify="magicalCoderVerify" magicalcoder-verify="" value="" />
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_updateTime">
+        <label class="layui-form-label">更新时间</label>
+        <div class="layui-input-block">
+            <input type="text"  name="updateTime" placeholder="请选择更新时间"  autocomplete="off" class="magicalcoder-laydate layui-input" lay-verify="magicalCoderVerify" magicalcoder-verify="" value="" />
+        </div>
+    </div>
+    <div class="layui-form-item layui-row layui-col-xs12 security_edit_form_param_orderNo">
+        <label class="layui-form-label">序号</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="orderNo" placeholder="请输入序号" lay-verify="magicalCoderVerify|mc_required|mc_digits" magicalcoder-verify="" value="" />
+        </div>
+    </div>
+
+    <div class="layui-form-item layui-row layui-col-xs12">
+        <div class="layui-input-block">
+            <button class="layui-btn security_edit_form_operate_save" lay-submit="" lay-filter="save">立即提交</button>
+            <button type="reset" class="layui-hide layui-btn layui-btn-primary" >重置</button>
+        </div>
+    </div>
+</form>
+    <div th:replace="magicalcoder/v001/include/main-js :: commonMain" />
+    <script type="text/javascript"  th:src="@{/assets/admin/dict/dict-edit.js}"></script>
+</body>
+</html>

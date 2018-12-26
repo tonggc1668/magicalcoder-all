@@ -1,0 +1,37 @@
+#parse("vms/$version/common/variable/head.vm")
+#parse("vms/$version/common/asert/hasBigDecimal.vm")
+#parse("vms/$version/common/asert/hasDateQuery.vm")
+package com.${companyName}.${projectName}.model;
+
+import org.springframework.format.annotation.DateTimeFormat;
+import com.fasterxml.jackson.annotation.JsonFormat;
+#if($hasDateQuery)
+import java.util.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
+#end
+import java.math.*;
+import java.io.Serializable;
+import lombok.Data;
+#parse("vms/$version/common/comment/ClassDesc.vm")
+@Data
+public class ${Entity} implements Serializable{
+
+#foreach($node in $nodeList)
+    #if($node.dbField.javaType == 'Date' || $node.dbField.javaType == 'Time' || $node.dbField.javaType == 'Timestamp')
+    @DateTimeFormat( pattern = "yyyy-MM-dd HH:mm:ss" )
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
+    #end
+    private $node.dbField.javaType $node.dbField.javaField;//$node.dbField.dbComment
+    #end
+
+    #foreach($node in $nodeList)
+
+    public $node.dbField.javaType ${node.dbField.javaGetName}(){
+        return $node.dbField.javaField;
+    }
+    public void ${node.dbField.javaSetName}(${node.dbField.javaType} ${node.dbField.javaField}){
+        this.$node.dbField.javaField = $node.dbField.javaField;
+    }
+    #end
+}

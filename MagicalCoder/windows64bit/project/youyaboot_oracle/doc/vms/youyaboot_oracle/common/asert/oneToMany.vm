@@ -1,0 +1,27 @@
+##表是否是关联表一对多模式 C表=关联表 A表=one B表=many
+##CAid(自身表A) CBid(自身表B) otmOneNodeAList(外键表A) otmManyNodeBList(外键表B)
+#if($isOtmTable)
+    #set($oneForeignNode = $otmOneCA.dbField.foreignVmDbFieldNode)
+    #set($manyForeignNode = $otmManyCB.dbField.foreignVmDbFieldNode)
+##外键表信息
+    #set($manyTableName = ${manyForeignNode.dbTable.tableName})
+    #set($manyTableComment=${manyForeignNode.dbTable.tableComment})
+    #set($manyEntity=$manyForeignNode.dbTable.upEntity)
+    #set($manyentity=$manyForeignNode.dbTable.variableEntity)
+    #set($manyLowerEntity=$manyForeignNode.dbTable.lowerEntity)
+    #set($getManyEntityList = "get${manyEntity}List")
+##当前表自身 one
+    #set($oneSqlField = $otmOneCA.dbField.dbName)
+    #set($oneDbType = $otmOneCA.dbField.dbType)
+    #set($oneJavaField = $otmOneCA.dbField.javaField)
+    #set($oneJavaType = $otmOneCA.dbField.javaType)
+    #set($oneJavaGetName = $otmOneCA.dbField.javaGetName)
+    #set($oneJavaSetName = $otmOneCA.dbField.javaSetName)
+##当前表自身 many
+    #set($manySqlField = $otmManyCB.dbField.dbName)
+    #set($manyDbType = $otmManyCB.dbField.dbType)
+    #set($manyJavaField = $otmManyCB.dbField.javaField)
+    #set($manyJavaType = $otmManyCB.dbField.javaType)
+    #set($manyJavaGetName = $otmManyCB.dbField.javaGetName)
+    #set($manyJavaSetName = $otmManyCB.dbField.javaSetName)
+#end

@@ -1,0 +1,121 @@
+#parse("vms/$version/common/variable/head.vm")
+#parse("vms/$version/common/asert/priorityKey.vm")
+#parse("vms/$version/common/asert/hasDateQuery.vm")
+package com.${companyName}.${projectName}.admin.api.${lowerEntity};
+
+import com.${companyName}.${commonUtilName}.core.service.CommonRestController;
+import org.springframework.beans.factory.InitializingBean;
+import org.apache.commons.collections.map.HashedMap;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.*;
+import javax.annotation.Resource;
+#if($hasDateQuery)
+import java.util.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
+#end
+import java.math.*;
+import java.util.List;
+import java.util.Map;
+import com.${companyName}.${commonUtilName}.core.common.constant.PageConstant;
+import com.${companyName}.${commonUtilName}.core.common.exception.BusinessException;
+import com.${companyName}.${commonUtilName}.core.serialize.ResponseMsg;
+import com.${companyName}.${projectName}.model.${Entity};
+import com.${companyName}.${projectName}.service.${lowerEntity}.service.${Entity}Service;
+
+import com.${companyName}.${commonUtilName}.core.utils.ListUtil;
+import com.${companyName}.${commonUtilName}.core.utils.MapUtil;
+import com.${companyName}.${commonUtilName}.core.utils.StringUtil;
+
+
+#parse("vms/$version/common/comment/ClassDesc.vm")
+
+@RequestMapping("/admin/${tableName}_rest/")
+@RestController
+public class Admin${Entity}RestController extends CommonRestController<${Entity},$dbPriorityKeyJavaType> implements InitializingBean
+{
+
+    @Resource
+    private ${Entity}Service ${entity}Service;
+
+    #if($childrenList)
+    @RequestMapping(value = "search")
+    public ResponseMsg search(
+        @RequestParam(required = false) String uniqueField,
+        @RequestParam(required = false) $dbPriorityKeyJavaType uniqueValue,
+        @RequestParam(required = false,defaultValue = "20") Integer limit,
+        @RequestParam(required = false) String keyword
+    ){
+        limit = Math.min(PageConstant.MAX_LIMIT,limit);
+        List<$Entity> list = null;
+        Map<String,Object> query = new HashedMap();
+        query.put("limit",limit);
+    ##默认排序逻辑
+        #set($defaultOrderBy = $TableFieldUtil.buildDefaultOrderBy($nodeList))
+        #if($StringUtil.isNotBlank($defaultOrderBy))
+        query.put("notSafeOrderBy","$defaultOrderBy");
+        #end
+        if(uniqueValue!=null){//说明是来初始化的
+            query.put(uniqueField,uniqueValue);
+            list = ${entity}Service.getModelList(query);
+        }else {//正常搜索
+        #foreach($node in $nodeList)
+            #set($inputType = $node.formItem.inputType)
+            #if($node.formQueryList)
+                #foreach($formQuery in $node.formQueryList)
+                    #if($formQuery.foreignInputSelectShow == 1)
+                        #if($StringUtil.isNotBlank($formQuery.firstCompare))
+            if(ListUtil.isBlank(list)){
+                query.put("${node.dbField.javaField}First",keyword);
+                list = ${entity}Service.getModelList(query);
+                query.remove("${node.dbField.javaField}First");
+            }
+                        #end
+                        #if($StringUtil.isNotBlank($formQuery.secondCompare))
+            if(ListUtil.isBlank(list)){
+                query.put("${node.dbField.javaField}Second",keyword);
+                list = ${entity}Service.getModelList(query);
+                query.remove("${node.dbField.javaField}Second");
+            }
+                        #end
+                    #end
+                #end
+            #end
+        #end
+        }
+        return new ResponseMsg(list);
+    }
+    #end
+    //分页查询
+    @RequestMapping(value={"page"}, method={RequestMethod.GET})
+    public ResponseMsg page(
+        #parse("vms/$version/controller/include/self/pageParam.vm")
+	       @RequestParam int page,@RequestParam int limit,@RequestParam(required = false) String safeOrderBy)
+    {
+        limit = Math.min(limit, PageConstant.MAX_LIMIT);
+        int start = (page - 1) * limit;
+        Map<String,Object> query = new HashedMap();
+        #parse("vms/$version/controller/include/self/pageQueryMap.vm")
+        Integer count = ${entity}Service.getModelListCount(query);
+        query.put("start",start);
+        query.put("limit",limit);
+##默认排序逻辑
+        #set($defaultOrderBy = $TableFieldUtil.buildDefaultOrderBy($nodeList))
+        #if($StringUtil.isBlank($defaultOrderBy))
+        query.put("safeOrderBy",safeOrderBy);
+        #else
+        if(StringUtil.isBlank(safeOrderBy)){
+            query.put("notSafeOrderBy","$defaultOrderBy");
+        }else{
+            query.put("safeOrderBy",safeOrderBy);
+        }
+        #end
+        return new ResponseMsg(count,${entity}Service.getModelList(query));
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        super.commonService = ${entity}Service;
+        super.primaryKey = "$dbPriorityKeyJavaField";//硬编码此实体的主键名称
+    }
+}

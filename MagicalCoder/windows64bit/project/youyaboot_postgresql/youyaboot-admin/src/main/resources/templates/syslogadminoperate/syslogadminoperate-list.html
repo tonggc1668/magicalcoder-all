@@ -1,0 +1,67 @@
+<!--
+代码为自动生成 Created by www.magicalcoder.com
+ 如果你改变了此类 read 请将此行删除
+ 欢迎加入官方QQ群:323237052
+-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head  th:include="magicalcoder/v001/include/head :: commonHead('系统日志列表')"/>
+<body class="childrenBody layui-hide">
+    <form class="layui-form queryForm">
+        <blockquote class="layui-elem-quote quoteBox">
+            <form class="layui-form-item">
+                <div class="layui-inline security_list_query_param_adminUserId">
+                     <div class="layui-input-inline">
+                        <select class="magicalcoder-foreign-select2 layui-input" lay-ignore="true" name="adminUserIdFirst" style="height:30px;width: 200px" data-url="admin/sys_admin_user_rest/search" data-id="id" data-text-fields="username" placeholder="管理员"><option value=""></option></select>
+                    </div>
+                </div>
+                <div class="layui-inline security_list_query_param_userName">
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" name="userNameFirst" placeholder="管理员名称" />
+                    </div>
+                </div>
+                <div class="layui-inline security_list_query_param_tableName">
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" name="tableNameFirst" placeholder="表名" />
+                    </div>
+                </div>
+                <div class="layui-inline security_list_query_param_formBody">
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" name="formBodyFirst" placeholder="提交内容" />
+                    </div>
+                </div>
+                <div class="layui-inline security_list_query_param_createTime">
+                    <div class="layui-input-inline" >
+                        <input type="text" name="createTimeFirst" lay-verify="datetime"  placeholder="起始创建时间" autocomplete="off" class="magicalcoder-laydate layui-input"/>
+                    </div>
+                    <div class="layui-input-inline">-</div>
+                    <div class="layui-input-inline" >
+                        <input type="text"  name="createTimeSecond" lay-verify="datetime"  placeholder="终止创建时间" autocomplete="off" class="magicalcoder-laydate layui-input"/>
+                    </div>
+                </div>
+                <div class="layui-inline security_list_query_operate_search">
+                    <a class="layui-btn search_btn" data-type="reload">搜索</a>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+                <div class="layui-inline security_list_query_operate_add_news">
+                    <a class="layui-btn layui-btn-normal addNews_btn">添加</a>
+                </div>
+                <div class="layui-inline security_list_query_operate_del_all">
+                    <a class="layui-btn layui-btn-danger layui-btn-normal delAll_btn">批量删除</a>
+                </div>
+            </form>
+        </blockquote>
+        <table class="security_list_table" id="newsList" lay-filter="newsListFilter" data-primary-fields="id"></table>
+        <script type="text/html" id="createTimeTemplate">
+            <input type="text" id="_createTime_{{= d.id }}" name="createTime"  data-identify="{{= d.id }}"  autocomplete="off" class="magicalcoder-table-laydate layui-input security_list_table_form_createTime" value="{{= d.createTime}}" lay-verify="magicalCoderVerify" magicalcoder-verify="" disabled="true" placeholder="请输入创建时间"/>
+        </script>
+        <!--操作-->
+        <script type="text/html" id="newsListOperateTemplate">
+            <a class="layui-btn layui-btn-sm security_list_table_operate_edit" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-sm layui-btn-danger security_list_table_operate_del" lay-event="del">删除</a>
+        </script>
+    </form>
+    <div th:replace="magicalcoder/v001/include/main-js :: commonMain" />
+    <script type="text/javascript"  th:src="@{/assets/admin/syslogadminoperate/syslogadminoperate-list.js}"></script>
+</body>
+</html>
